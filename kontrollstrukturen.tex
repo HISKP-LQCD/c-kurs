@@ -1,8 +1,10 @@
-\section{Kontrollstrukturen}
+\section{Kontrollstrukturen: Verzweigungen und Schleifen}
 
 Bisher haben wir einfache Anweisungen kennen gelernt, die vom Rechner nacheinander ausgeführt werden.
 Wir werden nun Kontrollstrukturen einführen, die es erlauben, den Fluss eines Programmes zu beeinflussen.
 Beispielsweise kann man, in Abhängigkeit von Werten von Variablen entweder einen, oder einen anderen Block von Anweisungen ausführen.
+
+\subsection{if-then-else}
 
 Nehmen wir an, wir wollen den Absolutwert einer Variablen \verb|a| ausgeben.
 Dafür kann man einen \verb|if-then-else| Ausdruck verwenden.
@@ -56,6 +58,8 @@ Dabei kann \verb|Anweisung1| zum Beispiel auch wieder ein \emph{if-else} Ausdruc
 Man kann \emph{if-else} also beliebig schachteln.
 Außerdem ist der \emph{else} Block optional.
 Das ist nützlich, wenn man Code nur im Falle von \emph{wahr} oder nur im Falle von \emph{falsch} ausführen möchte.
+
+\subsection{switch}
 
 Ein dem \emph{if-else} Konstrukt verwandtes Konstrukt ist das \emph{switch} Konstrukt.
 Es erlaubt eine ganze Liste von Alternativen abzuarbeiten.
@@ -111,6 +115,8 @@ switch (int)
       break; // optional
   }
 \end{lstlisting}
+
+\subsection{for Schleifen}
 
 Eine wesentlich wichtigere Kontrollstruktur sind sogenannt \emph{for} Schleifen.
 Nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren.
@@ -199,6 +205,9 @@ int main()
   return (0);
 }
 \end{lstlisting}
+
+\subsection{while und do-while}
+
 C kennt zwei weitere Schleifenkonstrukte, nämlich die \verb|while| und die \verb|do-while| Schleife.
 Während die \verb|while| Schleife die Abbruchbedingung vor dem Ausführen des Schleifenkörpers überprüft und im Zweifel abbricht, wird bei der \verb|do-while| Schleife der Körper immer mindestens einmal ausgeführt.
 Das macht den großen Unterschied zwischen den beiden aus, die im folgenden nocheinmal allgemein dargestellt sind.

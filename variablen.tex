@@ -1,5 +1,8 @@
 \section{Variablen}
 
+
+\subsection{Ein Beispiel}
+
 Wie schon angedeutet werden Daten in C in Variablen bzw. Objekten gespeichert.
 Auch dies ist am einfachsten an Hand eines Beispiels zu verstehen
 \begin{lstlisting}{Erste Variablendeklaration und -zuweisung}
@@ -51,83 +54,10 @@ Man spricht dann auch von der Initialisierung der Variablen \texttt{n}.
 Variablen, die außerhalb aller Funktionen deklariert werden, bezeichnet man als \emph{global}.
 Sie sind in allen Funktionen, die nach der globalen Deklaration definiert werden, sichtbar und zugreifbar.
 
-%\textbf{das ist zu früh hier!}
-%Es gibt zwei verschiedene Möglichkeiten eine globale Variable zu definieren.
-%\begin{enumerate}
-%\item Stichwort static: In diesem Fall mann kann nutzten die Variable in ganzen File, wo es definiert war. Anderen
-%Files in unserem Code kann natürlich nutzten eine andere Variable mit dem gleichen Name.
-%\item Stichwort extern: In diesem Fall mann kann nutzten die Variable in dem ganzen Programm. Aber das
-%variable muss deklariert werden in allen Files, wo wir ihn nutzten wollen.
-%\end{enumerate} die für alle
-%Wir haben die Sichtbarkeitbereich der Variablen 
-%in der Abbildung  \ref{sicht} zusammen gefasst.  Das bedeutet, das wir können Variablen mit 
-%gleichen Namen in verschiedenen Funkcionen nutzten, wenn wir definieren sie als lokalen Variablen. 
-%
-%% Generated with LaTeXDraw 2.0.8
-%% Tue Feb 21 10:59:44 CET 2017
-%% \usepackage[usenames,dvipsnames]{pstricks}
-%% \usepackage{epsfig}
-%% \usepackage{pst-grad} % For gradients
-%% \usepackage{pst-plot} % For axes
-%%\scalebox{0.5} % Change this value to rescale the drawing.
-%%{
-%\begin{figure}[!ht]
-%\centering
-%\scalebox{0.5}
-%{
-%\begin{pspicture}(2,-9.1)(17.3,9.12)
-%\psframe[linewidth=0.04,dimen=outer](12.6,9.1)(2.0,-9.1)
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(3.6692188,8.61){Source code}
-%\psline[linewidth=0.04](5.2,9.1)(5.2,8.1)(2.0,8.1)
-%%\usefont{T1}{ptm}{m}{it}
-%\rput(7.8229685,-7.565){globalen Variablen: Deklarierten mit dem Stichwort: extern}
-%\psframe[linewidth=0.04,dimen=outer](11.6,7.1)(3.2,0.1)
-%\psframe[linewidth=0.04,dimen=outer](11.6,-0.5)(3.2,-7.1)
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(4.0503125,6.81){File 1}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(4.0489063,-0.79){File 2}
-%\psline[linewidth=0.04](5.0,7.1)(5.0,6.5)(3.2,6.5)(3.2,6.5)
-%\psline[linewidth=0.04](4.8,-0.5)(4.8,-1.1)(3.2,-1.1)
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(6.7009373,0.81){variable mit static Stichwort}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(6.9809375,-6.59){variablen mit static stichwort}
-%\psframe[linewidth=0.04,dimen=outer](6.8,5.7)(3.8,2.7)
-%\psframe[linewidth=0.04,dimen=outer](11.0,5.5)(8.0,2.7)
-%\psframe[linewidth=0.04,dimen=outer](7.0,-1.7)(3.6,-5.1)
-%\psframe[linewidth=0.04,dimen=outer](11.2,-1.9)(8.0,-5.3)
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(4.9203124,5.41){Funkcion 1}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(9.3189063,5.21){Funkcion 2}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(4.9203124,-1.99){Funkcion 1}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(9.3189063,-2.19){Funkcion 2}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(4.7434375,4.61){Lokale }
-%%\usefnt{T1}{ptm}{m}{n}
-%\rput(5.4034376,4.21){variablen}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(9.3434377,4.41){Lokale}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(9.8173437,4.01){Variablen}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(4.7434375,-3.39){Lokale}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(5.2034376,-3.79){variablen}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(9.3434377,-3.39){Lokale}
-%%\usefont{T1}{ptm}{m}{n}
-%\rput(9.8034377,-3.79){variablen}
-%\end{pspicture}
-%}
-%\caption{\label{sicht} Sichtbarkeitbereich der Variablen}
-%\end{figure}
 
-Variablen haben immer einerseits einen Datentyp und einen Wert. 
+\subsection{Datentypen und Wertebereiche}
+
+Variablen haben immer einen Datentyp und einen Wert. 
 Der Datentyp entscheidet, welche Werte eine Variable annehmen kann und wie viel Arbeitsspeicher dafür reserviert wird.
 In der Tabelle~\ref{tab:PPer} sind die elementaren C-Datentypen mit ihren Wertebereichen aufgelistet.
 
@@ -164,32 +94,37 @@ long double& & &8 &  &  \\[1ex]
 \end{table}
 
 C Compiler führen im Prinzip eine strenge Typenkontrolle durch.
-Das ist eine sehr nützliche Eigenschaft der Compiler, wenn es auch manchmal etwas mühsam ist. 
+Das ist eine sehr nützliche Eigenschaft von Compilern, wenn es auch manchmal etwas mühsam ist. 
 Man kann dies durch einen expliziten \emph{cast} umgehen.
 Beispielsweise wandelt \texttt{int n=4; double x = (double)n;} die ganze Zahl \texttt{n} in eine Fließkommazahl mit \texttt{double} Genauigkeit um.
 Dafür sollte man aber sehr genau wissen, was man tut.
 Leider ist die Typenkontrolle vom Compiler abhängig und meist wird bei einer Zuweisung ein impliziter \emph{cast} durchgeführt, wenn nötig und möglich.
 Beispielsweise wird folgender Code ohne Beanstandung übersetzt
-\begin{lstlisting}{Ungenaue Variablenzuweisung}
+\begin{lstlisting}{Ungenaue Variablenzuweisung, implizit cast}
 #include <stido.h>
 
 int main()
 {
   // so etwas sollte man nicht schreiben!
-  int n = 4.5;
-  printf("Wir werden n Zahlen sortieren :\n");
+  int n = 4.5; // implicit cast
   return 0;
 }
 \end{lstlisting}
 obwohl hier implizit die reelle Zahl $4.5$ durch Abschneiden in eine ganze Zahl umgewandelt wird.
 \texttt{n} hat den Wert $4$.
 
+Im allgemeinen sollte man versuchen immer den Datentyp zu verwenden, der der Nutzung der entsprechenden Variablen am ehesten entspricht.
+Wenn man also beispielsweise weiß, dass eine ganze Zahl nicht negativ werden kann, sollte man \texttt{unsigend int} verwenden.
+Dies macht es möglich, dass der Compiler Fehler in der Nutzung von Datentypen finden kann.
+
+\subsection{C Schlüsselwörter und Regeln für Namen}
+
 Es gibt einige Regeln für die Namen von Objekten in C. 
 C eigene Schlüsselworte, wie z.B. \texttt{main} dürfen nicht verwendet werden.
 Auch dürfen die Namen nicht mit einer Zahl beginnen, auch wenn Zahlen generell erlaubt sind.
 Operatornamen, wie \verb|+| oder \verb|-| dürfen ebenfalls nicht verwendet werden.
 Es ist ratsam, Variablen mit sinnvollen Namen zu versehen.
-Das macht den Quelltext lesbarer und erhöht die Verständlichkeit.
+Das macht den Quelltext lesbarer und erhöht die Verständlichkeit des Programms.
 Für den Algorithmus Einfügesortieren sollte man beispielsweise die beiden Liste mit \texttt{sortiert} und \texttt{unsortiert} benennen.
 Im folgenden Quelltext sind einige Beispiele für richtige und falsche Variablendeklarationen zu finden:
 \begin{lstlisting}
@@ -203,9 +138,15 @@ int main()
   return (0);
 }
 \end{lstlisting} 
-Wie man sieht kann man mehrere Variable in einer Anweisung deklarieren, definieren und initialisieren, wenn sie den gleichen Typ haben.
+Wie man sieht, kann man mehrere Variable in einer Anweisung deklarieren, definieren und initialisieren, wenn sie den gleichen Typ haben.
 Die Variablen werden dabei durch ein Komma getrennt.
 Wie schon oben erwähnt, können mehrere Anweisung in der gleichen Zeile stehen, solange sie mit dem Semikolon abgeschlossen werden.
+
+Bei folgenden Wörtern handelt es sich um C99 Schlüsselworte:\\
+\textbf{auto, double, int, struct, break, else, long, switch, case,
+  enum, register, typedef, char, extern, inline, return, union, const, float,
+  short, unsigned, continue, for, restrict, signed, void, default, got, sizeof,
+  volatile, do, if, static, while, \_Bool, \_Complex, \_Imaginary}
 
 \subsection{Konstanten}
 
@@ -227,7 +168,7 @@ Natürlich hängt es vom Variablentyp ab, welche Operationen dafür definiert si
 Man unterscheidet drei verschiedene Typen von Operationen:
 \begin{itemize}
 \item Infix:\\
-  Derx Operator steht zwischen den Variablen. Zum Beispiel: \verb|a+b|. 
+  Der Operator steht zwischen den Variablen. Zum Beispiel: \verb|a+b|. 
   Dieser Ausdruck nimmt die jeweiligen Werte von \verb|a| und \verb|b|, summiert sie und gibt das Ergebnis zurück.
 \item Präfix:\\
   Der Operator steht vor der Variablen. Zum Beispiel: \verb|++a|. 
