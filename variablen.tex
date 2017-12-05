@@ -210,11 +210,10 @@ Im Allgemeinen gibt es drei verschiedene Typen von Operatoren
 Neben arithmetischen Operatoren gibt es auch noch solche, die bit--weise wirken. 
 Außerdem gibt es logische Operatoren.
 Bit--weise Operatoren sind binäre Operatoren und wirken auf jedes bit des Arguments.
-Logische Operatoren liefern als Wert entweder \emph{true} or \emph{false}, richtig oder falsch, $1$ oder $0$.
 In den Tabellen~\ref{oper}, \ref{vergoper} und \ref{vergoper2} fassen wir die wichtigsten arithmetischen Operatoren und logischen Operatoren zusammen.
 
 Es gibt einige Dinge, die man sich bei der Benutzung von Operatoren bewusst machen sollte.
-An dieser Stelle weisen wir auf zwei davon hin:
+An dieser Stelle weisen wir auf eine davon explizit hin:
 \begin{itemize}
 \item Die Division ist sowohl für ganze, als auch für reelle Zahlen definiert. 
   Eine ganzzahlige Division von $7$ durch $2$ ergibt $3$.
@@ -228,13 +227,57 @@ float a = 7 / 3;
 \begin{lstlisting}
 float a = 7. / 3;
 \end{lstlisting}
-  
-\item Das Prüfen auf Gleichheit ist für reelle Maschinenzahlen nicht wohl definiert.
-  Der Grund dafür ist, wie oben diskutiert, die Maschinengenauigkeit.
-  Zwei reelle Zahlen werden vom Rechner als gleich ausgewertet, falls sie sich ihr Betrag um weniger als $|\delta_M|$ unterscheidet. 
-  Deshalb sollte man wenn irgend möglich zwei reelle Zahlen nicht auf Gleichheit prüfen.
-
+Es ist empfehlenswert, dies immer explizit zu tun, damit es nicht durch spätere Änderungen zu schwer aufzufindenden Fehlern eines Programms kommt.
 \end{itemize}
+
+\subsection{Logische Ausdrücke}
+
+Vergleichsoperatoren (siehe Tabelle~\ref{vergoper}) und logische Operatoren (siehe Tabelle~\ref{veroper2}) werden zum bilden sogenannter logischer Ausdrücke verwendet.
+Logische Ausdrücke werden entweder zu wahr (\emph{true}) oder falsch (\emph{false}) ausgewertet.
+Intern repräsentiert C jeden logischen Ausdruck als ganze Zahl.
+Dabei entspricht $\neq 0$ wahr (\emph{true}) und $0$ falsch (\emph{false}).
+Man kann anstelle des logischen Ausdrucks also auch einen ganzzahligen Ausdruck verwenden.
+Ein sehr einfacher logischer Ausdruck ist also beispielsweise
+\begin{lstlisting}
+  1; // -> wahr
+\end{lstlisting}
+Etwas komplexer geht es mit Vergleichsoperatoren
+\begin{lstlisting}
+  double x = 5.;
+  int n = 3;
+  (x > 1.);   // wahr
+  (x < 0.);   // falsch
+  (x == 3);   // wahr
+  (x == 4.9); // falsch, aber mit Fliesskommanzahlen nicht empfehlenswert
+\end{lstlisting}
+Das Prüfen auf Gleichheit ist für reelle Maschinenzahlen nicht wohl definiert.
+Der Grund dafür ist, wie oben diskutiert, die Maschinengenauigkeit.
+Zwei reelle Zahlen werden vom Rechner als gleich ausgewertet, falls sie sich ihr Betrag um weniger als $|\delta_M|$ unterscheidet. 
+Oder anders formuliert, $|\delta_M|$ ist als die größte reelle Zahl definiert, für die 
+\begin{lstlisting}
+  (1 == 1 + delta_M);
+\end{lstlisting}
+zu wahr ausgewertet wird.
+Deshalb sollte man wenn irgend möglich zwei reelle Zahlen nicht auf Gleichheit prüfen.
+Stattdessen sollte man wenn möglich größer oder kleiner verwenden.
+
+Logische Ausdrücke können natürlich auch verkettet werden. 
+Also beispielsweise
+\begin{lstlisting}
+  double x = 5.;
+  int n = 3;
+  ((x > 3) && !n); // falsch
+\end{lstlisting}
+Hierbei werden die einzelnen logischen Ausdrücke von links nach rechts ausgewertet. 
+Hätten wir also geschrieben
+\begin{lstlisting}
+  double x = 5.;
+  int n = 3;
+  (!n && (x > 3)); // falsch
+\end{lstlisting}
+wird \verb|x > 3| nicht mehr ausgewertet, da \verb|!n| bereits zu falsch ausgewertet wurde.
+Dies kann dann von Bedeutung sein, wenn das Auswerten eine teure Operation ist.
+Durch geschickte Ordnung der logischen Ausdrücke kann man dann unter Unständen Zeit sparen.
 
 
 \begin{table}
@@ -297,7 +340,7 @@ float a = 7. / 3;
 
 \subsubsection{Regeln zum Bilden von Ausdrücken}
 
-Eine wichtige Frage bei Operationen ist natürlich die nach der Reihenfolge.
+Der C Compiler geht bei der Auswertung von Operatoren in einer bestimmten Reihenfolge vor.
 Es gelten im Allgemeinen die Vorrangregeln der Algebra beim Auswerten eines Ausdrucks, inklusive der Klammerregeln.
 So werden z.B. \verb|*|, \verb|/| und \verb|%| vor \verb|+| und \verb|-| ausgewertet.
 Ein unvollständiger Auszug aus der Prioritätenliste ist in Tabelle~\ref{tab:prior} zusammengefasst.

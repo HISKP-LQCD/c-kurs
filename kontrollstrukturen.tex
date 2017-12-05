@@ -3,8 +3,11 @@
 Bisher haben wir einfache Anweisungen kennen gelernt, die vom Rechner nacheinander ausgeführt werden.
 Wir werden nun Kontrollstrukturen einführen, die es erlauben, den Fluss eines Programmes zu beeinflussen.
 Beispielsweise kann man, in Abhängigkeit von Werten von Variablen entweder einen, oder einen anderen Block von Anweisungen ausführen.
+Solche Kontrollstrukturen nennt man Verzweigungen.
+Das kann beispielsweise bedeuten, dass der Programmteil \texttt{A} ausgeführt wird, falls eine Variable $x$ größer als Null ist, und sonst der Programmteil \texttt{B}.
+Die Entscheidung wird auf Grundlage logischer Ausdrücke gefällt, siehe letztes Kapitel.
 
-\subsection{if-then-else}
+\subsection{Einfache Verzweigung: \texttt{if-then-else}}
 
 Nehmen wir an, wir wollen den Absolutwert einer Variablen \verb|a| ausgeben.
 Dafür kann man einen \verb|if-then-else| Ausdruck verwenden.
@@ -29,14 +32,13 @@ int main()
   return (0);
 }
 \end{lstlisting}
-In Abhängigkeit davon, ob \verb|a > 0| zu wahr ausgewertet wird oder nicht, wird in diesem Beispiel entweder der Codeblock nach dem \verb|if| oder der nach dem \verb|else| ausgeführt.
+In Abhängigkeit davon, ob \verb|a > 0| zu wahr ausgewertet wird oder nicht, wird in diesem Beispiel entweder der Codeblock nach dem Schlüsselwort \verb|if| oder der nach dem Schlüsselwort \verb|else| ausgeführt.
 Im Beispiel haben wir die zwei Blöcke durch die geschweiften Klammern abgetrennt. 
 Das ist nur dann nicht nötig, falls der jeweilige Block aus nur einer Anweisung besteht.
 
-Die Variable \verb|absolutevalue| is außerhalb beider Blöcke deklariert, und damit in beiden sichtbar.
+Die Variable \verb|absolutevalue| ist außerhalb beider Blöcke deklariert, und damit in beiden sichtbar.
 Die Zuweisung, die \verb|absolutevalue| innerhalb der Blöcke bekommt ist damit auch nach Ende der Blöcke weiterhin erhalten.
 Der logische Ausdruck kann prinzipiell alle Operatoren enthalten, bzw. auch verkettete Ausdrücke von Operatoren, die wir in Tabellen~\ref{vergoper} und \ref{vergoper2} zusammengestellt haben.
-Da C intern einen logischen Ausdruck als ganze Zahl darstellt, bei dem $0$ falsch und $\neq 0$ wahr entspricht, kann man anstelle des logischen Ausdrucks auch einen ganzzahligen Ausdruck verwenden.
 Im Allgemeinen hat das \emph{if-else} Konstrukt folgendes Aussehen:
 \begin{lstlisting}{if-else Statement}
 if (logischer Ausdruck)
@@ -59,7 +61,7 @@ Man kann \emph{if-else} also beliebig schachteln.
 Außerdem ist der \emph{else} Block optional.
 Das ist nützlich, wenn man Code nur im Falle von \emph{wahr} oder nur im Falle von \emph{falsch} ausführen möchte.
 
-\subsection{switch}
+\subsection{Mehrfache Verzweigung: \texttt{switch}}
 
 Ein dem \emph{if-else} Konstrukt verwandtes Konstrukt ist das \emph{switch} Konstrukt.
 Es erlaubt eine ganze Liste von Alternativen abzuarbeiten.
@@ -116,7 +118,7 @@ switch (int)
   }
 \end{lstlisting}
 
-\subsection{for Schleifen}
+\subsection{Schleifen: \texttt{for} loop}
 
 Eine wesentlich wichtigere Kontrollstruktur sind sogenannt \emph{for} Schleifen.
 Nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren.
@@ -206,7 +208,7 @@ int main()
 }
 \end{lstlisting}
 
-\subsection{while und do-while}
+\subsection{Schleifen: \texttt{while} und \texttt{do-while}}
 
 C kennt zwei weitere Schleifenkonstrukte, nämlich die \verb|while| und die \verb|do-while| Schleife.
 Während die \verb|while| Schleife die Abbruchbedingung vor dem Ausführen des Schleifenkörpers überprüft und im Zweifel abbricht, wird bei der \verb|do-while| Schleife der Körper immer mindestens einmal ausgeführt.

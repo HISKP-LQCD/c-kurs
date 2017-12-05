@@ -1,49 +1,55 @@
 \section{Funktionen}
 
 Es gibt viele Quelltextabschnitte, die wiederholt benutzt werden.
-Es ist sinnvoll, diese Abschnitte nicht ständig zu wiederholen.
-Das erhöht einerseits die Lesbarkeit des Quelltextes.
-Andererseits macht es Code weniger fehleranfällig, da der Abschnitt nur einmal getestet werden muss.
+Es ist sinnvoll, diese Abschnitte im Quelltext nicht ständig zu wiederholen.
+Das erhöht einerseits die Lesbarkeit des Quelltextes und macht andererseits Code weniger fehleranfällig, da der Abschnitt nur einmal getestet werden muss.
 Dafür existiert das Konzept von Funktionen.
 Eine Funktion haben wir schon kennen gelernt, nämlich die Funktion \verb|main|. 
+
+\subsection{Funktionen Prototypen}
+
 In C sind Funktionen Variablen sehr ähnlich.
 Eine Funktion kann wie folgt deklariert werden
 \begin{lstlisting}
 Rueckgabetyp Funktionsname(Parameterliste);
 \end{lstlisting}
-Man spricht von einem sogenannten Funktionsprototypen.
+Man spricht von einem sogenannten \emph{Funktionsprototypen}.
 Die Parameterliste besteht aus durch Kommata getrennte Variablendeklarationen
 \begin{lstlisting}
-Typ1 name1, Typ2 name2, ...
+Typ1 parameter1, Typ2 parameter2, ...
 \end{lstlisting}
-Der Rückgabetyp kann jeder C Typ (und jeder selbst definierte Typ sein).
+Die Parameterliste kann auch leer sein.
+Der Rückgabetyp kann jeder C Typ und jeder selbst definierte Typ sein.
 Bei streng strukturierten Programmiersprachen wie C werden der Funktionsname, die Parameterliste und der Rückgabetyp zusammen als Signatur der Funktion bezeichnet.
+
+\subsection{Funktionen Definition}
 
 Die Definition einer Funktion muss dann natürlich einen Block von Anweisungen enthalten, also
 \begin{lstlisting}
-Rueckgabetyp Funktionsname(Parameterliste)
+Rueckgabetyp Funktionsname(Typ1 parameter1, Typ2 parameter2,
+                           Typ3 parameter3, ...)
 {
   Rueckgabetyp x;
   Anweisung1;
   Anweisung2;
   ...;
-  return (x);
+  return x;
 }
 \end{lstlisting}
 Die in der Parameterliste deklarierten Variablen sind dann innerhalb dieses Blocks definiert und unter ihrem Namen sichtbar.
 Außerdem sind alle \emph{global} deklarierten Variablen im Funktionsblock sichtbar.
-Für den Funktionsnamen gelten die gleiche Regeln, wie für Variablennamen.
+Für den Funktionsnamen gelten die gleichen Regeln, wie für Variablennamen.
 
 Als Beispiel für eine Funktion schreiben wir einen Abschnitt, der die Fakultät einer ganzen Zahl berechnet:
 \begin{lstlisting}
 unsigned long int Fakultaet(const unsigned int zahl)
 {
   unsigned long int fak = 1;
-  for (int i = 2; i <= zahl; i++)
+  for (unsigned long int i = 2; i <= zahl; i++)
     {
       fak *= i;
     }
-  return (fak);
+  return fak;
 }
 \end{lstlisting}
 Der Rückgabetyp ist als \verb|unsigned long int| gewählt, da die Fakultaet immer positiv ist, aber auch sehr groß werden kann.
@@ -53,27 +59,61 @@ Ihr Umfang hängt natürlich von der Komplexität dieser Unterprobleme ab.
 Man sollte trotzdem versuchen, dass Funktionen nicht zu viel Quelltext enthalten.
 Sonst kann man mit sehr großer Wahrscheinlichkeit den Quelltext noch weiter aufspalten.
 
+\subsection{Aufruf von Funktionen}
+
 Aufgerufen werden Funktionen dann im Prinzip wie folgt
 \begin{lstlisting}
-Funktionsname(Aktualparameterlist);
+Ergebnistyp Ergebnis = Funktionsname(Uebergabeliste);
 \end{lstlisting}
-Die Aktualparameterlist enthält dabei Variablen aus dem aufrufenden Codeabschnitt.
-Dabei muss die Reihenfolge in der Funktionsdeklaration eingehalten werden.
-Der C Compiler überprüft dies strickt und bricht die Übersetzung ab, falls es nicht gegeben ist.
-Beispielsweise obige Funktion zur Berechnung der Fakultät kann wie folgt im Hauptprogramm aufgerufen werden:
+Die \verb|Uebergabeliste| enthält dabei Variablen aus dem aufrufenden Codeabschnitt oder konstante Ausdrücke.
+Dabei muss die Reihenfolge in der \verb|Uebergabeliste| genau mit der in der \verb|Parameterliste| in der Funktionsdeklaration übereinstimmen.
+Auch die Typen in \verb|Uebergabeliste| müssen mit denen in der \verb|Parameterliste| übereinstimmen.
+Der C Compiler überprüft dies strickt und bricht die Übersetzung ab, falls es Abweichungen gibt.
+Obige Funktion zur Berechnung der Fakultät kann wie folgt im Hauptprogramm aufgerufen werden:
 \begin{lstlisting}
 #include <stdio.h>
 
 int main()
 {
   int n = 20;
-  unsigned long int result;
-  result = Fakultaet(n);
+  unsigned long int result; // Variable fuer das Ergebnis
+  result = Fakultaet(n);    // Funktionenaufruf
   // oder
-  result = Fakultaet(3);
-  printf("%lud", result);
-  return (0);
+  result = Fakultaet(3);    // Funktionenaufruf alternativ
+  printf("%lud", result);   // Ausgabe des Ergebnisses
+  return 0;
 }
 \end{lstlisting}
+
+\subsection{Typenüberprüfung und sinnvolle Eingabewerte}
+
+Wie schon oben erwähnt, führt der C Compiler eine strickte Typenpüfung durch.
+Der Aufruf der Funktion in der Form
+\begin{lstlisting}
+  unsigned long int result;
+  double x = 20.;
+  result = Fakultaet(x);
+\end{lstlisting}
+wird also vom Compiler nicht akzeptiert (es sei denn, man hat die entsprechenden Überprüfungen abgeschaltet).
+Das ist sehr hilfreich, um Fehler im eigenen Quelltext ausfindig zu machen.
+
+Der Compiler kann allerdings nicht überprüfen, ob die Eingabe sinnvoll ist.
+Im Fall \verb|Fakultaet| bekommt die Funktion nur einen Parameter vom Typ \verb|unsigned long int| übergeben. 
+An dieser Stelle sollte man sich als Programmierer fragen, ob jede mögliche Eingabe zu einer sinnvollen Ausgabe führt. 
+Das ist offensichtlich dann nicht mehr der Fall, wenn die funktionsinterne Variable \verb|fak| aus dem Wertebereich für \verb|long unsigned int| herausläuft. 
+Man kann sich leicht überlegen, für welche Werte von \verb|zahl| dies geschieht.
+
+Optimalerweise sollte in der Funktion überprüft werden, ob \verb|zahl| im sinnvollen Wertebereich liegt. 
+Wenn dies nicht der Fall ist, sollte die Bearbeitung abbrechen, zum Beispiel so
+\begin{lstlisting}
+  // pruefe, ob zahl im sinnvollen Wertebereich liegt
+  if(zahl > N) {
+    // falls nein, bricht die Ausfuehrung ab
+    exit(EXIT_FAILURE);
+  }
+\end{lstlisting}
+Die Funktion \verb|exit| ist in der Headerdatei \verb|stdlib.h| deklariert.
+\verb|EXIT_FAILURE| (und \verb|EXIT_SUCCESS|) ist ebenfalls in \verb|stdlib.h| definiert.
+
 
 \endinput
