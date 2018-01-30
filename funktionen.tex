@@ -115,5 +115,28 @@ Wenn dies nicht der Fall ist, sollte die Bearbeitung abbrechen, zum Beispiel so
 Die Funktion \verb|exit| ist in der Headerdatei \verb|stdlib.h| deklariert.
 \verb|EXIT_FAILURE| (und \verb|EXIT_SUCCESS|) ist ebenfalls in \verb|stdlib.h| definiert.
 
+\subsection{Rückgabetypen und \texttt{void} Funktionen}
 
+Funktionen haben in \texttt{C} immer einen Rückgabetyp.
+Hierbei sind alle \texttt{C} Typen und auch selbstdefinierte Typen möglich.
+Auf den ersten Blick scheint dies zu bedeuten, dass immer nur skalare Größen zurückgegeben werden können.
+Das stimmt aber nur für \texttt{C} Typen, und auch nur, wenn man Zeiger außen vor lässt.
+Letzteres wird im nächsten Kapitel diskutiert werden.
+
+Es gibt auch den Fall, dass Funktionen keine Rückgabewert liefern.
+Für diesen Fall gibt es in \texttt{C} den \verb|void| Datentyp.
+Eine \verb|void| Funktion kann beispielsweise wie folgt aussehen:
+\begin{lstlisting}
+  void myFunction(...) {
+    // do something
+    return;
+  }
+\end{lstlisting}
+Diese Funktion kann dann wie folgt aufgerufen werden
+\begin{lstlisting}
+  // some code
+  myFunction(...);
+  // more code
+\end{lstlisting}
+also ohne eine Zuweisung des Funktionswertes an eine entsprechende Variable.
 \endinput
