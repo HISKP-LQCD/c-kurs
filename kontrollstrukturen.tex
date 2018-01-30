@@ -118,46 +118,10 @@ switch (int)
   }
 \end{lstlisting}
 
-\subsection{Schleifen: \texttt{for} loop}
+\subsection{Schleifen: \texttt{for}}
 
 Eine wesentlich wichtigere Kontrollstruktur sind sogenannt \emph{for} Schleifen.
-Nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren.
-Dann können wir das mit folgendem Quelltext machen:
-\begin{lstlisting}
-#include <stdio.h>
-
-int main()
-{
-  int n;
-  int summe = 0;
-  scanf("%d\n", &n);
-  if (n < 0)
-    {
-      printf("Die Eingabe muss groesser oder gleich 0 sein!\n");
-      return (-1);
-    }
-  for (int i = 0; i < n; ++i)
-    {
-      summe += i;
-    }
-  printf("Die Summe der Zahlen von 0 bis %d ist %d\n", n - 1, summe);
-  return (0);
-}
-\end{lstlisting}
-Hierbei lesen wir zunächst den Wert von $n$ mit Hilfe von \verb|scanf| ein.
-Wir erwarten eine ganze Zahl größer gleich $0$.
-Damit das Programm sinnvolle Ergebnisse liefert, überprüfen wir das in den Zeilen $7-10$.
-Falls $n<0$, wird eine Fehlermeldung ausgegeben und das Programm mit Hilfe von \verb|return| beendet.
-Danach wird die Zeile 
-\begin{lstlisting}
-summe += i;
-\end{lstlisting}
-die für $i=0,1,\ldots n-1$ nacheinander ausgeführt wird.
-Diese Zeile wird also $n-1$--Mail ausgeführt, mit jeweils anderen Werten für \verb|summe| und \verb|i|.
-Da \verb|summe| außerhalb der Schleife deklariert und initialisiert wurde, ist der entsprechende Wert auch nach der Schleife vergfügbar.
-\verb|i| dagegen ist in diesem Beispiel nur innerhalb der Schleife verfügbar!
 Allgemein sieht die \emph{for} Schleife wie folgt aus:
-\begin{myalertblock}{For Schleife}
 \begin{lstlisting}
 for (Ausdruck1; Ausdruck2; Ausdruck3)
   {
@@ -166,65 +130,108 @@ for (Ausdruck1; Ausdruck2; Ausdruck3)
     ...;
   }
 \end{lstlisting}
-\vspace{-1cm}
+Im Einzelnen bedeutet das:
 \begin{enumerate}
-\item Zuerst wird Ausdruck1 ausgeführt.
-\item Dann wird Ausdruck2 ausgeführt.
-\item Wenn Ausdruck2 als wahr ausgewertet wird, werden die Anweisungen im Körper der Schleife ausgeführt.
-\item Jetzt wird Ausdruck3 ausgeführt.
-\item Starte wieder bei 2.
-\end{enumerate}
-\end{myalertblock}
-Dabei ist Ausdruck1 der Deklarations- und/oder Initialisierungsschritt für die Schleifenvariable(n).
-Ausdruck2 wird als logischer Ausdruck ausgewertet und stellt die Abbruchbedingung dar.
-Ausdruck3 modifiziert die Schleifenvariable(n).
+\item Zuerst wird \texttt{Ausdruck1} ausgewertet.\\
+  In diesem ersten Ausdruck wird typischerweise die Schleifenvaraible, oder auch mehrere, deklariert und/oder initialisiert. 
+\item Dann wird \texttt{Ausdruck2} ausgewertet.\\
+  Dieser zweite Ausdruck wird zu Beginn jeder Ausführung der Schleife ausgewertet und wird als logischer Ausdruck interpretiert.
+  Er stellt die Abbruchbedingung dar.
 
-Interessanterweise dürfen auch alle drei Ausdrücke leer sein.
-Dann wird die Schleife im Prinzip unendlich oft ausgeführt.
-In einem solchen Fall kann man die Schleife mit Hilfe von \verb|break| explizit abbrechen, wie man im folgenden Beispiel sieht:
+  Wenn \texttt{Ausdruck2} zu wahr ausgewertet wird, werden die Anweisungen im Körper der Schleife ausgeführt. 
+\item Nach Ausführung des Schleifekörpers wird \texttt{Ausdruck3} ausgewertet.\\
+  Hier werden typischerweise Schleifenvariablen modifiziert.
+\end{enumerate}
+Als Beispiel nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren.
+Dann können wir das mit folgendem Quelltext machen:
 \begin{lstlisting}
 #include <stdio.h>
 
 int main()
 {
-  int n;
+  int n = 173;
   int summe = 0;
-  int i = 0;
-  scanf("%d", &n);
-  if (n < 0)
-    {
-      printf("Die Eingabe muss groesser oder gleich 0 sein!\n");
-      return (-1);
-    }
-  for (;;)
-    {
-      if (i == n)
-        break;
-      summe += i;
-      i++;
-    }
+  for (int i = 0; i < n; i++) {
+    summe += i;
+  }
   printf("Die Summe der Zahlen von 0 bis %d ist %d\n", n - 1, summe);
   return (0);
 }
 \end{lstlisting}
+Dabei ist \texttt{Ausdruck1} die Deklaration und Initialisierung von \verb|i|
+\begin{lstlisting}
+  int i = 0;
+\end{lstlisting}
+Das Abbruchkrieterium ist der logische Ausdruck
+\begin{lstlisting}
+  i < n;
+\end{lstlisting}
+Der Körper der Schleife besteht in diesem Fall nur aus der Zeile
+\begin{lstlisting}
+summe += i;
+\end{lstlisting}
+die für \verb|i=0,1,... n-1| nacheinander ausgeführt wird.
+Diese Zeile wird also $n-1$--Mal ausgeführt, mit jeweils anderen Werten für \verb|summe| und \verb|i|.
+Da \verb|summe| außerhalb der Schleife deklariert und initialisiert wurde, ist der entsprechende Wert auch nach der Schleife vergfügbar.
+\verb|i| dagegen ist in diesem Beispiel nur innerhalb der Schleife verfügbar!
+\texttt{Ausdruck3} erhöht bei jedem Aufruf die Schleifenvariable \verb|i| um eins.
+\begin{lstlisting}
+  i++
+\end{lstlisting}
+Interessanterweise dürfen auch alle drei Ausdrücke leer sein.
+Dann wird die Schleife im Prinzip unendlich oft ausgeführt.
+In einem solchen Fall kann man die Schleife mit Hilfe von \verb|break| explizit abbrechen, wie man im folgenden modifizierten Beispiel sieht:
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  int n = 173;
+  int summe = 0;
+  int i = 0;
+  for (;;) { // korrekt, aber schlechter Stil!
+    if (i == n) break;
+    summe += i;
+    i++;
+  }
+  printf("Die Summe der Zahlen von 0 bis %d ist %d\n", n - 1, summe);
+  return (0);
+}
+\end{lstlisting}
+Der Quelltext führt immer noch die gleiche Aufgabe aus. 
+Allerdings stellt das Verwenden einer \texttt{for} Schleife in dieser Weise sehr schlechten Stil dar.
+Der Grund ist, dass man am Schleifenkopf nicht mehr erkennen kann, wann die Schleife abgebrochen wird und was die Schleifenvariablen sind.
+Der Quelltext wird also wesentlich unleserlicher und fehleranfälliger.
+
+Die Benutzung von \verb|break| kann und ist aber an vielen Stellen sinnvoll.
+Soll beispielsweise innerhalb einer Schleife eine externe Funktion aufgerufen werden, so sollte man immer überprüfen, ob diese Funktion auch ohne Fehler ausgeführt wurde.
+Falls die Funktion einen Fehler meldet, kann man mit Hilfe von \verb|break| die Ausführung der Schleife unterbrechen:
+\begin{lstlisting}
+  for (int i = 0; i < n; i++) {
+    int errorcode = myFunction(i);
+    if( errorcode != 0 ) {
+      // take appropriate action
+      break;
+    }
+  }
+\end{lstlisting}
+Dies lässt sich für Fälle verallgemeinern, in denen unerwartete oder nicht standard Dinge innerhalb der Ausführung einer Schleife auftreten.
 
 \subsection{Schleifen: \texttt{while} und \texttt{do-while}}
 
 C kennt zwei weitere Schleifenkonstrukte, nämlich die \verb|while| und die \verb|do-while| Schleife.
 Während die \verb|while| Schleife die Abbruchbedingung vor dem Ausführen des Schleifenkörpers überprüft und im Zweifel abbricht, wird bei der \verb|do-while| Schleife der Körper immer mindestens einmal ausgeführt.
-Das macht den großen Unterschied zwischen den beiden aus, die im folgenden nocheinmal allgemein dargestellt sind.
-\begin{myalertblock}{while Konstrukt}
+Das macht den großen Unterschied zwischen den beiden aus
+Allgemein hat die \verb|while| Schleife folgende Form:
 \begin{lstlisting}
 while (logischer Ausdruck)
   {
     Anweisungen;
   }
 \end{lstlisting}
-\vspace{-0.5cm}
-Die Anweisungen werden also so lange ausgeführt, wie der logische Ausdruck zu \emph{true} ausgewertet wird.
-\end{myalertblock}
-
-\begin{myalertblock}{do-while Konstrukt}
+Hier ist der \texttt{logische Ausdruck} die Abbruchbedingung.
+So lange der logische Ausdruck zu wahr ausgewertet wird, werden die Anweisungen im Schleifenkörper ausgeführt.
+Die Abbruckbedingung steht bei der \verb|do-while| Schleife am Ende, wie man an der allgemeinen Form sieht:
 \begin{lstlisting}
 do
   {
@@ -232,8 +239,7 @@ do
   }
 while (logischer Ausdruck);
 \end{lstlisting}
-\vspace{-0.5cm}
-Die Anweisungen werden so lange ausgeführt, wie der logische Ausdruck zu wahr ausgewertet wird, allerdings mindestens einmal.
-\end{myalertblock}
+Die Anweisungen werden also mindestens einmal ausgeführt bis der \texttt{logische Ausdruck} das erste Mal ausgewertet wird.
 
+Ausführungen von \verb|while| und \verb|do-while| Schleifen können ebenfalls mit \verb|break| abgebrochen werden.
 \endinput
