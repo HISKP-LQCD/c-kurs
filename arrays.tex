@@ -1,0 +1,232 @@
+\section{Felder (arrays)}
+
+Bisher haben wir uns ausschließlich mit skalaren Datentypen beschäftigt, d.h. also einzelne Elemente eines bestimmten Typs.
+\texttt{C} kennt allerdings auch Tupel eines bestimmten Typs, sogenannte Felder oder im Englischen \emph{arrays}.
+Allerdings muss die Länge des Tupels zum Zeitpunkt der Deklaration bekannt sein.
+Und diese Länge kann auch dann nicht mehr verändert werden.
+
+\subsection{Deklaration und Initialisierung eindimensionaler Felder}
+
+Die Deklaration eines Feldes ist gany analog zu anderen Variablen
+\begin{lstlisting}
+  int a[5]; // array declaration
+\end{lstlisting}
+was in diesem Fall ein Feld der Länge $5$ mit ganzen Zahlen erzeugt.
+
+Für die Initialisierung gibt es zwei Möglichkeiten.
+Man kann ersten Deklaration und Initialisierung in einem Schritt vornehmen, was wie folgt aussieht
+\begin{lstlisting}
+  int a1[5] = {1, 2, 3, 4, 5};
+  int a2[] = {1, 2, 3, 4, 5};
+\end{lstlisting}
+was jeweils ein Feld der Länge $5$ erzeugt, aber diesmal initialisiert mit den Werten $1,2,3,4,5$.
+Bei der zweiten Zeile bestimmt der Compiler aus der Initialisierungsliste automatisch die Länge des Feldes.
+Die zweite Möglichkeit besteht darin, jedes Element einzeln zuzuweisen:
+\begin{lstlisting}
+  int a[5];
+  for(int i = 0; i < 5; i++) {
+    a[i] = i+1;
+  }
+\end{lstlisting}
+was zum exakt gleichen Ergebnis führt.
+An diesem Beispiel sieht man bereits, dass in \texttt{C} die Indizierung von $0$ bis $n-1$ läuft.
+
+Es sei nocheinmal darauf hingewiesen, dass Felder wie wir sie bisher eingeführt haben, konstante Länge haben.
+So führt folgender Quelltext zu einer Fehlermeldung
+\begin{lstlisting}
+  int n = 5;
+  int a[n];
+\end{lstlisting}
+da die Variable \texttt{n} nicht konstant ist.
+Dagegen ist folgendes korrekt
+\begin{lstlisting}
+  const int n = 5;
+  int a[n];
+  for(int i = 0; i < n; i++) {
+    a[i] = i+1;
+  }
+\end{lstlisting}
+was es erlaubt die Feldlänge in einer Variablen zu speichern.
+Wenn sich nun im Quelltext diese Länge ändert, so muss man diese Änderung nur noch an einer Stelle vornehmen.
+
+\subsection{Eindimensionale Felder als Funktionenargumente}
+
+Wie schon im Abschnitt über Funktionen angedeutet, kann man auch Felder als Funktionenargument verwenden.
+Die Schreibweise wird am folgenden Beispiel für eine Funktion erklärt, die die Quadratsumme aller Elemente eines Feldes erzeugt (das Quadrat der Norm)
+\begin{lstlisting}
+  double sqrsum(double a[], const int n) {
+    double sum = 0;
+    for(int i = 0; i < n; i++) {
+      sum += a[i]*a[i];
+    }
+    return sum;
+  }
+\end{lstlisting}
+Die Schreibweise \texttt{a[]} teilt dem Compiler mit, dass es sich um ein Feld handelt.
+Es ist sehr wichtig hier zu verstehen, dass der Compiler aber keine Möglichkeit hat zu überprüfen, ob innerhalb der Funktion nur auf die vorhandenen Elemente von \texttt{a} zugegriffen wird.
+Diese Information ist sogar nicht verfügbar, wenn man nicht als Programmierer selbst sicherstellt, dass in diesem Fall \texttt{n} die richtige Länge als Wert enthält.
+Folgender Quelltext ist korrekter \texttt{C} Quelltext
+\begin{lstlisting}
+int list[5];
+int i = 5;
+list[i] = 3;
+\end{lstlisting}
+und wird vom Compiler anstandslos übersetzt.
+Im besten Fall erhält man dann bei der Ausführung dieses Codes einen \emph{segmentation fault}.
+Im schlechtesten Fall ist \verb|list[5]| Speicher, auf den das Programm zugreifen kann.
+Dann erhält man keinen Laufzeitfehler und modifiziert ungewollt Speicher, den man nicht modifizieren will.
+Dies kann zu sehr seltsamem Verhalten des Programms führen, und das Finden eines solchen Fehlers ist sehr schwierig.
+Deshalb sollte man Indizierungen immer mit großer Sorgfalt überprüfen.
+
+\subsection{Mehrdimensionale Felder}
+
+Ganz analog zu eindimensionalen Feldern lassen sich auch zweidimensionale Felder (Matrizen) erzeugen
+\begin{lstlisting}
+  int A[3][5]; // Deklaration
+  for(int i = 0; i < 3; i++) {
+    for(int j = 0; j < 5; j++) {
+      A[i][j] = i+j;  // Initialisierung
+    }
+  }
+\end{lstlisting}
+Und wie im eindimensionalen Fall kann man auch Deklaration und Initialisierung kombinieren
+\begin{lstlisting}
+  int A1[2][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
+  int A2[][3]  = {{1,2,3}, {4,5,6}, {7,8,9}};
+  int A3[][3] = {1,2,3,4,5,6,7,8,9}};
+\end{lstlisting}
+Die Anzahl der Zeilen kann der Compiler aus der Initialisierungsliste bestimmen.
+Die Anzahl der Spalten muss aber immer angegeben sein.
+Die Dimensionalität eines Feldes kann dann in analoger Weise zu drei oder mehr erweitert werden.
+
+\subsection{Zeichenketten oder Strings}
+
+In C gibt es keinen elementaren Datentyp für Zeichenketten, sogenannte \emph{strings}.
+Zeichenkette werden mit Hilfe von Arrays abgebildet.
+Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden, siehe ASCII Zeichensatz.\footnote{%
+    Die Größe des Datentyps \texttt{char} ist immer ein Byte, also 8 Bit.
+    Eigentlich hätte man diesen Typ \texttt{byte} nennen sollen. Es können $2^8
+    = 256$ verschiedene Zeichen gespeichert werden. Dies reicht für Englisch
+    und ein paar Steuerzeichen, jedoch nicht für alle Sprachen dieser Welt. Der
+    ASCII Zeichensatz nutzt die ersten 128 Zustände (also die ersten 7 Bit) für
+    das im Englischen genutzte Alphabet. Die restlichen 128 Zustände werden
+    abhängig vom  \emph{Encoding} interpretiert. Für Deutsch kann man
+    \texttt{latin-1} nutzen. Je nach Encoding wird ein Zeichen mit Wert 204
+    interpretiert. Ist das Encoding nicht die richtige, erscheinen die Umlaute
+    nicht korrekt und scheinbar willkürliche Zeichen stehen an ihrer Stelle.
+    Sprachen, die mehr als 128 verschiedene Zeichen brauche, können im oberen
+    Teil von ASCII überhaupt nicht dargestellt werden. Die Einsicht, dass es
+    mehr als 256 verschiedene Zeichen gibt, wurde im Unicode Standard
+    manifestiert. Die Konsequenz ist jedoch, dass jetzt mehr als ein Byte pro
+    Zeichen benötigt wird. UTF-8 ist inzwischen das Standard-Encoding, sodass
+    beliebig viele verschiedene Zeichen in einer Textdatei genutzt werden
+    können. Der Preis ist jedoch, dass ein Buchstabe jetzt beliebig viele Byte
+    (meist eins) nutzt. Da hier der Fokus allerdings auf Numerischen Methoden
+    liegt, wird nicht weiter auf die vielfältigen Probleme mit Encodings
+    eingegangen.
+}
+Eine Zeichenkette kann also durch eine Array von Elementen vom Typ \verb|char| erzeugt werden.
+Das Ende einer Zeichenkette wird durch das Zeichen \verb|\0| angegeben.
+Im nächsten Beispiel lesen wir eine Zeichenkette von der Standardeingabe ein, bis wir das Zeichen für das Ende des Strings finden und testen, ob die Kette eine Zahl enthält:
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  char string[] = "sdfk99225kljsdfs\0";
+  int i = 0;
+  int ergebnis = 0;
+
+  while(1) {
+    if(string[i] == '\0') {
+      break;
+    }
+    if((string[i]) >= '0' && (string[i] <= '9')) {
+      ergebnis = 1;
+      break;
+    }
+    i++;
+  }
+  if (ergebnis)
+    printf("Der String %s enthaelt mindestens eine Zahl\n", string);
+  else
+    printf("Der String %s enthaelt keine Zahlen\n", string);
+  return 0;
+}
+\end{lstlisting}
+Wir deklarieren und initialisieren zunächst die Variable \texttt{string} mit einer Zeichenkette.
+Dann nutzen wir eine \verb|while| Schleife mit konstant wahrem logischem Ausdruck.
+Die Schleife wird dann mit \verb|break| abgebrochen, wenn das Endstring-Zeichen gefunden wurde.
+In der Schleife wird dann jedes Element der Kette darauf überprüft, ob es eine Zahl ist.
+Dementsprechend wird die Variable \verb|ergebnis| gesetzt.
+Beim abschließenden \texttt{printf} wird eine wichtige Eigenschaft von \texttt{C} Feldern deutlich:
+Man benötigt keine Referenzierungsoperator \verg|&|.
+Im nächsten Abschnitt über Zeiger wird klar werden, warum dies so ist.
+
+\subsubsection{\texttt{sprintf} und \texttt{snprintf}}
+
+Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abh\"{a}ngig vom Wert einer Variable zu machen.
+
+Hierf\"{u}r stehen in C die beiden Funktionen \texttt{sprintf} aund \texttt{snprintf} zur Verf\"{u}gung, welche wie die schon bekannte \texttt{printf} Funktion funktioniern.
+Im Gegensatz zu \texttt{printf}, schreiben diese Funktionen jedoch direkt in eine sich im Speicher befindliche Zeichenkette.
+
+\begin{lstlisting}
+#include <stdio.h>
+const int MAX_LENGTH = 1000;
+const int SHORT_LENGTH = 50;
+
+int main()
+{
+  char string[MAX_LENGTH];
+  const int i = 42;
+  sprintf(string, "The Answer to the Ultimate Question of Life, The Universe, and Everything is %d.\n\n", i);
+  printf("%s", string);
+  
+  int rval;
+  char short_string[SHORT_LENGTH];
+  
+  rval = snprintf(short_string, SHORT_LENGTH-1, "This is a test string.\n\n");
+  if(rval >= SHORT_LENGTH) 
+    printf("snprintf: The string was not completely written!\n");
+  else 
+    printf("snprintf: wrote %d characters\n", rval);
+  printf("%s",short_string);
+  
+  /* ueberlange Zeichenkette wird in short_string geschrieben, Rueckgaberwert wird ueberprueft */
+  rval = snprintf(short_string, SHORT_LENGTH-1, "The Answer to the Ultimate Question of Life, The Universe, and Everything is %d.\n", i);
+  if(rval >= SHORT_LENGTH) 
+    printf("snprintf: The string was not completely written!\n");
+  
+  printf("%s\n\n",short_string);
+  
+  // ACHTUNG: hier wird fremder Speicher ueberschrieben 
+  sprintf(short_string, "The Answer to the Ultimate Question of Life, The Universe, and Everything is %d.\n", i);
+  printf("%s",short_string); 
+  
+  return 0;
+}
+\end{lstlisting}
+
+Ebenso wie bei \texttt{scanf}, besteht jedoch die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
+Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
+
+Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die L\"{a}nge der geschriebenen Zeichenkette zu beschr\"{a}nken.
+Desweiteren kann man durch \"{U}berpr\"{u}fung des R\"{u}ckgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
+
+\noindent Ausgabe:
+\begin{verbatim}
+$ ./test
+The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
+
+snprintf: wrote 24 characters
+This is a test string.
+
+snprintf: The string was not completely written!
+The Answer to the Ultimate Question of Life, The
+
+The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
+\end{verbatim}
+
+
+
+\endinput
