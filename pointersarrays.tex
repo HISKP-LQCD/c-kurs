@@ -1,22 +1,40 @@
 
-\section{Felder und Zeiger}
+\section{Zeiger}
 
-Wir haben bisher zwar schon die \verb|scanf| Funktion benutzt, aber noch nicht erklärt, wie sie funktioniert.
-Oder, genauer gesagt, wir haben noch nichts dazu gesagt, was \verb|&n| eigentlich bedeutet.
-Der Rest von \verb|scanf| sollte eigentlich von der Benutzung von \verb|printf| klar sein.
+Kommen wir nun zu der Frage, wie man aus Funktionen mehr als nur skalare Größen zurück gibt.
+Genauso, wie wir Felder an Funktionen uebergeben können, wollen wir auch Felder als Rückgabewert benutzen.
+Dies geht in \texttt{C} nicht direkt, sondern nur über den Umweg von sogenannten Zeigern.
+Zeiger sind mit das mächtigste Sprachelement in \texttt{C}.
+Sie sind allerdings auch für jede Menge Verwirrung und Programmierfehler verantworlich.
 
-Um das verstehen zu können, muss man sich zunächst noch einmal ins Gedächtnis rufen, das eine Variable im Prinzip aus zwei Dingen besteht:
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{pointer-crop}
+  \caption{\label{pointfig} Illustration Zeiger.}
+\end{figure}
+
+
+Um Zeiger verstehen zu können, muss man sich zunächst noch einmal ins Gedächtnis rufen, das eine Variable im Prinzip aus zwei Dingen besteht:
 Einerseits dem Typ der Variablen und andererseits der Speicheradresse, unter der ein Wert abgelegt wird.
-Über den Typ der Variablen weiß ich, wie viele Bits im Speicher belegt sind, und wenn man die Anfangsadresse für das erste Bit kennt, dann kann die gesamte Anzahl an Bits auslesen und entsprechend dem Typ interpretieren.
+Über den Typ der Variablen weiß der Compiler, wie viele Bits im Speicher belegt sind, und wenn die Anfangsadresse für das erste Bit bekannt ist, dann kann die gesamte Anzahl an Bits ausgelesen und entsprechend dem Typ interpretiert werden.
 C erlaubt Zugriff sowohl auf den Wert einer Variablen, als auch auf die Adresse, an der der Wert abgelegt ist.
 Unterschieden wird zwischen den beiden mit dem \verb|&| Operator.
 Für eine Variable \verb|n| repräsentiert \verb|n| den Wert und \verb|&n| die Speicheradresse.
 Bei \verb|&n| spricht man auch von Zeiger (\emph{pointer}) und bei \verb|&| vom Adressoperator.
+Mit Hilfe von \texttt{printf} kann man den Unterschied ausgeben
+\begin{lstlisting}
+  int a = 5;
+  int * p = &a;
+  printf("Der Wert %d ist an der Adresse %p abgelegt.\n", a, p);
+\end{lstlisting}
+was eine Ausgabe wie die folgende erzeugt
+\begin{verbatim}
+  Der Wert 5 ist an der Adresse 0x7ffeb9d4f9a4 abgelegt.
+\end{verbatim}
+Die Adresse wird hier als \emph{hexadezimal} Zahl \verb|0x7ffeb9d4f9a4| ausgegeben.
+Die Beziehung von \verb|p| und \verb|a| ist in Abbildung~\ref{pointfig} illustriert.
 
-Die Funktion \verb|scanf| verlangt nun als zweites Argument einen Zeiger.
-Der Typ wird in der Zeichenkette angegeben, so dass die Funktion unter der Adresse, die mit \verb|&| angegeben wird, den Wert ablegen kann.
-
-Da Zeiger in C eine sehr wichtige Rolle spielt, gibt es für sie spezielle Datentypen:
+Da Zeiger in C eine sehr wichtige Rolle spielt, gibt es für sie spezielle Datentypen, wie im letzten Beispiel schon gesehen:
 \begin{lstlisting}
 int n = 3; // eine Variable vom Typ int
 int *address; // eine Variable vom Typ Zeiger auf int
@@ -26,17 +44,12 @@ address = &n; // address zeigt auf n
 n == 5; // ist jetzt wahr.
 \end{lstlisting}
 Genauso gibt es einen Typ Zeiger auf \verb|double|, nämlich \verb|double*| und so weiter.
-\begin{myblock}{Definition \texttt{Zeiger}}
-Ein Zeiger ist eine Variable, die eine Adresse zusammen mit einem Datentyp speichert.
-\end{myblock}
-Um die Nützlichkeit von Zeigern zu veranschaulichen, führen wir zunächst Funktionen ein.
-Eine Funktion kenne wir schon, das ist \verb|main|.
-Eine beliebige Funktion wird nun über einen Namen, einen Rückgabewert und Eingangsparameter definiert.
-Im folgenden Beispiel definieren wir eine Funktion, die zwei Parameter \verb|a, b| übergeben bekommt und diese um eins erhöht.
+Allgemein ist ein Zeiger eine Variable, die eine als Wert Adresse zusammen mit einem Datentyp speichert.
+Wir demonstrieren die Nützlichkeit von Zeigern zunächst an einem Beispiel
+Wir definieren eine Funktion, die zwei Parameter \verb|a, b| übergeben bekommt und diese um eins erhöht.
 Anschließend sollen diese beiden neuen Werte zurückgegeben werden.
-Die Funktion hat aber nur einen Rückgabewert.
 
-Ein Weg, um dieses Problem zu lösen, ist das sogenannte \emph{call by reference}.
+Ein Weg, um dies zu tun, ist das sogenannte \emph{call by reference}.
 Was \textbf{nicht} funktioniert ist das folgende:
 \begin{lstlisting}
 #include <stdio.h>
@@ -109,7 +122,6 @@ int main()
 In der fünften Zeile haben wir eine Variable vom Typ \verb|int| deklariert und mit dem Wert 10 initialisiert, in der sechsten Zeile eine Variable vom Typ \verb|int*|, die mit dem \verb|NULL| Zeiger initialisiert wurde.
 In der siebten Zeile wird dann \verb|p| auf die Adresse von \verb|q| gesetzt.
 Damit liefert die Dereferenzierung von \verb|p|, also \verb|*p|, den Wert von \verb|q|.
-Dies ist in Abbildung \ref{pointfig} illustriert.
 Zeigern dürfen nur gültige Adressen zugewiesen werden.
 Dies kann allerdings, bis auf Ausnahmen, nicht vom Compiler überprüft werden.
 Wenn doch keine gültige Adresse zugewiesen wurde, bekommt man bei Dereferenzierung den \emph{segmentation fault} als Laufzeitfehler.
@@ -129,83 +141,6 @@ Wenn der Compiler sich hier nicht beschwert, sollte man die Dokumentation studie
 
 
 
-\begin{figure}[!ht]
-\centering
-% Generated with LaTeXDraw 2.0.8
-% Thu Feb 23 15:10:59 CET 2017
-% \usepackage[usenames,dvipsnames]{pstricks}
-% \usepackage{epsfig}
-% \usepackage{pst-grad} % For gradients
-% \usepackage{pst-plot} % For axes
-\scalebox{0.5} % Change this value to rescale the drawing.
-{
-\begin{pspicture}(0,-8.856719)(29.2,8.8767185)
-%\usefont{T1}{ptm}{m}{n}
-%\rput(3.9903126,-0.7267187){0x7ffc5a48eb88}
-%\usefont{T1}{ptm}{m}{n}
-%\rput(16.572031,-0.7267187){0x7ffc5a4860aa}
-%\usefont{T1}{ptm}{m}{n}
-\psframe[linewidth=0.04,dimen=outer](29.2,-1.8367188)(0.0,-5.6367188)
-%\psframe[linewidth=0.04,dimen=outer](2.6,-6.436719)(0.2,-8.636719)
-%\psframe[linewidth=0.04,dimen=outer](4.8,-6.436719)(2.6,-8.636719)
-\psline[linewidth=0.04cm](4.9,-1.8367188)(4.9,-5.6367188)
-\psline[linewidth=0.04cm](9.6,-1.8367188)(9.6,-5.6367188)
-\psline[linewidth=0.04cm](15.0,-1.8367188)(15.0,-5.6367188)
-\psline[linewidth=0.04cm](21.0,-1.8367188)(21.0,-5.6367188)
-\psline[linewidth=0.04cm](26.0,-1.8367188)(26.0,-5.6367188)
-%\usefont{T1}{ptm}{m}{n}
-\rput(1.5,-2.8){\LARGE Typ:\texttt{int *}}
-\rput(1.5,-3.9){\LARGE Name: p}
-
-%\usefont{T1}{ptm}{m}{n}
-\rput(22.6,-2.8){\LARGE Typ: \texttt{int}}
-%\usefont{T1}{ptm}{m}{n}
-\rput(22.6,-3.9){\LARGE Name: q}
-%\usefont{T1}{ptm}{m}{n}
-\rput(22.6,-4.9){\LARGE Wert: 10}
-\rput(2.5,-4.9){{\LARGE Wert:} \large 0x7ffc5a48eb88}
-
-%\usefont{T1}{ptm}{m}{n}
-\rput(2.2,-6){\large Adresse 0x7ffc5a481188}
-
-\rput(22.9,-6){\large 0x7ffc5a48eb88}
-%\rput(3.6267188,-4.67185){0x7ffc5a48eb88}
-\pscustom[linewidth=0.04]
-{
-\newpath
-\moveto(5.0,-1.4)
-%\lineto(7.5,1.5)
-\curveto(10.,1.)(15.1,4.)(22.,-1.4)
-}
-\psline[linewidth=0.04cm](21.5,-1.6)(22,-1.4)
-\psline[linewidth=0.04cm](21.7,-0.8)(22,-1.4)
-
-
-\pscustom[linewidth=0.04]
-{
-\newpath
-\moveto(5.0,-6.3)
-%\lineto(7.5,1.5)
-\curveto(10.,-7.)(15.1,-9)(22.,-6.3)
-}
-\psline[linewidth=0.04cm](5.5,-5.7)(5,-6.3)
-\psline[linewidth=0.04cm](5.4,-6.9)(5,-6.3)
-
-%\usefont{T1}{ptm}{m}{n}
-\rput(13.5,-6.5){\LARGE *p liefert den Wert von q}
-%\usefont{T1}{ptm}{m}{n}
-\rput(12.,-0.5){\LARGE \&q liefert den Wert von p}
-\end{pspicture}
-}
-%\usefont{T1}{ptm}{m}{n}
-\rput(3.7720314,-5.826719){0x7ffc5a4860aa}
-%\usefont{T1}{ptm}{m}{n}
-\rput(3.5867188,-3.3267188){Name: p}
-%\usefont{T1}{ptm}{m}{n}
-\rput(3.3267188,-4.19267187){Wert:}
-%\usefont{T1}{ptm}{m}{n}
-\caption{\label{pointfig} Illustration Zeiger.}
-\end{figure}
 
 Zeiger sind in C doppelt wichtig, denn das wichtige Konstrukt von Feldern wird mit Hilfe von Zeigern realisiert.
 Für unser Sortierbeispiel möchten wir beispielsweise nicht $n$ Variablen mit verschiedenen Namen \verb|a1|, \verb|a2|, ... deklarieren.
@@ -402,141 +337,6 @@ Im schlechtesten Fall ist \verb|list[5]| Speicher, auf den das Programm zugreife
 Dann erhält man keinen Laufzeitfehler und modifiziert ungewollt Speicher, den man nicht modifizieren will.
 Dies kann zu sehr seltsamem Verhalten des Programms führen, und das Finden eines solchen Fehlers ist sehr schwierig.
 Deshalb sollte man Indizierungen immer mit großer Sorgfalt überprüfen.
-
-\subsection{Zeichenketten oder Strings}
-
-In C gibt es keinen elementaren Datentyp für Zeichenketten, sogenannte \emph{strings}.
-Zeichenkette werden mit Hilfe von Arrays abgebildet.
-Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden, siehe ASCII Zeichensatz.\footnote{%
-    Die Größe des Datentyps \texttt{char} ist immer ein Byte, also 8 Bit.
-    Eigentlich hätte man diesen Typ \texttt{byte} nennen sollen. Es können $2^8
-    = 256$ verschiedene Zeichen gespeichert werden. Dies reicht für Englisch
-    und ein paar Steuerzeichen, jedoch nicht für alle Sprachen dieser Welt. Der
-    ASCII Zeichensatz nutzt die ersten 128 Zustände (also die ersten 7 Bit) für
-    das im Englischen genutzte Alphabet. Die restlichen 128 Zustände werden
-    abhängig vom  \emph{Encoding} interpretiert. Für Deutsch kann man
-    \texttt{latin-1} nutzen. Je nach Encoding wird ein Zeichen mit Wert 204
-    interpretiert. Ist das Encoding nicht die richtige, erscheinen die Umlaute
-    nicht korrekt und scheinbar willkürliche Zeichen stehen an ihrer Stelle.
-    Sprachen, die mehr als 128 verschiedene Zeichen brauche, können im oberen
-    Teil von ASCII überhaupt nicht dargestellt werden. Die Einsicht, dass es
-    mehr als 256 verschiedene Zeichen gibt, wurde im Unicode Standard
-    manifestiert. Die Konsequenz ist jedoch, dass jetzt mehr als ein Byte pro
-    Zeichen benötigt wird. UTF-8 ist inzwischen das Standard-Encoding, sodass
-    beliebig viele verschiedene Zeichen in einer Textdatei genutzt werden
-    können. Der Preis ist jedoch, dass ein Buchstabe jetzt beliebig viele Byte
-    (meist eins) nutzt. Da hier der Fokus allerdings auf Numerischen Methoden
-    liegt, wird nicht weiter auf die vielfältigen Probleme mit Encodings
-    eingegangen.
-}
-Eine Zeichenkette kann also durch eine Array von Elementen vom Typ \verb|char| erzeugt werden.
-Das Ende einer Zeichenkette wird durch das Zeichen \verb|\0| angegeben.
-Im nächsten Beispiel lesen wir eine Zeichenkette von der Standardeingabe ein, bis wir das Zeichen für das Ende des Strings finden und testen, ob die Kette eine Zahl enthält:
-\begin{lstlisting}
-#include <stdio.h>
-const int MAX_LENGTH = 1000;
-
-int main()
-{
-  char string[MAX_LENGTH];
-  int i = 0;
-  int ergebnis = 0;
-  scanf("%s", string);
-  while (1)
-    {
-      if (string[i] == '\0' || i == MAX_LENGTH)
-        break;
-      if ((string[i] >= '0') && (string[i] <= '9'))
-        {
-          ergebnis = 1;
-          break;
-        }
-      i++;
-    }
-  if (ergebnis)
-    printf("Der String %s enthaelt mindestens eine Zahl\n", string);
-  else
-    printf("Der String enthaelt keine Zahlen\n");
-  return 0;
-}
-\end{lstlisting}
-Es wird zunächst eine Zeichenkette über die Tastatur eingelesen.
-Offensichtlich ist \verb|string| ohne den Indexoperator \verb|[]| vom Typ \verb|char*|, also Zeiger auf \verb|char|.
-Dann nutzen wir eine \verb|while| Schleife mit konstant wahrem logischem Ausdruck.
-Die Schleife wird dann mit \verb|break| abgebrochen, wenn das Endstring-Zeichen gefunden wurde.
-In der Schleife wird dann jedes Element der Kette darauf überprüft, ob es eine Zahl ist.
-Dementsprechend wird die Variable \verb|ergebnis| gesetzt.
-
-Vielleicht ist es Ihnen schon aufgefallen, aber der obige Beispielquelltext ist nicht sauber programmiert.
-Der Grund ist die Tatsache, dass wir die Länge des eingelesenen Strings nicht überprüfen, und damit nicht wissen, ob die maximale Länge überschritten wurde, oder nicht.
-Es kommt zu einem sogenannten \emph{buffer overflow}.
-Im besten Fall bekommt man bei einem zu langen Array einen Laufzeitfehler.
-Im schlechtesten Fall kann man allerdings in Speicher schreiben, der dafür nicht vorgesehen ist. Dies ist schnell eine Sicherheitslücke.
-Es sollte also auf jeden Fall eine solche Überprüfung vorgenommen werden!
-
-\subsubsection{\texttt{sprintf} und \texttt{snprintf}}
-
-Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abh\"{a}ngig vom Wert einer Variable zu machen.
-
-Hierf\"{u}r stehen in C die beiden Funktionen \texttt{sprintf} aund \texttt{snprintf} zur Verf\"{u}gung, welche wie das schon kennengelernte \texttt{printf} funktioniern.
-Im Gegensatz zu \texttt{printf}, schreiben diese Funktionen jedoch direkt in eine sich im Speicher befindliche Zeichenkette.
-
-\begin{lstlisting}
-#include <stdio.h>
-const int MAX_LENGTH = 1000;
-const int SHORT_LENGTH = 50;
-
-int main()
-{
-  char string[MAX_LENGTH];
-  const int i = 42;
-  sprintf(string, "The Answer to the Ultimate Question of Life, The Universe, and Everything is %d.\n\n", i);
-  printf("%s", string);
-  
-  int rval;
-  char short_string[SHORT_LENGTH];
-  
-  rval = snprintf(short_string, SHORT_LENGTH-1, "This is a test string.\n\n");
-  if(rval >= SHORT_LENGTH) 
-    printf("snprintf: The string was not completely written!\n");
-  else 
-    printf("snprintf: wrote %d characters\n", rval);
-  printf("%s",short_string);
-  
-  /* ueberlange Zeichenkette wird in short_string geschrieben, Rueckgaberwert wird ueberprueft */
-  rval = snprintf(short_string, SHORT_LENGTH-1, "The Answer to the Ultimate Question of Life, The Universe, and Everything is %d.\n", i);
-  if(rval >= SHORT_LENGTH) 
-    printf("snprintf: The string was not completely written!\n");
-  
-  printf("%s\n\n",short_string);
-  
-  // ACHTUNG: hier wird fremder Speicher ueberschrieben 
-  sprintf(short_string, "The Answer to the Ultimate Question of Life, The Universe, and Everything is %d.\n", i);
-  printf("%s",short_string); 
-  
-  return 0;
-}
-\end{lstlisting}
-
-Ebenso wie bei \texttt{scanf}, besteht jedoch die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
-Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
-
-Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die L\"{a}nge der geschriebenen Zeichenkette zu beschr\"{a}nken.
-Desweiteren kann man durch \"{U}berpr\"{u}fung des R\"{u}ckgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
-
-\noindent Ausgabe:
-\begin{verbatim}
-$ ./test
-The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
-
-snprintf: wrote 24 characters
-This is a test string.
-
-snprintf: The string was not completely written!
-The Answer to the Ultimate Question of Life, The
-
-The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
-\end{verbatim}
 
 
 \subsection{Zeigerarithmetik}
