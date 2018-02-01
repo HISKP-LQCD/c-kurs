@@ -78,6 +78,11 @@ Dann erhält man keinen Laufzeitfehler und modifiziert ungewollt Speicher, den m
 Dies kann zu sehr seltsamem Verhalten des Programms führen, und das Finden eines solchen Fehlers ist sehr schwierig.
 Deshalb sollte man Indizierungen immer mit großer Sorgfalt überprüfen.
 
+Es gibt noch einen weiteren wichtigen Punkt, der später noch genauer diskutiert wird.
+Für Felder, die man wie oben beschrieben an Funktionen übergibt, wird keine Kopie angelegt.
+Das heißt insbesondere, dass sich das Originalfeld ändert, wenn man innerhalb der Funktion das Feld modifiziert.
+Genauer wird das im Abschnitt über Zeiger diskutiert.
+
 \subsection{Mehrdimensionale Felder}
 
 Ganz analog zu eindimensionalen Feldern lassen sich auch zweidimensionale Felder (Matrizen) erzeugen

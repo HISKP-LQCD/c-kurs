@@ -45,8 +45,8 @@ n == 5; // ist jetzt wahr.
 \end{lstlisting}
 Genauso gibt es einen Typ Zeiger auf \verb|double|, nämlich \verb|double*| und so weiter.
 Allgemein ist ein Zeiger eine Variable, die eine als Wert Adresse zusammen mit einem Datentyp speichert.
-Wir demonstrieren die Nützlichkeit von Zeigern zunächst an einem Beispiel
-Wir definieren eine Funktion, die zwei Parameter \verb|a, b| übergeben bekommt und diese um eins erhöht.
+Wir demonstrieren die Nützlichkeit von Zeigern zunächst an einem Beispiel.
+Wir definieren eine Funktion, die zwei Parameter \verb|a, b| übergeben bekommt und diese jeweils um eins erhöht.
 Anschließend sollen diese beiden neuen Werte zurückgegeben werden.
 
 Ein Weg, um dies zu tun, ist das sogenannte \emph{call by reference}.
@@ -64,12 +64,11 @@ void increment(int a, int b)
 int main()
 {
   int a = 2, b = 3;
-  int ret = 0;
   printf("Wert vor der Funktion a=%d, b=%d\n", a, b);
-  ret = increment(a, b); // die Variablen in unserem Block werden
+  increment(a, b); // die Variablen in unserem Block werden
                          // nicht veraendert!
   printf("Wert nach der Funktion a=%d, b=%d\n", a, b);
-  return ret;
+  return 0;
 }
 \end{lstlisting}
 Der Grund ist, dass in der Funktion \verb|increment| neue Variablen \verb|a|, \verb|b| angelegt werden, die nur in der Funktion selbst sichtbar sind.
@@ -92,12 +91,11 @@ void increment(int *a, int *b)
 int main()
 {
   int a = 2, b = 3;
-  int ret = 0;
   printf("Wert vor der Funktion a=%d, b=%d\n", a, b);
-  ret = increment(&a, &b); // die Variablen in unserem Block werden
+  increment(&a, &b); // die Variablen in unserem Block werden
                            // direkt veraendert!
   printf("Wert nach der Funktion a=%d, b=%d\n", a, b);
-  return ret;
+  return 0;
 }
 \end{lstlisting}
 Die Funktion bekommt also zwei Parameter vom Typ \verb|int*|, also Zeiger auf \verb|int|.
@@ -139,49 +137,56 @@ int-ptr.c:7:14: Warnung: Initialisierung erzeugt Zeiger
 \end{verbatim}
 Wenn der Compiler sich hier nicht beschwert, sollte man die Dokumentation studieren, um heraus zu finden, wie man diesen Typ von Warnung anschalten kann, oder, wenn das nicht möglich ist, den Compiler wechseln.
 
+\subsection{Zeiger und Felder}
 
-
-
-Zeiger sind in C doppelt wichtig, denn das wichtige Konstrukt von Feldern wird mit Hilfe von Zeigern realisiert.
-Für unser Sortierbeispiel möchten wir beispielsweise nicht $n$ Variablen mit verschiedenen Namen \verb|a1|, \verb|a2|, ... deklarieren.
-Das wäre nicht nur ästetisch unschön, sondern auch extrem unpraktisch.
-Wie sollte man diese Variablennamen zum Beispiel in einer Schleife in Abhängigkeit von der Schleifenvariablen ansprechen?
-Deshalb stellt C Felder, sogenannte \emph{arrays} zur Verfügung.
-Normalweise wenn wir Zahlen sortieren möchten, möchten wir nicht jede Zahl, als
-ein einzige Variable definieren. Für diesem Fall gibt uns die Sprache die Arrays
-als Struktur. Die Arrays bestehen aus mehreren nacheinanderstehenden elementaren
-Variablen mit den gleichen Datatypen. Für Indizierung verwendet man
-die eckige Klammern.
-
-\begin{myblock}{Definition \texttt{Array}}
-    Ein Array ist eine Sammlung von Datenelementen vom gleichen Typ. Die
-    Indizierung des Arrays geschieht mit positiven ganzen Zahlen von 0 bis
-    Länge $N$ des Arrays minus eins, also $[0, N)$.
-\end{myblock}
-
-Die Länge des Arrays muss zur Zeit der Übersetzung (Kompilierung) bekannt sein.
-Im Beispiel sieht das wie folgt aus:
+Wie schon im Abschnitt über Felder angedeutet sind Felder und Zeiger in \texttt{C} eng verwandt.
+Nehmen wir an, es wurde ein Feld wie oben eingeführt deklariert
 \begin{lstlisting}
-#include <stdio.h>
+  int n[] = {1, 2, 3, 4, 5};
+\end{lstlisting}
+Dann ist die variable \verb|n| vom Typ \verb|int *|, also Zeiger auf \verb|int|.
+Das bedeutet, folgendes ist korrekter \texttt{C} Quelltext
+\begin{lstlisting}
+  int n[] = {1, 2, 3, 4, 5};
+  int * p = n;
+\end{lstlisting}
+und auch die folgenden zwei Funktionsdeklarationen sind äquivalent
+\begin{lstlisting}
+  void f1(int * a, const int n);
+  void f2(int a[], const int n);
+\end{lstlisting}
+Daraus folgt auch, dass ein Feld in \texttt{C} immer \emph{by reference} übergeben wird.
+Wird in Funktion \texttt{f1} oder \texttt{f2} in das Feld \texttt{a} geschrieben, so wird das original Feld aus dem aufrufenden Quelltext Block modifiziert.
+Obiges Beispiel kann man also auch wie folgt schreiben:
+\begin{lstlisting}
+  #include <stdio.h>
+// einfache Funktion um a,b um 1 zu erhoehen
+void increment(int *a, const int n)
+{
+  for(int i = 0; i < n; i++) {
+    a[i]++;
+  }
+  return;
+}
 
 int main()
 {
-  const int n = 4;
-  int array1[] = {1, 2, 3, 4}; // Deklaration und Initialisierung
-  int array2[n]; // Deklaration, nicht initialisiert
-  array2[0] = 1; // Zuweisung einzelner Elemente
-  array2[1] = 2;
-  array2[2] = 3;
-  array2[3] = 4;
+  int a[] = {2, 3};
+  printf("Wert vor der Funktion a[0]=%d, a[1]=%d\n", a[0], a[1]);
+  increment(a, 2); // die Variablen in unserem Block werden
+                           // direkt veraendert!
+  printf("Wert nach der Funktion a[0]=%d, a[1]=%d\n", a[0], a[1]);
   return 0;
 }
 \end{lstlisting}
-Hierbei wurden zwei \texttt{int} Arrays erzeugt.
-Beide haben die Länge 4.
-Die Länge des zweiten Arrays wurde mithilfe einer konstanten Variablen angegeben.
-Alternativ kann man auch direkt 4 schreiben.
-Auf die einzelnen Elemente des Arrays wird mit Hilfe des \verb|[]| Operators zugegriffen.
-Man beachte, dass die Indizes bei $0$ anfangen, und bis $3$, also Länge des Arrays minus 1, laufen.
+Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren.
+Will man nur die Elemente des Feldes konstant lassen, so schreibt man
+\begin{lstlisting}
+  void f(const int * a, const int n);
+\end{lstlisting}
+
+
+Zeiger sind in C doppelt wichtig, denn das wichtige Konstrukt von Feldern wird mit Hilfe von Zeigern realisiert.
 
 Die Benutzung von Arrays wird in folgendem Beispiel illustriert:
 \begin{myexampleprogram}{Beispiel: Berechnung des Mittelwerts und der Varianz}
@@ -230,6 +235,9 @@ double var = xsq / (double)size - mean * mean;
 printf("Die Varianz ist %e\n", var);
 \end{lstlisting}
 \end{myexampleprogram}
+
+\subsection{Die Parameter der \texttt{main} Funktion}
+
 An dieser Stelle können wir jetzt auch die möglichen Parameter der Funktion \verb|main| einführen.
 Die ist nämlich allgemein wie folgt definiert:
 \begin{lstlisting}
@@ -323,21 +331,6 @@ int main()
 
   Dieses Beispiel hätten wir natürlich auch ohne Arrays durchführen können, aber es illustriert deren Benutzung.
 \end{myexampleprogram}
-
-Zum Indexoperator \verb|[]| ist es sehr wichtig zu wissen, dass dabei nicht überprüft wird, ob der Index größer ist, als die Länge des Arrays.
-Folgendes geht also im Prinzip
-\begin{lstlisting}
-int list[5];
-int i = 5;
-list[i] = 3;
-\end{lstlisting}
-und wird vom Compiler übersetzt.
-Im besten Fall erhält man dann bei der Ausführung dieses Codes einen \emph{segmentation fault}.
-Im schlechtesten Fall ist \verb|list[5]| Speicher, auf den das Programm zugreifen kann.
-Dann erhält man keinen Laufzeitfehler und modifiziert ungewollt Speicher, den man nicht modifizieren will.
-Dies kann zu sehr seltsamem Verhalten des Programms führen, und das Finden eines solchen Fehlers ist sehr schwierig.
-Deshalb sollte man Indizierungen immer mit großer Sorgfalt überprüfen.
-
 
 \subsection{Zeigerarithmetik}
 
