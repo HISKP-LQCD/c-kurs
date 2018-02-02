@@ -5,7 +5,7 @@
 
 Wie schon angedeutet werden Daten in C in Variablen bzw. Objekten gespeichert.
 Auch dies ist am einfachsten an Hand eines Beispiels zu verstehen
-\begin{lstlisting}{Erste Variablendeklaration und -zuweisung}
+\begin{lstlisting}[caption={Erste Variablendeklaration und -zuweisung}, belowcaptionskip=0.3em]
 #include <stido.h>
 
 int main()
@@ -19,7 +19,7 @@ int main()
 Im Vergleich zu unserem letzten Beispiel sind zwei Zeilen hinzugekommen. 
 \begin{itemize}
 \item \texttt{int n;}\\
-  Diese Anweisung stellt eine Deklaration dar. 
+  Diese Anweisung stellt eine Deklaration dar.\index{Variable!Deklaration}\index{Variable!Definition}
   Sie teilt dem Compiler mit, ab jetzt den entsprechenden Speicherplatz für eine ganze Zahl vom Typ \texttt{int} bereitzustellen, also $4$ byte.
   Außerdem kennt der Compiler ab jetzt den Namen \texttt{n} innerhalb des Blockes, der durch \texttt{\{\}} begrenzt wird.
   Streng genommen findet gleichzeitig auch eine Definition statt, weil der entsprechende Speicherplatz reserviert wird. 
@@ -30,7 +30,7 @@ Im Vergleich zu unserem letzten Beispiel sind zwei Zeilen hinzugekommen.
   Diese Anweisung stellt eine Zuweisung dar.
   Der Variable \texttt{n} wird der Wert $4$ zugewiesen.
   An der entsprechenden Stelle im Speicher wird dieser Wert abgelegt.
-  Bei einer Definition führt C keine Initialisierung durch.
+  Bei einer Definition führt C keine Initialisierung durch.\index{Variable!Initialisierung}
   Nach der reinen Definition (ohne Zuweisung) ist der Wert der Variablen \texttt{n} also rein zufällig.
 \end{itemize}
 Wie oben ersichtlich, haben Variablen einen Sichtbarkeitsbereicht und damit auch eine Lebensdauer.
@@ -39,7 +39,7 @@ Deklariert man in einem Unterblock eine Variable mit dem Namen einer Variablen a
 In unserem Beispiel von oben heißt das, dass die Variable \texttt{n} nur in der Funktion \texttt{main} sichtbar ist. 
 Es ist wichtig, dass jeder Benutzung einer Variablen, beispielsweise in einer Zuweisung, die Deklaration der Variablen vorangehen muss.
 Deklaration und Zuweisung können auch in einer Anweisung geschehen, man kann also auch
-\begin{lstlisting}{Erste Variablendeklaration und -zuweisung: Variante 2}
+\begin{lstlisting}[caption={Erste Variablendeklaration und -zuweisung: Variante 2}, belowcaptionskip=0.3em]
 #include <stido.h>
 
 int main()
@@ -58,7 +58,7 @@ Sie sind in allen Funktionen, die nach der globalen Deklaration definiert werden
 \subsection{Datentypen und Wertebereiche}
 
 Variablen haben immer einen Datentyp und einen Wert. 
-Der Datentyp entscheidet, welche Werte eine Variable annehmen kann und wie viel Arbeitsspeicher dafür reserviert wird.
+Der Datentyp entscheidet, welche Werte eine Variable annehmen kann und wie viel Arbeitsspeicher dafür reserviert wird.\index{Datentypen}
 In der Tabelle~\ref{tab:PPer} sind die elementaren C-Datentypen mit ihren Wertebereichen aufgelistet.
 
 \begin{table}[t]
@@ -95,12 +95,12 @@ long double& & &8 &  &  \\[1ex]
 
 C Compiler führen im Prinzip eine strenge Typenkontrolle durch.
 Das ist eine sehr nützliche Eigenschaft von Compilern, wenn es auch manchmal etwas mühsam ist. 
-Man kann dies durch einen expliziten \emph{cast} umgehen.
+Man kann dies durch einen expliziten \emph{cast} umgehen.\index{cast}\index{cast!explizit}
 Beispielsweise wandelt \texttt{int n=4; double x = (double)n;} die ganze Zahl \texttt{n} in eine Fließkommazahl mit \texttt{double} Genauigkeit um.
 Dafür sollte man aber sehr genau wissen, was man tut.
-Leider ist die Typenkontrolle vom Compiler abhängig und meist wird bei einer Zuweisung ein impliziter \emph{cast} durchgeführt, wenn nötig und möglich.
+Leider ist die Typenkontrolle vom Compiler abhängig und meist wird bei einer Zuweisung ein impliziter \emph{cast} durchgeführt, wenn nötig und möglich.\index{cast!implizit}
 Beispielsweise wird folgender Code ohne Beanstandung übersetzt
-\begin{lstlisting}{Ungenaue Variablenzuweisung, implizit cast}
+\begin{lstlisting}[caption={Ungenaue Variablenzuweisung, implizit cast}, belowcaptionskip=0.3em]
 #include <stido.h>
 
 int main()
@@ -119,6 +119,7 @@ Dies macht es möglich, dass der Compiler Fehler in der Nutzung von Datentypen f
 
 \subsection{C Schlüsselwörter und Regeln für Namen}
 
+\index{Schlüsselwörter}
 Es gibt einige Regeln für die Namen von Objekten in C. 
 C eigene Schlüsselworte, wie z.B. \texttt{main} dürfen nicht verwendet werden.
 Auch dürfen die Namen nicht mit einer Zahl beginnen, auch wenn Zahlen generell erlaubt sind.
@@ -151,7 +152,7 @@ Bei folgenden Wörtern handelt es sich um C99 Schlüsselworte:\\
 \subsection{Konstanten}
 
 C erlaubt auch, Variablen als konstant zu deklarieren. 
-Dies bedeutet, dass sich der einmal zugewiesene Wert einer solchen als \verb|const| deklarierten Variablen nicht ändern darf.
+Dies bedeutet, dass sich der einmal zugewiesene Wert einer solchen als \verb|const| deklarierten Variablen nicht ändern darf.\index{\texttt{const}}
 Im Quelltext sieht das wie folgt aus
 \begin{lstlisting}
 const int n = 5;
@@ -163,17 +164,18 @@ Im Allgemeinen sollte man \verb|const| immer verwenden, wenn die Variable sich n
 
 \subsection{Operatoren}
 
+\index{Operator}
 Variablen können mit Hilfe von Operationen manipuliert werden.
 Natürlich hängt es vom Variablentyp ab, welche Operationen dafür definiert sind.
 Man unterscheidet drei verschiedene Typen von Operationen:
 \begin{itemize}
-\item Infix:\\
+\item Infix:\index{Operator!Infix}\\
   Der Operator steht zwischen den Variablen. Zum Beispiel: \verb|a+b|. 
   Dieser Ausdruck nimmt die jeweiligen Werte von \verb|a| und \verb|b|, summiert sie und gibt das Ergebnis zurück.
-\item Präfix:\\
+\item Präfix:\index{Operator!Präfix}\\
   Der Operator steht vor der Variablen. Zum Beispiel: \verb|++a|. 
   Dieser Ausdruck erhöht den Wert von \verb|a| um $1$ und gibt danach den neuen Wert von \verb|a| zurück.
-\item Postfix:\\
+\item Postfix:\index{Operator!Postfix}\\
   Der Operator steht nach der Variablen. Zum Beispiel: \verb|a--|. 
   Dieser Ausdruck reduziert den Wert von \verb|a| um $1$, aber gibt den originalen Wert vom \verb|a| zurück.
 \end{itemize}
@@ -191,21 +193,21 @@ int main()
   return 0;
 }
 \end{lstlisting}
-In diesem Beispiel wird zunächst eine Variable \texttt{a} mit dem Wert $2$ initialisiert. 
+In diesem Beispiel wird zunächst eine Variable \texttt{a} mit dem Wert $2$ initialisiert.\index{\texttt{++}}
 Dann nutzen wir die Funktion \texttt{printf}, um den Wert der Variablen bzw. von Ausdrücken auszugeben. 
 Das erste Argument von \texttt{printf} ist immer ein String, also eine Zeichenkette.
 Diese Zeichenkette wird unverändert in den standard output kopiert.
 Die Ausnahme sind Zeichenfolgen, die mit einem Prozentzeichen \% beginnen.
-Die auf das \% folgenden Zeichen werden von \texttt{printf} in bestimmter Weise interpretiert.
+Die auf das \% folgenden Zeichen werden von \texttt{printf} in bestimmter Weise interpretiert.\index{\texttt{printf}}
 \verb|%d| beispielsweise steht für eine ganze Zahl vom Typ \texttt{int}. 
 Bei genau einem \% in der Zeichenkette erwartet \texttt{printf} dann genau eine Variable als zweiten Parameter nach der Zeichenkette vom entsprechenden Typ, hier also vom Typ \texttt{int}.
 Man kann sich leicht überlegen, dass obiges Programm die Zahlenfolge $2,3,4,4$ ausgibt.
 
-Im Allgemeinen gibt es drei verschiedene Typen von Operatoren
+In Bezug auf die Anzahl ihrer Argumente gibt es drei verschiedene Typen von Operatoren
 \begin{itemize}
 \item binäre Operatoren: Operatoren mit zwei Argumenten, wie z.B. \verb|+|.
 \item unäre Operatoren: Die Operatoren haben nur ein Argument, wie z.B. \verb|++|.
-\item trinäre Operatoren: Operatoren mit drei Argumenten. In C gibt es davon nur einen, nämlich \verb|?:|.
+\item trinäre Operatoren: Operatoren mit drei Argumenten. In C gibt es davon nur einen, nämlich \verb|?:|.\index{\texttt{\?:}}
 \end{itemize} 
 Neben arithmetischen Operatoren gibt es auch noch solche, die bit--weise wirken. 
 Außerdem gibt es logische Operatoren.

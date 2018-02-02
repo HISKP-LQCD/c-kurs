@@ -15,6 +15,8 @@
 \usepackage{epsfig}
 \usepackage{pst-grad} % For gradients
 \usepackage{pst-plot} % For axes
+\usepackage{makeidx}
+
 
 \addtolength{\hoffset}{-1.5cm}
 \addtolength{\textwidth}{3cm}
@@ -41,7 +43,9 @@
   deletekeywords={...},            % if you want to delete keywords from the given language
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
-  frame=single,	                   % adds a frame around the code
+  %frame=single,	                   % adds a frame around the
+  %code
+  frame=none,	                   % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
   language=C,                      % the language of the code
@@ -56,10 +60,16 @@
   stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
   stringstyle=\color{mymauve},     % string literal style
   tabsize=2,	                   % sets default tabsize to 2 spaces
-  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  title=\lstname,                   % show the filename of files
+                                % included with \lstinputlisting; also
+  % try caption instead of title
+  belowcaptionskip=-1.0em,
+  belowskip=0em,
 }
 
 \usepackage{amssymb}
+
+\makeindex
 
 \newenvironment{myexampleblock}[1]{%
     \tcolorbox[beamer,%
@@ -112,8 +122,9 @@
 \input{dynamischespeicherverwaltung}
 \input{complexdatatypen}
 \input{dateinverarbeitung}
-\input{stapelspeicher}
-\input{endprojekt}
+%\input{stapelspeicher}
+%\input{endprojekt}
 
+\printindex
 
 \end{document}

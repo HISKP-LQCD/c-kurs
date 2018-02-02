@@ -6,6 +6,7 @@ Genauso, wie wir Felder an Funktionen uebergeben können, wollen wir auch Felder
 Dies geht in \texttt{C} nicht direkt, sondern nur über den Umweg von sogenannten Zeigern.
 Zeiger sind mit das mächtigste Sprachelement in \texttt{C}.
 Sie sind allerdings auch für jede Menge Verwirrung und Programmierfehler verantworlich.
+\index{Zeiger}
 
 \begin{figure}[h]
   \centering
@@ -20,7 +21,7 @@ Einerseits dem Typ der Variablen und andererseits der Speicheradresse, unter der
 C erlaubt Zugriff sowohl auf den Wert einer Variablen, als auch auf die Adresse, an der der Wert abgelegt ist.
 Unterschieden wird zwischen den beiden mit dem \verb|&| Operator.
 Für eine Variable \verb|n| repräsentiert \verb|n| den Wert und \verb|&n| die Speicheradresse.
-Bei \verb|&n| spricht man auch von Zeiger (\emph{pointer}) und bei \verb|&| vom Adressoperator.
+Bei \verb|&n| spricht man auch von Zeiger (\emph{pointer}) und bei \verb|&| vom Adressoperator.\index{Adressoperator}\index{\&}
 Mit Hilfe von \texttt{printf} kann man den Unterschied ausgeben
 \begin{lstlisting}
   int a = 5;
@@ -50,6 +51,7 @@ Wir definieren eine Funktion, die zwei Parameter \verb|a, b| übergeben bekommt 
 Anschließend sollen diese beiden neuen Werte zurückgegeben werden.
 
 Ein Weg, um dies zu tun, ist das sogenannte \emph{call by reference}.
+\index{call by reference}
 Was \textbf{nicht} funktioniert ist das folgende:
 \begin{lstlisting}
 #include <stdio.h>
@@ -73,11 +75,11 @@ int main()
 \end{lstlisting}
 Der Grund ist, dass in der Funktion \verb|increment| neue Variablen \verb|a|, \verb|b| angelegt werden, die nur in der Funktion selbst sichtbar sind.
 Sie haben also nichts mit den Variablen \verb|a|, \verb|b| in der Funktion \verb|main| gemein, außer dem Namen.
-Man spricht hier von \emph{call by value}, da die Variablen \verb|a, b| in der Funktion \verb|increment| mit den Werten der Variablen aus \verb|main| initialisiert werden.
+Man spricht hier von \emph{call by value}, da die Variablen \verb|a, b| in der Funktion \verb|increment| mit den Werten der Variablen aus \verb|main| initialisiert werden.\index{call by value}
 Deswegen liefern die \verb|printf| Aufrufe in den Zeilen 12 und 15 das gleiche Ergebnis.
 Denn die Variablen \verb|a|, \verb|b| in \verb|main| wurden nicht verändert.
 
-Bei \emph{call by reference} wird an Stelle des Wertes die Adresse übergeben.
+Bei \emph{call by reference} wird an Stelle des Wertes die Adresse übergeben.\index{call by reference}
 \begin{lstlisting}
 #include <stdio.h>
 // einfache Funktion um a,b um 1 zu erhoehen
@@ -104,7 +106,7 @@ Das geschieht unter der Annahme, dass dort eine Variable vom Typ \verb|int| abge
 Damit werden also direkt die Werte der Variable \verb|a, b| in \verb|main| verändert.
 
 Zeiger kann man genau wie andere Variablen nutzen (womit auch klar ist, dass man auch Zeiger auf Zeiger definieren kann).
-Folgendes Beispiel illustriert die Nutzung noch einmal, wobei \verb|NULL| der Nullzeiger ist:
+Folgendes Beispiel illustriert die Nutzung noch einmal, wobei \verb|NULL| der Nullzeiger ist:\index{\texttt{NULL}}
 \begin{lstlisting}
 #include <stdio.h>
 
@@ -122,7 +124,7 @@ In der siebten Zeile wird dann \verb|p| auf die Adresse von \verb|q| gesetzt.
 Damit liefert die Dereferenzierung von \verb|p|, also \verb|*p|, den Wert von \verb|q|.
 Zeigern dürfen nur gültige Adressen zugewiesen werden.
 Dies kann allerdings, bis auf Ausnahmen, nicht vom Compiler überprüft werden.
-Wenn doch keine gültige Adresse zugewiesen wurde, bekommt man bei Dereferenzierung den \emph{segmentation fault} als Laufzeitfehler.
+Wenn doch keine gültige Adresse zugewiesen wurde, bekommt man bei Dereferenzierung den \emph{segmentation fault} als Laufzeitfehler.\index{segmentation fault}
 Dieser Quelltext weist sehr wahrscheinlich eine ungültige Adresse zu:
 \begin{lstlisting}
 int *p = 42;
@@ -139,6 +141,7 @@ Wenn der Compiler sich hier nicht beschwert, sollte man die Dokumentation studie
 
 \subsection{Zeiger und Felder}
 
+\index{Feld}\index{array}
 Wie schon im Abschnitt über Felder angedeutet sind Felder und Zeiger in \texttt{C} eng verwandt.
 Nehmen wir an, es wurde ein Feld wie oben eingeführt deklariert
 \begin{lstlisting}
@@ -155,7 +158,7 @@ und auch die folgenden zwei Funktionsdeklarationen sind äquivalent
   void f1(int * a, const int n);
   void f2(int a[], const int n);
 \end{lstlisting}
-Daraus folgt auch, dass ein Feld in \texttt{C} immer \emph{by reference} übergeben wird.
+Daraus folgt auch, dass ein Feld in \texttt{C} immer \emph{by reference} übergeben wird.\index{call by reference}
 Wird in Funktion \texttt{f1} oder \texttt{f2} in das Feld \texttt{a} geschrieben, so wird das original Feld aus dem aufrufenden Quelltext Block modifiziert.
 Obiges Beispiel kann man also auch wie folgt schreiben:
 \begin{lstlisting}
@@ -179,74 +182,24 @@ int main()
   return 0;
 }
 \end{lstlisting}
-Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren.
+Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren.\index{\texttt{const}}
 Will man nur die Elemente des Feldes konstant lassen, so schreibt man
 \begin{lstlisting}
   void f(const int * a, const int n);
 \end{lstlisting}
 
 
-Zeiger sind in C doppelt wichtig, denn das wichtige Konstrukt von Feldern wird mit Hilfe von Zeigern realisiert.
-
-Die Benutzung von Arrays wird in folgendem Beispiel illustriert:
-\begin{myexampleprogram}{Beispiel: Berechnung des Mittelwerts und der Varianz}
-  Die Berechnung des Mittelwerts einer Datenreihe ist ein gutes Beispiel für die Benutzung von Arrays.
-  Nehmen wir an, wir haben die folgend Daten gegeben:
-\begin{lstlisting}
-double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9, 1.3, 1.4, 4.5,
-                 5.5, 5.3, 6.7, 2.1, 2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
-\end{lstlisting}
-  und wir wollen den Mittelwert dieser Daten berechnen.
-  Folgendes Program übernimmt diese Aufgabe:
-\begin{lstlisting}
-#include <stdio.h>
-
-int main()
-{
-  const int size = 20;
-  double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9, 1.3, 1.4, 4.5,
-                   5.5, 5.3, 6.7, 2.1, 2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
-
-  // initialisiere mean zu 0
-  double mean = 0.;
-  for (int i = 0; i < size; i++)
-    {
-      mean += data[i];
-    }
-  mean /= (double)size;
-  printf("Der Mittelwert ist %e\n", mean);
-  return (0);
-}
-\end{lstlisting}
-  Für die Varianz müssen wir auch noch die Quadrate aufsummieren.
-  Wir modifizieren dafür die Schleife wie folgt:
-\begin{lstlisting}
-double mean = 0., xsq = 0.;
-for (int i = 0; i < size; i++)
-  {
-    mean += data[i];
-    xsq += data[i] * data[i];
-  }
-mean /= (double)size;
-\end{lstlisting}
-  Die Varianz können wir dann wie folgt berechnen und ausgeben:
-\begin{lstlisting}
-double var = xsq / (double)size - mean * mean;
-printf("Die Varianz ist %e\n", var);
-\end{lstlisting}
-\end{myexampleprogram}
-
 \subsection{Die Parameter der \texttt{main} Funktion}
 
 An dieser Stelle können wir jetzt auch die möglichen Parameter der Funktion \verb|main| einführen.
-Die ist nämlich allgemein wie folgt definiert:
+Die ist nämlich allgemein wie folgt definiert:\index{\texttt{argc}}\index{\texttt{argv}}\index{\texttt{main}}
 \begin{lstlisting}
 int main(int argc, char *argv[])
 {
   return (0);
 }
 \end{lstlisting}
-An der Kommandozeile kann man dem Programm Parameter mitgeben.
+An der Kommandozeile kann man dem Programm Parameter übergeben.
 Die Funktion \verb|main| erhält diese in Form einer Zeichkette.
 Leerzeichen in dieser Zeichenkette werden als Trennzeichen interpretiert, so dass die Zeichenkette \verb|argc| Wörter enthält.
 Das erste Wort ist immer der Name der Programms.
@@ -268,20 +221,14 @@ liefert \verb|argc=3|, und \verb|argv[0] = "./main.exe"|, \verb|argv[1] = "3"| u
   Wir teilen das Interval $[0,1]$ in $N$ gleichlange Unterintervalle auf.
   Den jeweilige linke Punkt des Intervals nennen wir $x_i$, $i=0,...,N$, wobei $x_n-x_{n-1}=\Delta=\mathrm{const}$.
   Auf jedem Unterintervall approximieren wir die Funktion linear, wie in folgender Abbildung dargestellt ist:
-  \vspace{-5cm}
   \begin{center}
     %\begin{minipage}
-    \includegraphics[width=.8\linewidth]{trapez1.ps}
-%    \caption{Funktion $\drac{1}{1+x^2}$ und der Trapez-Regel\label{trapezrul}}
+    \includegraphics[width=.6\linewidth]{trapez1}
   \end{center}
-  \vspace{-6cm}
   In unserem Fall sind die Punkte wie folgt gegeben
   \begin{displaymath}
     x_i = i/N\,,\qquad i = 0, ..., N-1\,.
   \end{displaymath}
-
-  % TODO Put a proper bounding box!
-
   Definieren wir folgende Funktion
   \[
   f(x) = \frac{1}{1+x^2}\,,
@@ -360,7 +307,7 @@ for (int i = 0; i < 5; i++)
     plist++; // aequivalent zu plist = plist + 1; oder plist += 1;
   }
 \end{lstlisting}
-Mit unserer bisherigen Kenntnis des Operators \verb|++| würden wir erwarten, dass der Wert von \verb|plist| um eins erhöht wird.
+Mit unserer bisherigen Kenntnis des Operators \verb|++| würden wir erwarten, dass der Wert von \verb|plist| um eins erhöht wird.\index{Zeiger!\texttt{++}}\index{Zeiger!\texttt{*}}
 Das ist im Prinzip auch richtig, allerdings findet die Erhöhung in Einheiten der Länge des Typs, auf den der Zeiger zeigt.
 Und damit zeigt \verb|plist++| auf das nächste Element in der Liste \verb|list|.
 Denn C reserviert für \verb|int list[5];| einen zusammenhängenden Speicherbereich der fünffachen Länge von \verb|int|.
@@ -407,115 +354,115 @@ int main()
 Überlegen Sie sich, was obiges Programm als Ausgabe erzeugen wird, bevor Sie diesen Quelltext übersetzen und ausführen lassen.
 Die \verb|++| Operation auf einen Zeiger vom Typ \verb|int| ist in Abbildung~\ref{pointinc} illustriert.
 
-\begin{figure}[!ht]
-  \centering
-  % Generated with LaTeXDraw 2.0.8
-  % Sun Feb 26 08:55:41 CET 2017
-  % \usepackage[usenames,dvipsnames]{pstricks}
-  % \usepackage{epsfig}
-  % \usepackage{pst-grad} % For gradients
-  % \usepackage{pst-plot} % For axes
-  \scalebox{0.5} % Change this value to rescale the drawing.
-           {
-             \begin{pspicture}(0,-2.6)(33.6,2.62)
-
-               \pscustom[linewidth=0.04]
-                        {
-                          \newpath
-                          \moveto(4.5,0.5)
-                          %\lineto(7.5,1.5)
-                          \curveto(4.5,1.5)(9.0,3.)(13.5,0.5)
-                        }
-                        \psline[linewidth=0.04cm](12.9,1.2)(13.5,0.5)
-                        \psline[linewidth=0.04cm](12.8,0.6)(13.5,0.5)
-
-                        \rput(8.5,2.4){\LARGE *Pointer}
-
-
-                        \psframe[linewidth=0.04,dimen=outer]( 3,-0.8)( 0.,-2.6)
-                        \rput(4.5,-2.9){0x7ffc3fa500aa}
-                        \rput(4.5,-1.49){0x7ffc3fa5bd20}
-                        \rput(4.5,0.0){\LARGE Pointer}
-
-                        \psframe[linewidth=0.04,dimen=outer]( 6,-0.8)( 3.,-2.6)
-                        \psframe[linewidth=0.04,dimen=outer]( 9,-0.8)( 6.,-2.6)
-                        \psframe[linewidth=0.04,dimen=outer](12,-0.8)( 9.,-2.6)
-                        \rput(13.5,-1.49){\LARGE 1}
-                        \psframe[linewidth=0.04,dimen=outer](15,-0.8)(12.,-2.6)
-                        \rput(13.5,-2.9){0x7ffc3fa5bd20}
-                        \rput(13.5,0.0){\LARGE sqnum[0]}
-
-
-                        \rput(16.5,-1.49){\LARGE 4}
-                        \psframe[linewidth=0.04,dimen=outer](18,-0.8)(15.,-2.6)
-                        \rput(16.5,-2.9){0x7ffc3fa5bd24}
-                        \rput(16.5,0.0){\LARGE sqnum[1]}
-
-
-                        \rput(19.5,-1.49){\LARGE 9}
-                        \psframe[linewidth=0.04,dimen=outer](21,-0.8)(18.,-2.6)
-                        \rput(19.5,-2.9){0x7ffc3fa5bd28}
-                        \rput(19.5,0.0){\LARGE sqnum[2]}
-
-
-                        \rput(22.5,-1.49){\LARGE 16}
-                        \psframe[linewidth=0.04,dimen=outer](24,-0.8)(21.,-2.6)
-                        \rput(22.5,-2.9){0x7ffc3fa5bd32}
-                        \rput(22.5,0.0){\LARGE sqnum[3]}
-             \end{pspicture}
-           }
-
-           \vspace{1cm}
-           \scalebox{0.5}{
-             \begin{pspicture}(0,-2.6)(33.6,2.62)
-
-               \pscustom[linewidth=0.04]
-                        {
-                          \newpath
-                          \moveto(4.5,0.5)
-                          %\lineto(7.5,1.5)
-                          \curveto(4.5,1.5)(11.5,3.)(16.5,0.5)
-                        }
-                        \psline[linewidth=0.04cm](16.3,1.2)(16.5,0.5)
-                        \psline[linewidth=0.04cm](15.5,0.6)(16.5,0.5)
-                        \rput(8.5,2.4){\LARGE *Pointer}
-
-
-                        \psframe[linewidth=0.04,dimen=outer]( 3,-0.8)( 0.,-2.6)
-                        \rput(4.5,-2.9){0x7ffc3fa500aa}
-                        \rput(4.5,-1.49){0x7ffc3fa5bd24}
-                        \rput(4.5,0.0){\LARGE Pointer}
-
-                        \psframe[linewidth=0.04,dimen=outer]( 6,-0.8)( 3.,-2.6)
-                        \psframe[linewidth=0.04,dimen=outer]( 9,-0.8)( 6.,-2.6)
-                        \psframe[linewidth=0.04,dimen=outer](12,-0.8)( 9.,-2.6)
-                        \rput(13.5,-1.49){\LARGE 1}
-                        \psframe[linewidth=0.04,dimen=outer](15,-0.8)(12.,-2.6)
-                        \rput(13.5,-2.9){0x7ffc3fa5bd20}
-                        \rput(13.5,0.0){\LARGE sqnum[0]}
-
-
-                        \rput(16.5,-1.49){\LARGE 4}
-                        \psframe[linewidth=0.04,dimen=outer](18,-0.8)(15.,-2.6)
-                        \rput(16.5,-2.9){0x7ffc3fa5bd24}
-                        \rput(16.5,0.0){\LARGE sqnum[1]}
-
-
-                        \rput(19.5,-1.49){\LARGE 9}
-                        \psframe[linewidth=0.04,dimen=outer](21,-0.8)(18.,-2.6)
-                        \rput(19.5,-2.9){0x7ffc3fa5bd28}
-                        \rput(19.5,0.0){\LARGE sqnum[2]}
-
-
-                        \rput(22.5,-1.49){\LARGE 16}
-                        \psframe[linewidth=0.04,dimen=outer](24,-0.8)(21.,-2.6)
-                        \rput(22.5,-2.9){0x7ffc3fa5bd32}
-                        \rput(22.5,0.0){\LARGE sqnum[3]}
-
-             \end{pspicture}
-           }
-           \caption{\label{pointinc} Illustration zur Inkrementieren eines Zeigers von Typ int. Oben vor der Inkrementierung, unten nach der Inkrementierung.}
-\end{figure}
+%\begin{figure}[!ht]
+%  \centering
+%  % Generated with LaTeXDraw 2.0.8
+%  % Sun Feb 26 08:55:41 CET 2017
+%% \usepackage[usenames,dvipsnames]{pstricks}
+%  % \usepackage{epsfig}
+%  % \usepackage{pst-grad} % For gradients
+%  % \usepackage{pst-plot} % For axes
+%  \scalebox{0.5} % Change this value to rescale the drawing.
+%           {
+%             \begin{pspicture}(0,-2.6)(33.6,2.62)
+%
+%               \pscustom[linewidth=0.04]
+%                        {
+%                          \newpath
+%                          \moveto(4.5,0.5)
+%                          %\lineto(7.5,1.5)
+%                          \curveto(4.5,1.5)(9.0,3.)(13.5,0.5)
+%                        }
+%                        \psline[linewidth=0.04cm](12.9,1.2)(13.5,0.5)
+%                        \psline[linewidth=0.04cm](12.8,0.6)(13.5,0.5)
+%
+%                        \rput(8.5,2.4){\LARGE *Pointer}
+%
+%
+%                        \psframe[linewidth=0.04,dimen=outer]( 3,-0.8)( 0.,-2.6)
+%                        \rput(4.5,-2.9){0x7ffc3fa500aa}
+%                        \rput(4.5,-1.49){0x7ffc3fa5bd20}
+%                        \rput(4.5,0.0){\LARGE Pointer}
+%
+%                        \psframe[linewidth=0.04,dimen=outer]( 6,-0.8)( 3.,-2.6)
+%                        \psframe[linewidth=0.04,dimen=outer]( 9,-0.8)( 6.,-2.6)
+%                        \psframe[linewidth=0.04,dimen=outer](12,-0.8)( 9.,-2.6)
+%                        \rput(13.5,-1.49){\LARGE 1}
+%                        \psframe[linewidth=0.04,dimen=outer](15,-0.8)(12.,-2.6)
+%                        \rput(13.5,-2.9){0x7ffc3fa5bd20}
+%                        \rput(13.5,0.0){\LARGE sqnum[0]}
+%
+%
+%                        \rput(16.5,-1.49){\LARGE 4}
+%                        \psframe[linewidth=0.04,dimen=outer](18,-0.8)(15.,-2.6)
+%                        \rput(16.5,-2.9){0x7ffc3fa5bd24}
+%                        \rput(16.5,0.0){\LARGE sqnum[1]}
+%
+%
+%                        \rput(19.5,-1.49){\LARGE 9}
+%                        \psframe[linewidth=0.04,dimen=outer](21,-0.8)(18.,-2.6)
+%                        \rput(19.5,-2.9){0x7ffc3fa5bd28}
+%                        \rput(19.5,0.0){\LARGE sqnum[2]}
+%
+%
+%                        \rput(22.5,-1.49){\LARGE 16}
+%                        \psframe[linewidth=0.04,dimen=outer](24,-0.8)(21.,-2.6)
+%                        \rput(22.5,-2.9){0x7ffc3fa5bd32}
+%                        \rput(22.5,0.0){\LARGE sqnum[3]}
+%             \end{pspicture}
+%           }
+%
+%           \vspace{1cm}
+%           \scalebox{0.5}{
+%             \begin{pspicture}(0,-2.6)(33.6,2.62)
+%
+%               \pscustom[linewidth=0.04]
+%                        {
+%                          \newpath
+%                          \moveto(4.5,0.5)
+%                          %\lineto(7.5,1.5)
+%                          \curveto(4.5,1.5)(11.5,3.)(16.5,0.5)
+%                        }
+%                        \psline[linewidth=0.04cm](16.3,1.2)(16.5,0.5)
+%                        \psline[linewidth=0.04cm](15.5,0.6)(16.5,0.5)
+%                        \rput(8.5,2.4){\LARGE *Pointer}
+%
+%
+%                        \psframe[linewidth=0.04,dimen=outer]( 3,-0.8)( 0.,-2.6)
+%                        \rput(4.5,-2.9){0x7ffc3fa500aa}
+%                        \rput(4.5,-1.49){0x7ffc3fa5bd24}
+%                        \rput(4.5,0.0){\LARGE Pointer}
+%
+%                        \psframe[linewidth=0.04,dimen=outer]( 6,-0.8)( 3.,-2.6)
+%                        \psframe[linewidth=0.04,dimen=outer]( 9,-0.8)( 6.,-2.6)
+%                        \psframe[linewidth=0.04,dimen=outer](12,-0.8)( 9.,-2.6)
+%                        \rput(13.5,-1.49){\LARGE 1}
+%                        \psframe[linewidth=0.04,dimen=outer](15,-0.8)(12.,-2.6)
+%                        \rput(13.5,-2.9){0x7ffc3fa5bd20}
+%                        \rput(13.5,0.0){\LARGE sqnum[0]}
+%
+%
+%                        \rput(16.5,-1.49){\LARGE 4}
+%                        \psframe[linewidth=0.04,dimen=outer](18,-0.8)(15.,-2.6)
+%                        \rput(16.5,-2.9){0x7ffc3fa5bd24}
+%                        \rput(16.5,0.0){\LARGE sqnum[1]}
+%
+%
+%                        \rput(19.5,-1.49){\LARGE 9}
+%                        \psframe[linewidth=0.04,dimen=outer](21,-0.8)(18.,-2.6)
+%                        \rput(19.5,-2.9){0x7ffc3fa5bd28}
+%                        \rput(19.5,0.0){\LARGE sqnum[2]}
+%
+%
+%                        \rput(22.5,-1.49){\LARGE 16}
+%                        \psframe[linewidth=0.04,dimen=outer](24,-0.8)(21.,-2.6)
+%                        \rput(22.5,-2.9){0x7ffc3fa5bd32}
+%                        \rput(22.5,0.0){\LARGE sqnum[3]}
+%
+%             \end{pspicture}
+%           }
+%           \caption{\label{pointinc} Illustration zur Inkrementieren eines Zeigers von Typ int. Oben vor der Inkrementierung, unten nach der Inkrementierung.}
+%\end{figure}
 
 An dieser Stelle müssen wir auf einen möglichen Fehler hinweisen.
 Folgender Quelltext wird vom Compiler anstandslos übersetzt
