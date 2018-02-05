@@ -1,4 +1,4 @@
-\section{Dateien verarbeiten}
+\section{Ein- und Ausgabe}
 
 Ein- und Ausgabe in Dateien, oder allgemein Ein- und Ausgabe auf Geräten ist nicht Teil von C selbst.
 Aber die Standardbibliothek stellt diese Funktionalität zur Verfügung.
@@ -47,7 +47,6 @@ Dies geht mit Hilfe der Funktion \verb|fopen|.
 \begin{lstlisting}
 FILE *fopen(const char *filename, char mode);
 \end{lstlisting}
-  \vspace{-0.4cm}
   Öffnet eine Datei. Dabei gibt \texttt{mode} an, für welchen Zweck die Datei geöffnet werden soll:
   \begin{itemize} 
     \itemsep0.5ex
@@ -64,7 +63,6 @@ Eine Datei, die mit \texttt{fopen} geöffnet wurde, muss mit \texttt{fclose} wie
 \begin{lstlisting}
 int fclose(FILE *stream);
 \end{lstlisting}
-  \vspace{-0.4cm}
   Der Rückgabewert ist \texttt{0}, wenn die Datei erfolgreich geschlossen werden konnte und \texttt{EOF}, wenn nicht.
 \end{myexampleblock}
 Nur, wenn \texttt{fclose} aufgerufen wurde ist sichergestellt, dass die Daten auch in die Datei geschrieben wurden.

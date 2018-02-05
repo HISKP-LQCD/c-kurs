@@ -5,6 +5,8 @@ Sie sind im \texttt{ANSI C} Standard festgelegt.
 Diejenige für die Ein- und Ausgabe haben wir schon kennengelernt.
 Wir werden jetzt noch zwei weitere kurz einführen.
 
+\subsection{Mathematische Bibliothek \texttt{math.h}}
+
 Erstens die Bibliothek \texttt{math.h}.
 Sie stellt mathematische Funktionen, wie beispielsweise trigonometrische Funktionen, aber auch eine Funktion für den Betrag zur Verfügung.
 Natürlich berechnen diese Funktionen das Ergebnis nur zur gewünschten Genauigkeit.
@@ -19,7 +21,7 @@ Die Funktion
 \end{lstlisting}
 berechnet den Cosinus in \texttt{double} Genauigkeit.
 Im folgenden Quelltext berechnen wir den Cosinus einmal mit Hilfe der Funktion aus \texttt{math.h} und einmal über die Reihenentwicklung, die wir zu einer angegebenen Ordnung abbrechen:
-\begin{lstlisting}{Beispiel Cosinus}
+\begin{lstlisting}[caption={Beispiel zur Verwendung des Cosinus}, belowcaptionskip=0.3em]
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -68,6 +70,8 @@ Man beachte, dass die standard Cosinus Funktion das Argument im Bogenmaß erwart
 Bei der Berechnung der Näherung müssen wir nicht in jedem Schritt die Potenz $x^{2i}$ und Fakultät $(2i)!$ neu berechnen, sonder müssen lediglich die Variablen \texttt{zaehler, nenner} entsprechend auffrischen.
 Dies ist ein generelles Konzept: Man verwendet mehr Speicher umd Rechnung zu sparen.
 
+\subsubsection{Übersetzen und Linken mit \texttt{math.h}}
+
 Das Programm kann man wie folgt übersetzen
 
 \vspace*{0.5cm}
@@ -112,10 +116,12 @@ In Tabelle~\ref{math} listen wir einige wichtige Funktionen auf, die \texttt{mat
   \caption{Einige Funktionen, die in \texttt{math.h} deklariert sind.\label{math}}
 \end{table}
 
-Als zweite Standardbibliothek weisen wir noch auf \texttt{complex.h} hin.
+\subsection{Komplexe Zahlen mit \texttt{complex.h}}
+
+Als zweite Standardbibliothek weisen wir noch auf \texttt{complex.h} hin.\index{\texttt{complex.h}}
 Sie stellt einen komplexen Datentyp zur Verfügung, der leider nicht Teil von C selbst ist.
-Die Benutzung ist dann aber gleich zu C Datentypen:
-\begin{lstlisting}
+Die Benutzung ist dann aber gleich zu C Datentypen, wie man an folgendem Beispiel sieht:\index{\texttt{I}}\index{\texttt{complex}}\index{\texttt{cexp}}\index{Datentypen!\texttt{complex}}\index{Datentypen!\texttt{double complex}}
+\begin{lstlisting}[caption={Beispiel für komplexe Zahlen}, belowcaptionskip=0.3em]
   #include <stdlib.h>
   #include <stdio.h>
   #include <math.h>
@@ -124,19 +130,27 @@ Die Benutzung ist dann aber gleich zu C Datentypen:
   int main(int argc, char *argv[])
   {
     double complex z,v,w;
-    
+
+    // I ist die rein komplexe Zahl i
     z = 1 + I*3;
     v = 0.3*I;
+    // komplexe Multiplikation
     w = z*v;
+    // Zugriff auf Real- und Imaginaerteile
     printf(``w = %e + i*%e\n'', creal(w), cimag(w));
+    // Anwendung der komplexe Exponetialfunktion
     z = cexp(w);
     printf(``w = %e + i*%e\n'', creal(z), cimag(z));
-    return(0);
+    return 0;
   }
 \end{lstlisting}
-In \texttt{math.h} sind wiederum die Funktionen aus Tabelle~\ref{math} für den Typ \texttt{double complex} definiert.
-Meistens unterscheiden sie sich von den reellwertigen Funktionen nur duch ein vorgestelltes \texttt{'c'}, wie zum Beispiel bei \texttt{cexp}.
+
+\subsubsection{Mathematische Funktionen für komplexe Zahlen}
+
+In \texttt{math.h} sind wiederum die Funktionen aus Tabelle~\ref{math} für den Typ \texttt{double complex} definiert.\index{\texttt{math.h}}
+Meistens unterscheiden sie sich von den reellwertigen Funktionen nur duch ein vorgestelltes \texttt{'c'}, wie zum Beispiel bei \texttt{cexp}.\index{\texttt{cexp}}
 Auf Real- und Imaginärteil kann mit \texttt{creal} und \texttt{cimag} zugegriffen werden.
 \texttt{complex.h} stellt auch Typen \texttt{float complex} und \texttt{long double complex} bereit.
 Die entsprechenden Exponentialfunktionen heißen dann \texttt{cexpf} und \texttt{cexpl}.
 Das komplex konjugierte erhält man mit \texttt{conj}, bzw. \texttt{conjf} und \texttt{conjl}.
+\index{\texttt{complex.h}}\index{\texttt{creal}}\index{\texttt{cimag}}\index{\texttt{conj}}

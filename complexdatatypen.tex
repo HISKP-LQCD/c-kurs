@@ -1,5 +1,8 @@
 \section{Komplexe Datentypen}
 
+\subsection{Eigene Datentypen mit \texttt{typedef}}
+
+\index{\texttt{typedef}}
 Je nach Problemstellung ist es manchmal sehr hilfreich, Datenstrukturen selbst erzeugen zu können.
 C bietet dafür die Möglichkeit, und zwar auf verschiedene Weisen.
 Zunächst kann man in C einen neuen Typ definieren, z.B. einen eigenen Typ für reelle Zahlen:
@@ -23,6 +26,9 @@ typedef double real;
 \end{lstlisting}
 ersetzt.
 
+\subsection{Zusammengesetzte Datentypen}
+
+\index{\texttt{struct}}
 Eine weitere Art, einen neuen Datentyp zu definieren, ist zusammengesetzte Datentypen zu definieren.
 Ein einfaches mathematisches Beispiel ist eine Datentyp für komplexe Zahlen.
 Eine komplexe Zahl muss dabei eine Real- und Imaginärteil haben.
@@ -30,47 +36,56 @@ Genau für solche Fälle stellt C die Möglichkeit zur Verfügung, zusammengeset
 Das entsprechende Schlüsselwort ist \verb|struct|.
 Solche zusammengesetzten Datentypen in C kann man sich wie Kontainer vorstellen.
 Die allgemeine Benutzung von \verb|struct| ist wie folgt:
-\begin{myalertblock}{Deklaration eines struct}
 \begin{lstlisting}
-struct name
+  struct name
+  {
+    Type1 name1;
+    Type2 name2;
+    Type3 name3;
+    ...
+  };
+\end{lstlisting}
+Die Verwendung als Typ für eine Variable:
+\begin{lstlisting}
+  struct name variablename;
+\end{lstlisting}
+Als Beispiel betrachten wir einen Datentyp für kartesiche Koordinaten mit $x$, $y$ und $z$ Komponente.
+Der Datentyp wird wie folgt definiert:
+\begin{lstlisting}
+struct coord
 {
-  Type1 name1;
-  Type2 name2;
-  Type3 name3;
-  ...
+  double x, y, z;
 };
 \end{lstlisting}
-  \vspace{-0.4cm}
-  Die Verwendung als Typ für eine Variable:
-\begin{lstlisting}
-struct name variablename;
-\end{lstlisting}
-  \vspace{-0.4cm} 
-\end{myalertblock}
-Ein solcher Kontainer für komplexe Zahlen könnte also wie folgt aussehen:
-\begin{lstlisting}
-struct cmplx
-{
-  double re, im;
-};
-\end{lstlisting}
-mit zwei \verb|double| Elementen für den Real- und den Imaginärteil. 
+mit drei \verb|double| Elementen für den $x$, $y$ und $z$ Komponente.
 Der Zugriff auf die einzelnen Elemente erfolgt über den Namen des \verb|struct| und den Namen des Elements, getrennt durch einen Punkt.
-In unserem Beispiel für komplexe Zahlen also 
+Für den allgemeinen Fall also wie folgt:
+\begin{lstlisting}
+  struct name
+  {
+    Type1 name1;
+    Type2 name2;
+    Type3 name3;
+    ...
+  };
+  name.name1 = value;
+\end{lstlisting}
+In unserem Beispiel für den Koordinatentyp sieht dies wie folgt aus
 \begin{lstlisting}
 #include <stdio.h>
 
-struct cmplx
+struct coord
 {
-  double re, im;
+  double x, y, z;
 };
 int main()
 {
-  struct cmplx z;
-  z.re = 1.0;
-  z.im = 3.4;
-  printf("z hat Realteil %e und Imaginaerteil %e\n", z.re, z.im);
-  return (0);
+  struct coord r;
+  r.x = 1.0;
+  r.y = 3.4;
+  r.z = -0.55;
+  printf("r hat Koordinaten (%e, %e, %e)\n", r.x, r.y, r.z);
+  return 0;
 }
 \end{lstlisting}
 Also, allgemein gesprochen greift man auf die Elemente über 
@@ -80,55 +95,81 @@ structname.elementname = wert;
 zu.
 Elemente können selbst wieder ein \verb|struct| sein.
 Einen Unterschied gibt es beim Zugriff auf Elemente, wenn man einen Zeiger auf einen \verb|struct| benutzt.
-Dort kann man direkt mit dem Pfeil Operator \verb|->| auf die Elemente zugreifen, also etwas
+Dort kann man direkt mit dem Pfeil Operator \verb|->| auf die Elemente zugreifen:
 \begin{lstlisting}
 #include <stdio.h>
 
-struct cmplx
+struct corrd
 {
-  double re, im;
+  double x, y, z;
 };
 int main()
 {
-  struct cmplx z;
-  struct cmplx *v = &z;
-  v->re = 1.0;
-  v->im = 3.4;
-  printf("z hat Realteil %e und Imaginaerteil %e\n", v->re, v->im);
-  return (0);
+  struct coord r;
+  struct coord *v = &r;
+  v->x = 1.0;
+  v->y = 3.4;
+  v->z = -0.55
+  printf("r hat Koordinaten (%e, %e, %e)\n", v->x, v->y, v->z);
+  return 0;
 }
 \end{lstlisting}
 Elemente eines \verb|struct| können natürlich auch Zeiger sein.
 Allerdings muss dann Speicher außerhalb der Deklaration des \texttt{struct} reserviert werden.
 
-Die Verwendung von \verb|struct| ist sehr hilfreich, wenn beispielsweise eine Liste von logisch zusammengehörigen Daten bearbeiten soll, also etwa den Real- und Imaginärteil.
+\subsection{Zusammengesetzter Datentyp für karthesische Koordinaten}
+
+Die Verwendung von \verb|struct| ist sehr hilfreich, wenn beispielsweise eine Liste von logisch zusammengehörigen Daten bearbeiten soll.
 Es muss dann nicht mehr jedes Element einzeln übergeben werden, sondern nur noch einmal der Kontainer.
 Der Zusammenhang der einzelnen Elemente bleibt damit erhalten.
+Man könnte nun beispielsweise eine Funktion für die Quadratnorm einer Koordinate wie folgt schreiben:
+\begin{lstlisting}
+#include <stdio.h>
 
+struct coord
+{
+  double x, y, z;
+};
+double sqnorm(struct coord r) {
+  return(r.x*r.x + r.y*r.y + r.z*r.z);
+}
+
+int main()
+{
+  struct coord r;
+  r.x = 1.0;
+  r.y = 3.4;
+  r.z = -0.55;
+  printf("r hat Quadratnorm %e\n'', sqnorm(r));
+  return 0;
+}
+\end{lstlisting}
 Mit einem \verb|struct| wird ebenfalls einer neuer Typ bereitgestellt.
-Der entsprechende Name enthält aber immer das Schlüsselwort \verb|struct|, in unserem Fall \verb|struct cmplx|. 
+Der entsprechende Name enthält aber immer das Schlüsselwort \verb|struct|, in unserem Fall \verb|struct coord|. 
 Man kann einen \verb|struct| mit einem \verb|typedef| kombinieren, um nicht immer \verb|struct| schreiben zu müssen.
 Im Quelltext sähe das so aus:
 \begin{lstlisting}
-struct cmplx
+struct coord
 {
-  double re, im;
+  double x, y, z;
 };
-typedef struct cmplx cmplx;
+typedef struct coord coord;
 \end{lstlisting}
-Das sieht etwas verwirrend aus, weil \verb|cmplx| zweimal auftaucht.
-Aber der Ausdruck wird klar, wenn man sich erinnert, dass \verb|struct cmplx| im Prinzip ein Typ ist.
-Und damit ist der Name \verb|cmplx| noch nicht vergeben.
+Das sieht etwas verwirrend aus, weil \verb|coord| zweimal auftaucht.
+Aber der Ausdruck wird klar, wenn man sich erinnert, dass \verb|struct coord| im Prinzip ein Typ ist.
+Und damit ist der Name \verb|coord| noch nicht vergeben.
 Die etwas gebräuchlichere Art obiger Typdefinition geht über die Möglichekeit eines anonymen \verb|struct|.
 Man kann nämlich auch schreiben:
 \begin{lstlisting}
 typedef struct
 {
-  double re, im;
-} cmplx;
+  double x, y, z;
+} coord;
 \end{lstlisting}
-Damit ist natürlich \verb|struct cmplx| nicht definiert, aber man kann \verb|cmplx| wie einen C Typ verwenden.
-\textbf{Bemerkung:} Die C Standardbibliothek stellt einen Typ für komplexe Zahlen zu Verfügung.
+Damit ist natürlich \verb|struct coord| nicht definiert, aber man kann \verb|coord| wie einen C Typ verwenden.
+
+
+\endinput
 
 Ein Beispiel aus der C Standardbibliothek \verb|time.h| ist das \verb|struct tm| für Datum und Zeit:
 \begin{lstlisting}
@@ -150,7 +191,6 @@ Damit kann über die Funktion
 \begin{lstlisting}
 time_t time(time_t *t)
 \end{lstlisting}
-  \vspace{-0.4cm}
   \verb|time| gibt die Zeit in Sekunden seit 1970-01-01 00:00:00 +0000 (UTC) zurück.
   Falls \verb|t| nicht \verb|NULL| ist, wird das Ergebnis zusätzlich in \verb|t| gespeichert.
   \verb|time_t| ist vom Typ \verb|long int|.
@@ -160,7 +200,6 @@ und die Funktion
 \begin{lstlisting}
 struct tm *localtime(time_t *timer);
 \end{lstlisting}
-  \vspace{-0.4cm}
   Eingabeparameter: Zeiger auf eine Variable vom Typ \verb|time_t|.
   Rückgabeparameter: Zeiger auf ein \verb|struct tm|.
 \end{myexampleblock}

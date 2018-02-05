@@ -1,7 +1,8 @@
 \section{Dynamische Speicherverwaltung}
-Mit den bisher eingeführten Grundlagen der Programmiersprache C kann man einfache Probleme lösen.
+
+Mit den bisher eingeführten Grundlagen der Programmiersprache \texttt{C} kann man einfache Probleme lösen.
 Das haben wir am Beispiel des Einfügesortierens gesehen.
-Im folgenden zweiten Teil werden wir versuchen, die Kenntnis von C zu vertiefen und zu erweitern.
+Im folgenden zweiten Teil werden wir versuchen, die Kenntnis von \texttt{C} zu vertiefen und zu erweitern.
 
 Dafür werden wir den Quelltext für das Sortieren von Zahlen in drei Richtungen versuchen zu verbessern:
 \begin{enumerate}
@@ -38,6 +39,7 @@ Der Speicher, der einem Programm zugeteilt ist, kann in zwei Kategorien untertei
   Diesen Teil haben wir bisher noch nicht benutzt, aber jedes Programm kann eine bestimmte Menge an dynamischen Speicherplatz nutzen.
   Allerdings muss man sich zur Laufzeit des Programms selbst um das Reservieren und Freigeben dieses Speichers kümmern.
 \end{enumerate}
+
 Wenn wir also in einem Programm zum Beispiel einen Zeiger
 \begin{lstlisting}
 int *list;
@@ -87,26 +89,27 @@ Dies ist in Abbildung~\ref{abmem} illustriert.
 \caption{\label{abmem} Illustration zu dynamischem und statischem Speicher eines Programms.}
 \end{figure}
 
+\subsection{Dynamische Speicherreservierung mit \texttt{malloc}}
+
+\index{\texttt{malloc}}
 Um Speicher dynamisch zu reservieren, nutzt man Funktionen aus der Standardbibliothek \verb|stdlib.h|.
 Das Reservieren erledigt die Funktion \verb|malloc|, was für \emph{memory allocation} steht.
 \verb|malloc| hat die folgenden Syntax:
 \begin{myexampleblock}{Definition \texttt{malloc}}
-\begin{lstlisting}
-void *malloc(size_t size);
-\end{lstlisting}
-  \vspace{-0.7cm}
+  \begin{lstlisting}
+    void *malloc(size_t size);
+  \end{lstlisting}
   Reserviert Speicherzellen von der Größe \verb|size| bytes.
-  \begin{itemize}
+  \begin{itemize} 
     \itemsep0.2pt
   \item Rückgabewert: Wenn die Reservierung erfolgreich war, einen Zeiger auf den Anfang des
     reservierten Speicherbereiches, andernfalls \verb|NULL|.
   \item Eingabeparameter \verb|size|: die Größe des zu reservierenden Speicherbereiches in bytes.
   \item Beispielcode:
-\begin{lstlisting}
-int *array = (int *)malloc(sizeof(int) * 10);
-\end{lstlisting}
+    \begin{lstlisting}
+      int *array = (int *)malloc(sizeof(int) * 10);
+    \end{lstlisting}
   \end{itemize}
-  \vspace{-0.7cm}
   Man beachte, dass der reservierte Speicherbereich mit der Funktion \verb|free| (siehe unten) wieder freigegeben werden muss, wenn er nicht mehr benötigt wird. 
   Ansonsten steht er für das Programm nicht mehr zur Verfügung.
   Am Ende des Programms wird aller vom Programm reservierte Speicher automatisch freigegeben.
@@ -121,23 +124,24 @@ Den Zeiger \verb|NULL| haben wir schon kennen gelernt.
 Daher ist es sehr wichtig bei jedem Aufruf von \verb|malloc| den Rückgabewert auf \verb|NULL| zu testen!
 Die Größe eine Typs in byte liefert die Funktion \verb|sizeof|.
 
+\subsection{Speicherfreigabe mit \texttt{free}}
+
+\index{\texttt{free}}
 Wie schon angedeutet, dynamisch reservierter Speicher muss wieder freigegeben werden, wenn er nicht mehr benötigt wird.
 Dafür gibt es die Funktion \verb|free|:
 \begin{myexampleblock}{Funktion Definition \texttt{free}}
-\begin{lstlisting}
-void free(void *memory);
-\end{lstlisting}
-  \vspace{-0.7cm}
+  \begin{lstlisting}
+    void free(void *memory);
+  \end{lstlisting}
   Gibt einen mit \verb|malloc| reservierten Speicherbereich wieder frei.
   \begin{itemize}
   \item Eingabeparameter: Zeiger auf einen Speicherbereich, der mit \verb|malloc| reserviert wurde.
   \item Beispiel:
-\begin{lstlisting}
-int *array = (int *)malloc(sizeof(int) * 10);
-free(array);
-\end{lstlisting}
+    \begin{lstlisting}
+      int *array = (int *)malloc(sizeof(int) * 10);
+      free(array);
+    \end{lstlisting}
   \end{itemize}
-  \vspace{-0.7cm}
 \end{myexampleblock}
 Wendet man \verb|free| auf einen Zeiger an, der nicht auf den Anfang eines mit \verb|malloc| reservierten Bereiches zeigt, so erhält man einen Laufzeitfehler.
 
