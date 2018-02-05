@@ -1,30 +1,37 @@
 \section{Ein- und Ausgabe}
 
-Ein- und Ausgabe in Dateien, oder allgemein Ein- und Ausgabe auf Geräten ist nicht Teil von C selbst.
+Ein- und Ausgabe in Dateien, oder allgemein Ein- und Ausgabe auf Geräten ist nicht Teil von \texttt{C} selbst.
 Aber die Standardbibliothek stellt diese Funktionalität zur Verfügung.
 Sie basiert auf dem Konzept von sogenannten \emph{streams}.
 Der Name kommt daher, dass Ein- und Ausgabe immer ein serieller Prozess ist.
 D.h., in Einheiten bestimmter kleinster Elemente werden die Daten sukzessive eingelesen oder ausgegeben.
 Man kann es sich also als einen Datenstrom vorstellen.
+Ein stream in \verb|stdio.h| ist immer vom Typ \verb|FILE*|.
+Die Syntax ist die gleiche, wie bei jedem Datentyp
+\begin{lstlisting}
+  FILE * mystream;
+\end{lstlisting}
+\index{\texttt{FILE}}\index{\texttt{stdio.h}}
 
-Ein Strom in \verb|stdio.h| ist immer vom Typ \verb|FILE*|.
-Es gibt einige vordefinierte streams:
+\subsection{Standard Ein- und Ausgabe}
+
+Es gibt einige vordefinierte streams, so genannte standard streams:
 \begin{enumerate}
-\item \verb|stdin| : Standardeingabe (haben wir schon implizit mit \texttt{scanf} verwendet) 
-\item \texttt{stdout} : Standardausgabe (haben wir schon implizit mit \texttt{printf} verwendet) 
-\item \texttt{stderr} : Standardfehler
+\item \verb|stdin| : Standardeingabe \index{\texttt{stdin}}
+\item \texttt{stdout} : Standardausgabe \index{\texttt{stdout}}
+\item \texttt{stderr} : Standardfehler \index{\texttt{stderr}}
 \end{enumerate} 
-Standard Ein- und Ausgabe haben wir schon implizit mit \texttt{scanf} und \texttt{printf} benutzt.
-Funktionen, die ebenfalls direkt auf \verb|stdin| und \texttt{stdout} arbeiten, sind \verb|getchar| and \verb|putchar|.
+Standard Ein- und Ausgabe haben wir schon implizit mit \texttt{scanf} und \texttt{printf} benutzt.\index{\texttt{scanf}}\index{\texttt{printf}}
+Funktionen, die ebenfalls direkt auf \verb|stdin| und \texttt{stdout} arbeiten, sind \verb|getchar| and \verb|putchar|.\index{\texttt{putchar}}\index{\texttt{getchar}}
 Sie lesen bzw. schreiben genau ein Zeichen von \verb|stdin| bzw. \texttt{stdout}.
 Ihre Deklaration in \verb|stdio.h| sieht wie folgt aus:
 \begin{lstlisting}
 int getchar();
 int putchar(int c);
 \end{lstlisting}
-In \verb|putchar| wird ein \emph{cast} von \verb|c| nach \verb|unsigned char| durchgeführt.
-\verb|getchar| liest ein Zeichen als \verb|unsigned char| vom \verb|stdin| und führt dann einen \emph{cast} nach \verb|int| durch.
-Damit kann man beispielsweise ein Programm schreiben, dass alle eingegenen Zeichen direkt wieder auf \texttt{stdout} ausgibt:
+In \verb|putchar| wird ein impliziter \emph{cast} von \verb|c| nach \verb|unsigned char| durchgeführt.\index{cast!implizit}
+\verb|getchar| liest ein Zeichen als \verb|unsigned char| vom \verb|stdin| und führt dann einen impliziten \emph{cast} nach \verb|int| durch.
+Damit kann man beispielsweise ein Programm schreiben, dass alle über die Standardeingabe eingegenen Zeichen direkt wieder auf die Standardausgabe \texttt{stdout} ausgibt:
 \begin{lstlisting}
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,39 +46,42 @@ int main()
   return (0);
 }
 \end{lstlisting}
-Wiederum wird solange eingelesen, bis das Sonderzeichen \verb|EOF| gefunden wird.
+Wiederum wird solange eingelesen, bis das Sonderzeichen \verb|EOF| gefunden wird.\index{\texttt{EOF}}
 
-Wenn wir direkt aus einer Datei lesen wollen, so müssen wir einen \emph{stream} bekanntmachen.
-Dies geht mit Hilfe der Funktion \verb|fopen|.
-\begin{myexampleblock}{Funktion: \texttt{fopen}}
+\subsection{Ausgabe in Dateien}
+
+Wenn wir direkt aus einer Datei lesen wollen, so müssen wir einen \emph{stream} bekanntmachen, der mit der Datei verbunden ist.
+Dies geht mit Hilfe der Funktion \verb|fopen|.\index{\texttt{fopen}}
+Man spricht vom Öffnen der Datei.
+Die Definition von \texttt{fopen} sieht wie folgt aus:
 \begin{lstlisting}
 FILE *fopen(const char *filename, char mode);
 \end{lstlisting}
-  Öffnet eine Datei. Dabei gibt \texttt{mode} an, für welchen Zweck die Datei geöffnet werden soll:
-  \begin{itemize} 
-    \itemsep0.5ex
-  \item \texttt{"w"}: Datei zum Schreiben öffnen. Wenn sie schon existiert, wird sie überschrieben. Wenn sie nicht existiert, wird die Datei erzeugt.
-  \item \texttt{"r"}: Öffnen einer Datei ausschließlich zum lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
-  \item \texttt{"{}a"}: Öffnen einer Datein zum Schreiben. Wenn sie schon existiert, wird am Ende der Datei hinzugefügt.
-  \item \texttt{"w+"}: Öffnen zum Schreiben und Lesen. Wenn die Datei schon existiert, wird sie überschrieben. Der \emph{stream} zeigt auf den Anfang der Datei.
-  \item \texttt{"r+"}: Öffnen einer Datei zum Schreiben und Lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
-  \item \texttt{"{}a+"}: Öffnen einer Datei zum Lesen und Hinzufügen. Zum Lesen zeigt der \emph{stream} auf den Anfang der Datei. Geschriebenes wird immer hinzugefügt.
-  \end{itemize}
-\end{myexampleblock}  
-Eine Datei, die mit \texttt{fopen} geöffnet wurde, muss mit \texttt{fclose} wieder geschlossen werden:
-\begin{myexampleblock}{Funktion: \texttt{fclose}}
+Dabei wird mit \texttt{filename} der Name der Datei als string übergeben.
+\texttt{mode} gibt an, für welchen Zweck die Datei geöffnet werden soll:
+\begin{itemize} 
+  \itemsep0.5ex
+\item \texttt{"w"}: Datei zum Schreiben öffnen. Wenn sie schon existiert, wird sie überschrieben. Wenn sie nicht existiert, wird die Datei erzeugt.
+\item \texttt{"r"}: Öffnen einer Datei ausschließlich zum lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
+\item \texttt{"{}a"}: Öffnen einer Datein zum Schreiben. Wenn sie schon existiert, wird am Ende der Datei hinzugefügt.
+\item \texttt{"w+"}: Öffnen zum Schreiben und Lesen. Wenn die Datei schon existiert, wird sie überschrieben. Der \emph{stream} zeigt auf den Anfang der Datei.
+\item \texttt{"r+"}: Öffnen einer Datei zum Schreiben und Lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
+\item \texttt{"{}a+"}: Öffnen einer Datei zum Lesen und Hinzufügen. Zum Lesen zeigt der \emph{stream} auf den Anfang der Datei. Geschriebenes wird immer hinzugefügt.
+\end{itemize}
+Eine Datei, die mit \texttt{fopen} geöffnet wurde, muss mit der Funktion \texttt{fclose} wieder geschlossen werden:\index{\texttt{fclose}}, die folgende Definition hat:
 \begin{lstlisting}
 int fclose(FILE *stream);
 \end{lstlisting}
-  Der Rückgabewert ist \texttt{0}, wenn die Datei erfolgreich geschlossen werden konnte und \texttt{EOF}, wenn nicht.
-\end{myexampleblock}
+Der Rückgabewert ist \texttt{0}, wenn die Datei erfolgreich geschlossen werden konnte und \texttt{EOF}, wenn nicht.
 Nur, wenn \texttt{fclose} aufgerufen wurde ist sichergestellt, dass die Daten auch in die Datei geschrieben wurden.
+
+\subsubsection{Formatierte Ein- und Ausgabe}
 
 Hat man einmal eine Datei geöffnet, muss man sich entscheiden, wie man sie ausliest oder in sie schreibt.
 Wir führen hier zunächst die sogenannte formatierte Ein- und Ausgabe ein.
 Dabei wird jedes gelesene Byte als ein ASCII Zeichen interpretiert.
 Wir haben diese Art von Ein- und Ausgabe bereits mit \verb|printf| und \verb|scanf| kennengelertn.
-Die Verallgemeinerung von \verb|scanf| für beliebige \emph{streams} ist \verb|fscanf|
+Die Verallgemeinerung von \verb|scanf| für beliebige \emph{streams} ist \verb|fscanf|\index{\texttt{prinft}}\index{\texttt{scanf}}\index{\texttt{fscanf}}
 \begin{lstlisting}
 int fscanf(FILE *stream, char *format, ...);
 \end{lstlisting}
@@ -194,9 +204,11 @@ Nach dem Aufruf enthält die Datei \verb|quadrats.txt| folgendes
 Die Spezifizierung \verb|%.6d| bedeutet, dass die ganze Zahl mit sechs Stellen ausgegeben werden soll.
 Dementsprechend werden führende Nullen hinzugefügt.
 
+\subsubsection{Nichtformatierte Ein- und Ausgabe}
+
 Formatierte Ausgabe ist sinnvoll, wenn die Dateien für Menschen lesbar sein sollen und wenn nicht viele Daten gespeichert werden müssen.
 Für den Fall von vielen Daten sollte man allerdings auf nichtformatierte Ausgabe zurückgreifen (manchmal auch als binäre Ausgabe bezeichnet).
-Dies kann man in C beispielsweise mit den Funktione \texttt{fread} und \texttt{fwrite} bewerkstelligen:
+Dies kann man in C beispielsweise mit den Funktione \texttt{fread} und \texttt{fwrite} bewerkstelligen:\index{\texttt{fread}}\index{\texttt{fwrite}}
 \begin{lstlisting}
 size_t fread(void *ptr, size_t size, size_t count, FILE *stream);
 size_t fwrite(const void *ptr, size_t size, size_t count, FILE *stream);
@@ -205,7 +217,7 @@ Dabei werden \verb|count*size| bytes direkt gelesen und im Speicherbereich abgel
 Beide Funktionen liefern die Anzahl der gelesen bzw. geschriebenen Elemente der Größe \verb|size| zurück.
 Um den Erfolg der Operationen zu testen, sollte man also prüfen, ob der Rückgabewert dem Wert der Variablen \verb|count| entspricht.
 
-Um mehrfach aus einer Datei lesen zu können, kann man mit 
+Um mehrfach aus einer Datei lesen zu können, kann man mit\index{\texttt{rewind}}\index{\texttt{fseek}}
 \begin{lstlisting}
 void rewind(FILE *stream)
 \end{lstlisting}
@@ -216,6 +228,7 @@ int fseek(FILE *stream, long int offset, int whence)
 zu einem bestimmten Punkt in der Datei gehen.
 Bei letzterer Funktion wir der \verb|offset| in Bytes relativ zu \verb|whence| gesetzt.
 \verb|whence| kann auf \verb|SEEK_SET|, \verb|SEEK_CUR| or \verb|SEEK_END| gesetzt werden, was Anfang, momentane Position oder Ende in der Datei bedeutet.
+\index{\texttt{SEEK\_SET}}\index{\texttt{SEEK\_CUR}}\index{\texttt{SEEK\_END}}
 Im folgenden ein Beispiel:
 \begin{lstlisting}
 #include <stdio.h>
@@ -278,5 +291,4 @@ int main()
 Die Datei wird zum Schreiben und Lesen geöffnet.
 Dabei wird eine eventuell existierende Datei gleichen Namens überschrieben.
 Danach werden die Quadrate von $i=1,...,n$ zuerst in die Datei geschrieben.
-Dann gehen wir wieder zum Anfang der Datei und lesen sie dann wieder ein.
-Die eingelesenen Zahlen werden dann auf der Kommandozeile ausgegeben.
+Anschließend wird die Datei wieder von Anfang gelesen und die eingelesenen Zahlen auf die Standardausgabe ausgegeben.

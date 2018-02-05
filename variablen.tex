@@ -1,10 +1,24 @@
 \section{Variablen}
 
+Wie schon angedeutet werden Daten in \texttt{C} in Variablen bzw. Objekten gespeichert.
+Variablen haben immer einen Typ, einen Namen und einen Wert.
+Namen und Typen von Variablen müssen dem Compiler bekannt gemacht werden.
 
-\subsection{Ein Beispiel}
+\subsection{Deklaration und Initialisierung}
 
-Wie schon angedeutet werden Daten in C in Variablen bzw. Objekten gespeichert.
-Auch dies ist am einfachsten an Hand eines Beispiels zu verstehen
+Dies geschieht bei der Deklaration von Variablen, die allgemein wie folgt aussieht\index{Variable!Deklaration}
+\begin{lstlisting}
+Datatype name;
+\end{lstlisting}
+Die Variable muss dann noch initialisiert werden
+\begin{lstlisting}
+name = value;
+\end{lstlisting}
+Es geht auch beides zusammen
+\begin{lstlisting}
+Datatype name = value;
+\end{lstlisting}
+Dies wird am folgenden Beispiel an Hand des ganzzahligen Datentyps \texttt{int} veranschaulicht
 \begin{lstlisting}[caption={Erste Variablendeklaration und -zuweisung}, belowcaptionskip=0.3em]
 #include <stido.h>
 
@@ -16,13 +30,13 @@ int main()
   return(0);
 }
 \end{lstlisting}
-Im Vergleich zu unserem letzten Beispiel sind zwei Zeilen hinzugekommen. 
+Im Einzelnen geschieht das folgende:
 \begin{itemize}
 \item \texttt{int n;}\\
   Diese Anweisung stellt eine Deklaration dar.\index{Variable!Deklaration}\index{Variable!Definition}
-  Sie teilt dem Compiler mit, ab jetzt den entsprechenden Speicherplatz für eine ganze Zahl vom Typ \texttt{int} bereitzustellen, also $4$ byte.
+  Sie teilt dem Compiler mit, ab jetzt den ent\-sprechenden Speicherplatz für eine ganze Zahl vom Typ \texttt{int} bereitzustellen, also $4$ byte.
   Außerdem kennt der Compiler ab jetzt den Namen \texttt{n} innerhalb des Blockes, der durch \texttt{\{\}} begrenzt wird.
-  Streng genommen findet gleichzeitig auch eine Definition statt, weil der entsprechende Speicherplatz reserviert wird. 
+  Streng genommen findet gleichzeitig auch eine Definition statt, weil der ent\-sprechende Speicherplatz reserviert wird. 
   Man unterscheidet Deklaration und Definition, weil es auch Deklarationen ohne Bereitstellung von Speicher gibt.
   In einem solchen Fall wird nur das Objekt bekannt gemacht.
 
@@ -30,28 +44,17 @@ Im Vergleich zu unserem letzten Beispiel sind zwei Zeilen hinzugekommen.
   Diese Anweisung stellt eine Zuweisung dar.
   Der Variable \texttt{n} wird der Wert $4$ zugewiesen.
   An der entsprechenden Stelle im Speicher wird dieser Wert abgelegt.
-  Bei einer Definition führt C keine Initialisierung durch.\index{Variable!Initialisierung}
+  Bei einer Definition führt \texttt{C} keine Initialisierung durch.\index{Variable!Initialisierung}
   Nach der reinen Definition (ohne Zuweisung) ist der Wert der Variablen \texttt{n} also rein zufällig.
 \end{itemize}
+Es ist wichtig, dass jeder Benutzung einer Variablen, beispielsweise in einer Zuweisung, die Deklaration der Variablen vorangehen muss.
+
+\subsection{Sichtbarkeitsbereich}
+
 Wie oben ersichtlich, haben Variablen einen Sichtbarkeitsbereicht und damit auch eine Lebensdauer.
 Innerhalb eines Blockes kann man nicht zwei Variablen mit gleichem Namen deklarieren, dies führt zu einer Fehlermeldung des Compilers.
 Deklariert man in einem Unterblock eine Variable mit dem Namen einer Variablen aus dem darüberliegenden Block, so ist die Variable aus dem darüberliegenden Block verdeckt.
-In unserem Beispiel von oben heißt das, dass die Variable \texttt{n} nur in der Funktion \texttt{main} sichtbar ist. 
-Es ist wichtig, dass jeder Benutzung einer Variablen, beispielsweise in einer Zuweisung, die Deklaration der Variablen vorangehen muss.
-Deklaration und Zuweisung können auch in einer Anweisung geschehen, man kann also auch
-\begin{lstlisting}[caption={Erste Variablendeklaration und -zuweisung: Variante 2}, belowcaptionskip=0.3em]
-#include <stido.h>
-
-int main()
-{
-  int n = 4;
-  printf("Wir werden n zahlen sortieren :\n");
-  return(0);
-}
-\end{lstlisting}
-schreiben. 
-Man spricht dann auch von der Initialisierung der Variablen \texttt{n}.
-Variablen, die außerhalb aller Funktionen deklariert werden, bezeichnet man als \emph{global}.
+In unserem Beispiel von oben heißt das, dass die Variable \texttt{n} nur in der Funktion \texttt{main} sichtbar ist.Variablen, die außerhalb aller Funktionen deklariert werden, bezeichnet man als \emph{global}.
 Sie sind in allen Funktionen, die nach der globalen Deklaration definiert werden, sichtbar und zugreifbar.
 
 
@@ -59,7 +62,7 @@ Sie sind in allen Funktionen, die nach der globalen Deklaration definiert werden
 
 Variablen haben immer einen Datentyp und einen Wert. 
 Der Datentyp entscheidet, welche Werte eine Variable annehmen kann und wie viel Arbeitsspeicher dafür reserviert wird.\index{Datentypen}
-In der Tabelle~\ref{tab:PPer} sind die elementaren C-Datentypen mit ihren Wertebereichen aufgelistet.
+In der Tabelle~\ref{tab:PPer} sind die elementaren \texttt{C}-Datentypen mit ihren Wertebereichen aufgelistet.
 
 \begin{table}[t]
 \caption{Elementare Datentypen\label{tabelle1}}  % title name of the table
@@ -93,7 +96,7 @@ long double& & &8 &  &  \\[1ex]
 \label{tab:PPer}
 \end{table}
 
-C Compiler führen im Prinzip eine strenge Typenkontrolle durch.
+\texttt{C} Compiler führen im Prinzip eine strenge Typenkontrolle durch.
 Das ist eine sehr nützliche Eigenschaft von Compilern, wenn es auch manchmal etwas mühsam ist. 
 Man kann dies durch einen expliziten \emph{cast} umgehen.\index{cast}\index{cast!explizit}
 Beispielsweise wandelt \texttt{int n=4; double x = (double)n;} die ganze Zahl \texttt{n} in eine Fließkommazahl mit \texttt{double} Genauigkeit um.
@@ -117,11 +120,11 @@ Im allgemeinen sollte man versuchen immer den Datentyp zu verwenden, der der Nut
 Wenn man also beispielsweise weiß, dass eine ganze Zahl nicht negativ werden kann, sollte man \texttt{unsigend int} verwenden.
 Dies macht es möglich, dass der Compiler Fehler in der Nutzung von Datentypen finden kann.
 
-\subsection{C Schlüsselwörter und Regeln für Namen}
+\subsection{\texttt{C} Schlüsselwörter und Regeln für Namen}
 
 \index{Schlüsselwörter}
-Es gibt einige Regeln für die Namen von Objekten in C. 
-C eigene Schlüsselworte, wie z.B. \texttt{main} dürfen nicht verwendet werden.
+Es gibt einige Regeln für die Namen von Objekten in \texttt{C}. 
+\texttt{C} eigene Schlüsselworte, wie z.B. \texttt{main} dürfen nicht verwendet werden.
 Auch dürfen die Namen nicht mit einer Zahl beginnen, auch wenn Zahlen generell erlaubt sind.
 Operatornamen, wie \verb|+| oder \verb|-| dürfen ebenfalls nicht verwendet werden.
 Es ist ratsam, Variablen mit sinnvollen Namen zu versehen.
@@ -151,7 +154,7 @@ Bei folgenden Wörtern handelt es sich um C99 Schlüsselworte:\\
 
 \subsection{Konstanten}
 
-C erlaubt auch, Variablen als konstant zu deklarieren. 
+\texttt{C} erlaubt auch, Variablen als konstant zu deklarieren. 
 Dies bedeutet, dass sich der einmal zugewiesene Wert einer solchen als \verb|const| deklarierten Variablen nicht ändern darf.\index{\texttt{const}}
 Im Quelltext sieht das wie folgt aus
 \begin{lstlisting}
@@ -207,7 +210,7 @@ In Bezug auf die Anzahl ihrer Argumente gibt es drei verschiedene Typen von Oper
 \begin{itemize}
 \item binäre Operatoren: Operatoren mit zwei Argumenten, wie z.B. \verb|+|.
 \item unäre Operatoren: Die Operatoren haben nur ein Argument, wie z.B. \verb|++|.
-\item trinäre Operatoren: Operatoren mit drei Argumenten. In C gibt es davon nur einen, nämlich \verb|?:|.\index{\texttt{\?:}}
+\item trinäre Operatoren: Operatoren mit drei Argumenten. In \texttt{C} gibt es davon nur einen, nämlich \verb|?:|.%\index{\texttt{\?:}}
 \end{itemize} 
 Neben arithmetischen Operatoren gibt es auch noch solche, die bit--weise wirken. 
 Außerdem gibt es logische Operatoren.
@@ -225,7 +228,7 @@ An dieser Stelle weisen wir auf eine davon explizit hin:
 float a = 7 / 3;
 \end{lstlisting}
   \verb|2.0| als Ergebnis. 
-  Man kann C mitteilen, dass man eine reellwertige Division durchführen möchte, indem man den Dezimalpunkt mit angibt
+  Man kann \texttt{C} mitteilen, dass man eine reellwertige Division durchführen möchte, indem man den Dezimalpunkt mit angibt
 \begin{lstlisting}
 float a = 7. / 3;
 \end{lstlisting}
@@ -234,9 +237,9 @@ Es ist empfehlenswert, dies immer explizit zu tun, damit es nicht durch spätere
 
 \subsection{Logische Ausdrücke}
 
-Vergleichsoperatoren (siehe Tabelle~\ref{vergoper}) und logische Operatoren (siehe Tabelle~\ref{veroper2}) werden zum bilden sogenannter logischer Ausdrücke verwendet.
+Vergleichsoperatoren (siehe Tabelle~\ref{vergoper}) und logische Operatoren (siehe Tabelle~\ref{vergoper2}) werden zum bilden sogenannter logischer Ausdrücke verwendet.
 Logische Ausdrücke werden entweder zu wahr (\emph{true}) oder falsch (\emph{false}) ausgewertet.
-Intern repräsentiert C jeden logischen Ausdruck als ganze Zahl.
+Intern repräsentiert \texttt{C} jeden logischen Ausdruck als ganze Zahl.
 Dabei entspricht $\neq 0$ wahr (\emph{true}) und $0$ falsch (\emph{false}).
 Man kann anstelle des logischen Ausdrucks also auch einen ganzzahligen Ausdruck verwenden.
 Ein sehr einfacher logischer Ausdruck ist also beispielsweise
@@ -342,7 +345,7 @@ Durch geschickte Ordnung der logischen Ausdrücke kann man dann unter Unständen
 
 \subsubsection{Regeln zum Bilden von Ausdrücken}
 
-Der C Compiler geht bei der Auswertung von Operatoren in einer bestimmten Reihenfolge vor.
+Der \texttt{C} Compiler geht bei der Auswertung von Operatoren in einer bestimmten Reihenfolge vor.
 Es gelten im Allgemeinen die Vorrangregeln der Algebra beim Auswerten eines Ausdrucks, inklusive der Klammerregeln.
 So werden z.B. \verb|*|, \verb|/| und \verb|%| vor \verb|+| und \verb|-| ausgewertet.
 Ein unvollständiger Auszug aus der Prioritätenliste ist in Tabelle~\ref{tab:prior} zusammengefasst.

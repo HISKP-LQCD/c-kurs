@@ -1,9 +1,33 @@
 \documentclass{article}[12pt]
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
+\usepackage{iftex}
+
+\ifPDFTeX
+ \usepackage{ucs}
+ \usepackage[utf8]{inputenc}
+ \usepackage[T1]{fontenc}
+ \usepackage[ngerman]{babel}
+\else
+  \ifXeTeX
+    \usepackage{xltxtra}
+    \usepackage{polyglossia}
+    \setmainlanguage[spelling=new, latesthyphen=true]{german}
+    \setotherlanguage{english}
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures=TeX}
+    \defaultfontfeatures{Mapping=tex-text}
+    %% Deutsche Anfuehrungszeichen...
+    \DeclareUTFcharacter[\UTFencname]{x201C}{\grqq}
+    \DeclareUTFcharacter[\UTFencname]{x201E}{\glqq}
+  \else
+    \usepackage{luatextra}
+    \DeclareUTFcharacter[\UTFencname]{x201C}{\grqq}
+    \DeclareUTFcharacter[\UTFencname]{x201E}{\glqq}
+  \fi
+\fi
+
+
+
 \usepackage[dvipsnames]{xcolor}
-\usepackage{lipsum}
 
 \usepackage{amsfonts}
 \usepackage[intlimits]{amsmath}
@@ -17,6 +41,8 @@
 \usepackage{pst-plot} % For axes
 \usepackage{makeidx}
 
+\usepackage{graphicx}
+\usepackage{hyperref}
 
 \addtolength{\hoffset}{-1.5cm}
 \addtolength{\textwidth}{3cm}
@@ -27,7 +53,6 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \PassOptionsToPackage{svgnames}{xcolor}
 \usepackage{tcolorbox}
-\usepackage{lipsum}
 \tcbuselibrary{skins,breakable}
 \usetikzlibrary{shadings,shadows}
 
@@ -50,7 +75,7 @@
   keywordstyle=\color{blue},       % keyword style
   language=C,                      % the language of the code
   morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
   numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
   rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))

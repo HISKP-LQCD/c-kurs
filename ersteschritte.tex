@@ -1,4 +1,4 @@
-\section{Ein erstes C Programm}
+\section{Ein erstes \texttt{C} Programm}
 
 Ein wichtiger Schritt hin zu einem Programm ist die Formulierung des Verfahrens für die Lösung eines Problems als Algorithmus.
 \begin{myblock}{Definition: Algorithmus}
@@ -7,14 +7,14 @@ Eingaben in endlich vielen Schritten eine bestimmte Ausgabe zu
 ermitteln.
 \end{myblock}
 
-Hat man dies geschafft, so muss der Algorithmus in die jeweilige Programmiersprache, hier also C, umgesetzt werden.
+Hat man dies geschafft, so muss der Algorithmus in die jeweilige Programmiersprache, hier also \texttt{C}, umgesetzt werden.
 Betrachten wir als Beispiel folgendes Problem:
 Wir haben Daten
 \[
 x_0, x_1,\ldots,x_{n-1}
 \]
 von einem bestimmten Datentyp, für den wir eine Operation größer-gleich (oder kleiner-gleich) und kleiner (oder größer) definiert haben.
-Man beachte, dass wir ab jetzt bei der Indizierung der C Konvention folgen und von $0$ bis $n-1$ indizieren.
+Man beachte, dass wir ab jetzt bei der Indizierung der \texttt{C} Konvention folgen und von $0$ bis $n-1$ indizieren.
 Die Aufgabe ist nun eine Permutation $\sigma(i)$, $i=0,...,n-1$ zu finden, so dass wir folgende \emph{sortierte} Liste von Daten
 \[
 x_{\sigma(0)}\ \leq\ x_{\sigma(1)}\ \leq\ \ldots\ \leq\ x_{\sigma(n-1)}
@@ -31,14 +31,14 @@ Er kann in folgen Schritten formuliert werden:
  \item Wir wiederholen 2. so oft, bis $U$ leer ist.
 \end{enumerate}
 Wahrscheinlich ist jedem klar, dass diese Vorschrift in $n$ Schritten das gewünschte Ergebnis liefern wird.
-Leider wird der Computer bzw. der C-Compiler den Algorithmus so nicht verstehen.
-Deswegen werden wir den Algorithmus jetzt in C übersetzen.
-Dafür führen wir zunächst Datentypen in C ein, damit wir die Liste $\{x_i\}$ auf dem Rechner darstellen können. 
+Leider wird der Computer bzw. der \texttt{C}-Compiler den Algorithmus so nicht verstehen.
+Deswegen werden wir den Algorithmus jetzt in \texttt{C} übersetzen.
+Dafür führen wir zunächst Datentypen in \texttt{C} ein, damit wir die Liste $\{x_i\}$ auf dem Rechner darstellen können. 
 Anschließend führen wir sogenannte Kontrollstrukturen ein, um obigen Algorithmus abbilden zu können.
 
 \subsection{Daten- und Speichertypen}
 
-Bevor wir C-Datentypen vorstellen, ist es hilfreich zu verstehen, wie Daten allgemeine auf einem Rechner gespeichert werden.
+Bevor wir \texttt{C}-Datentypen vorstellen, ist es hilfreich zu verstehen, wie Daten allgemeine auf einem Rechner gespeichert werden.
 Speicher, egal ob Hauptspeicher oder Festplatte benutzt als kleinste Speicherzelle ein Element das entweder den Zustand 0 oder 1 annehmen kann.
 Ein solches Element nennt man Bit.
 Das heißt mit einem Bit kann man genau zwei Zustände darstellen.
@@ -115,22 +115,22 @@ dann notwendigerweise
 \end{equation}
 
 
-\subsection{C Quelltext}
+\subsection{\texttt{C} Quelltext}
 
-Daten werden im C Quelltext durch sogenannte Variablen repräsentiert. 
+Daten werden im \texttt{C} Quelltext durch sogenannte Variablen repräsentiert. 
 Auf Variablen können wir Operation ausführen, oder sie an Funktionen übergeben.
 Zunächst stellen wir jetzt vor, wie man Variablen deklariert, ihnen einen Wert zuweist und wie man sie beispielsweise auf dem Monitor ausgeben kann.
-C kennt beispielsweise Datentypen für ganze Zahlen und für reelle Zahlen.
+\texttt{C} kennt beispielsweise Datentypen für ganze Zahlen und für reelle Zahlen.
 Beispiele sind \texttt{int} für ganze und \texttt{float} für reelle Zahlen.
 Diese sind in verschiedenen Längen verfügbar.
 Verschiedene Längen erlauben die Darstellung verschiedener Zahlenbereiche.
 
-\subsubsection{Ein erstes C-Programm}
+\subsubsection{Ein erstes \texttt{C}-Programm}
 
-Ein C-Programm ist ein Stück Text, der entsprechend den Sprachregeln von C formuliert sein muss.
+Ein \texttt{C}-Programm ist ein Stück Text, der entsprechend den Sprachregeln von \texttt{C} formuliert sein muss.
 Es besteht im Allgemeinen aus Deklarationen, Anweisungen, Kontrollstrukturen und Kommentaren.
-Das vielleicht einfachste C-Programm hat folgende Form:
-\begin{lstlisting}[caption={Ein erstes C-Programm}, belowcaptionskip=0.3em]
+Das vielleicht einfachste \texttt{C}-Programm hat folgende Form:
+\begin{lstlisting}[caption={Ein erstes \texttt{C}-Programm}, belowcaptionskip=0.3em]
 int main()
 {
   // dies ist ein Kommentar
@@ -140,9 +140,9 @@ int main()
   return 0; // Rueckgabe 0, nicht zwingend notwendig
 }
 \end{lstlisting}
-An Hand dieses einfachen Programms können wir schon einiges über die C Sprachregeln lernen.
-Jedes Programm in C muss die Funktion \texttt{main} genau einmal definieren. 
-Die \texttt{main} Funktion ist auch der Startpunkt für jedes C Programm.
+An Hand dieses einfachen Programms können wir schon einiges über die \texttt{C} Sprachregeln lernen.
+Jedes Programm in \texttt{C} muss die Funktion \texttt{main} genau einmal definieren. 
+Die \texttt{main} Funktion ist auch der Startpunkt für jedes \texttt{C} Programm.
 Die von uns gerade definiert Funktion \texttt{main} hat eine ganze Zahl (\texttt{int}) als Rückgabewert.
 Da der geklammerte Bereich direkt nach \texttt{main} leer ist, bekommt die Funktion keine Parameter übergeben.
 Schlüsselwörter, hier \texttt{int} und \texttt{main} werden durch ein oder mehrere Leerzeichen getrennt.
@@ -164,9 +164,9 @@ Gute Editoren stellen Einrückungs Schemata zur Verfügung.
 
 Soweite als Erklärung für das erste Programm.
 Wie übersetzt man nun dieses Programm?
-Mit Übersetzen bezeichnet man den Schritt, in dem der C Quelltext in sogenannten Maschinentext übersetzt wird.
+Mit Übersetzen bezeichnet man den Schritt, in dem der \texttt{C} Quelltext in sogenannten Maschinentext übersetzt wird.
 Maschinentext kann dann direkt von einem Rechner interpretiert werden.
-Wir zeigen das Übersetzen beispielhaft für Linux und den GNU C Compiler \texttt{gcc}.
+Wir zeigen das Übersetzen beispielhaft für Linux und den GNU \texttt{C} Compiler \texttt{gcc}.\index{\texttt{gcc}}
 Angenommen, obiger Quelltext ist in einer Datei \texttt{main.c} im momentanen Arbeitsverzeichnis gespeichert.
 Dann kann man die Datei mit folgendem Aufruf auf der Kommandozeile übersetzen:
 
@@ -193,7 +193,7 @@ Der Parameter \texttt{-std=c99} sorgt dafür, dass der \texttt{gcc} den C99 Stan
 Aller Quelltext in diesem Dokument ist für diesen Standard geschrieben und übersetzt nicht notwendigerweise für ältere Standards.
 
 Eine Alternative zum \texttt{gcc} ist der \texttt{clang} Compiler.
-Er hat einen ganz ähnlichen Aufruf
+Er hat einen ganz ähnlichen Aufruf\index{\texttt{clang}}
 
 \vspace*{0.5cm}
 \begin{verb}
@@ -201,7 +201,7 @@ Er hat einen ganz ähnlichen Aufruf
 \end{verb}
 \vspace*{0.5cm}
 
-\texttt{clang} und \texttt{gcc} sind beide freie Software.
+\noindent\texttt{clang} und \texttt{gcc} sind beide freie Software.
 Ihre Installation unter Linux ist sehr leicht, aber auch unter Windows kann man, mit einigem Aufwand beide ebenfalls installieren.
 
 Bisher tut unser erstes Programm noch nichts, außer Null zurückgeben. 
@@ -217,9 +217,9 @@ int main()
 }
 \end{lstlisting}
 Es sind zwei Dinge dazugekommen:
-Erstens haben wir eine sogenannte Header-Datei, in diesem Fall \texttt{stdio.h} eingebunden.
-Das ist nötig, damit der C-Compiler die Funktion \texttt{printf} kennt.
-Denn \texttt{printf} ist nicht Teil der C Sprache, es ist in einer sogenannten Bibliothek definiert. 
+Erstens haben wir eine sogenannte Header-Datei, in diesem Fall \texttt{stdio.h} eingebunden.\index{\texttt{stdio.h}}
+Das ist nötig, damit der \texttt{C}-Compiler die Funktion \texttt{printf} kennt.\index{\texttt{printf}}
+Denn \texttt{printf} ist nicht Teil der \texttt{C} Sprache, es ist in einer sogenannten Bibliothek definiert. 
 Mit der Einbindung der Header-Datei wird die Funktion dem Compiler bekannt gemacht.
 Dies werden wir später noch genauer erörtern.
 
@@ -243,5 +243,5 @@ Der Rückgabewert von \texttt{main} kann übrigens an der Kommandozeile wie folg
 \end{verbatim}
 \vspace*{0.5cm}
 
-Man kann der Funktion \texttt{main} auch Parameter übergeben.
+\noindent Man kann der Funktion \texttt{main} auch Parameter übergeben.
 Wie, werden wir später sehen.
