@@ -7,38 +7,8 @@ Solche Kontrollstrukturen nennt man Verzweigungen.
 Das kann beispielsweise bedeuten, dass der Programmteil \texttt{A} ausgeführt wird, falls eine Variable $x$ größer als Null ist, und sonst der Programmteil \texttt{B}.
 Die Entscheidung wird auf Grundlage logischer Ausdrücke gefällt, siehe letztes Kapitel.
 
-\subsection{Einfache Verzweigung: \texttt{if-then-else}}
+\subsection{Einfache Verzweigung: \texttt{if-else}}
 
-Nehmen wir an, wir wollen den Absolutwert einer Variablen \verb|a| ausgeben.
-Dafür kann man einen \verb|if-then-else| Ausdruck verwenden.\index{\texttt{if-then-else}}
-Der entsprechende Quelltext könnte so aussehen:
-\begin{lstlisting}
-#include <stdio.h>
-
-int main()
-{
-  int a = 4;
-  unsigned int absolutevalue = 0;
-  if (a > 0)
-    {
-      absolutevalue = a;
-    }
-  else
-    {
-      // falls a <= 0
-      absolutvalue = -a;
-    }
-  printf("Der Absolutwert von a ist %u\n", absolutevalue);
-  return (0);
-}
-\end{lstlisting}
-In Abhängigkeit davon, ob \verb|a > 0| zu wahr ausgewertet wird oder nicht, wird in diesem Beispiel entweder der Codeblock nach dem Schlüsselwort \verb|if| oder der nach dem Schlüsselwort \verb|else| ausgeführt.
-Im Beispiel haben wir die zwei Blöcke durch die geschweiften Klammern abgetrennt. 
-Das ist nur dann nicht nötig, falls der jeweilige Block aus nur einer Anweisung besteht.
-
-Die Variable \verb|absolutevalue| ist außerhalb beider Blöcke deklariert, und damit in beiden sichtbar.
-Die Zuweisung, die \verb|absolutevalue| innerhalb der Blöcke bekommt ist damit auch nach Ende der Blöcke weiterhin erhalten.
-Der logische Ausdruck kann prinzipiell alle Operatoren enthalten, bzw. auch verkettete Ausdrücke von Operatoren, die wir in Tabellen~\ref{vergoper} und \ref{vergoper2} zusammengestellt haben.
 Im Allgemeinen hat das \emph{if-else} Konstrukt folgendes Aussehen:
 \begin{lstlisting}[caption={if-else Statement}, belowcaptionskip=0.3em]
 if (logischer Ausdruck)
@@ -48,7 +18,7 @@ if (logischer Ausdruck)
     Anweisung2;
     ...;
   }
-else
+else // optional
   {
     // sonst
     Anweisung3;
@@ -56,17 +26,74 @@ else
     ...;
   }
 \end{lstlisting}
-Dabei kann \verb|Anweisung1| zum Beispiel auch wieder ein \emph{if-else} Ausdruck sein. 
+In Abhängigkeit vom logischen Ausdruck wird entweder der erste (nach \emph{if}) oder der zweite (nach \emph{else}) Codeblock ausgeführt.
+Diese beiden Codeblöcke sind durch geschweifte Klammern definiert.
+Die Klammern können auch weggelassen werden, wenn ein Block nur aus genau einer Anweisung besteht.
+Wir empfehlen trotzdem auch in diesem Fall Klammern zu setzen.
+Dies verhindert spätere Fehler, und macht den Quelltext lesbarer.
+Der logische Ausdruck kann prinzipiell alle Operatoren enthalten, bzw. auch verkettete Ausdrücke von Operatoren, die wir in Tabellen~\ref{vergoper} und \ref{vergoper2} zusammengestellt haben.
+
+\verb|Anweisung1| kann explizit auch wieder ein \emph{if-else} Ausdruck sein. 
 Man kann \emph{if-else} also beliebig schachteln.
 Außerdem ist der \emph{else} Block optional.
-Das ist nützlich, wenn man Code nur im Falle von \emph{wahr} oder nur im Falle von \emph{falsch} ausführen möchte.
+Wird der \emph{else} Block ausgelassen, so wird in dem Fall, in dem der logische Ausdruck zu \emph{falsch} ausgewertet wird, der Block mit Anweisungen nicht ausgeführt.
+
+Nehmen wir beispielsweise an, wir wollen den Absolutwert einer Variablen \verb|a| ausgeben.
+Dafür kann man einen \verb|if-else| Ausdruck verwenden.\index{\texttt{if-else}}
+Der entsprechende Quelltext könnte so aussehen:
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  int a = 4;
+  unsigned int absolutevalue = 0;
+  if (a > 0) // a ist positiv
+    {
+      absolutevalue = a;  // Betrag ist direkt gleich a 
+    }
+  else       // a ist negativ
+    {
+      // falls a <= 0
+      absolutvalue = -a;  // Betrag ist gleich -a
+    }
+  printf("Der Absolutwert von a ist %u\n", absolutevalue);
+  return (0);
+}
+\end{lstlisting}
+In Abhängigkeit davon, ob \verb|a > 0| zu wahr ausgewertet wird oder nicht, wird in diesem Beispiel entweder der Codeblock nach dem Schlüsselwort \verb|if| oder der nach dem Schlüsselwort \verb|else| ausgeführt.
+Die Variable \verb|absolutevalue| ist außerhalb beider Blöcke deklariert, und damit in beiden sichtbar.
+Die Zuweisung, die \verb|absolutevalue| innerhalb der Blöcke bekommt, ist damit auch nach Ende der Blöcke weiterhin erhalten.
 
 \subsection{Mehrfache Verzweigung: \texttt{switch}}
  
 \index{\texttt{switch}}
 Ein dem \emph{if-else} Konstrukt verwandtes Konstrukt ist das \emph{switch} Konstrukt.
 Es erlaubt eine ganze Liste von Alternativen abzuarbeiten.
-Im folgende Bespiel wird eine ganze Zahl von der Standardeingabe eingelesen, und zwar mit Hilfe der \verb|scanf| Funktion, die eine \verb|printf| sehr ähnliche Syntax hat.
+Im Allgemeinen sieht das also so aus:
+\begin{lstlisting}[caption={switch statement}, belowcaptionskip=0.3em]
+switch (int)
+  {
+    case Wert1:
+      Anweisung1;
+      ....;
+      break; // optional
+    case Wert2:
+      Anweisung2;
+      ....;
+      break; // optional
+      ....
+    default: // optional
+      Anweisung3;
+      break; // optional
+  }
+\end{lstlisting}
+Das Konstrukt wird mit dem Schlüsselwort \verb|switch| eingeleitet.\index{\texttt{switch}}
+Jede der Möglichkeiten beginnt mit dem Schlüsselwort \verb|case|, gefolgt vom möglichen Wert des Ausdruckes und einem Doppelpunkt. 
+Falls die entsprechende Möglichkeit realisiert ist, werden alle noch folgenden Anweisungen ausgeführt, bis ein \verb|break| Schlüsselwort kommt, oder der \verb|switch| Block zu Ende ist.\index{\texttt{break}}
+Der \verb|default| Zweig wird dann ausgeführt, wenn keiner der anderen Fälle gepasst hat.\index{\texttt{default}}
+
+Im folgende Bespiel wird eine ganze Zahl von der Standardeingabe eingelesen, und zwar mit Hilfe der \verb|scanf| Funktion, die eine \verb|printf| sehr ähnliche Syntax hat.\index{\texttt{printf}}\index{\texttt{scanf}}
 Wir diskutieren die Details zu \verb|scanf| später.
 Dann wird, in Abhängigkeit vom eingegebenen Wert eine Ausgabe auf dem Bildschirm gemacht.
 \begin{lstlisting}
@@ -96,33 +123,14 @@ int main()
   return (0);
 }
 \end{lstlisting}
-Das Konstrukt wird mit dem Schlüsselwort \verb|switch| eingeleitet.
-Jede der Möglichkeiten beginnt mit dem Schlüsselwort \verb|case|, gefolgt vom möglichen Wert des Ausdruckes und einem Doppelpunkt. 
-Falls die entsprechende Möglichkeit realisiert ist, werden alle noch folgenden Anweisungen ausgeführt, bis ein \verb|break| Schlüsselwort kommt, oder der \verb|switch| Block zu Ende ist.
 D.h., wenn $0$ eingegeben wird, wird Zeile $10$ ausgeführt.
 Wenn $1$ eingegeben wird, wird Zeile $13$ und $15$ ausgeführt.
 Und, wenn keines von $0,1,2,3$ eingegeben wird, also keine der Möglichkeiten passt, so wird der \verb|default| Zweig ausgeführt, und damit Zeile $21$.
-Im Allgemeinen sieht das also so aus:
-\begin{lstlisting}[caption={switch statement}, belowcaptionskip=0.3em]
-switch (int)
-  {
-    case Wert1:
-      Anweisung1;
-      ....;
-      break; // optional
-    case Wert2:
-      Anweisung2;
-      ....;
-      break; // optional
-      ....default : Anweisung3;
-      break; // optional
-  }
-\end{lstlisting}
 
 \subsection{Schleifen: \texttt{for}}
 
 \index{Schleife!\texttt{for}}\index{\texttt{for}}
-Eine wesentlich wichtigere Kontrollstruktur sind sogenannt \emph{for} Schleifen.
+Eine wesentlich wichtigere Kontrollstruktur sind sogenannte \emph{for} Schleifen.
 Allgemein sieht die \emph{for} Schleife wie folgt aus:
 \begin{lstlisting}[caption={for Schleife}, belowcaptionskip=0.3em]
 for (Ausdruck1; Ausdruck2; Ausdruck3)
@@ -135,13 +143,14 @@ for (Ausdruck1; Ausdruck2; Ausdruck3)
 Im Einzelnen bedeutet das:
 \begin{enumerate}
 \item Zuerst wird \texttt{Ausdruck1} ausgewertet.\\
-  In diesem ersten Ausdruck wird typischerweise die Schleifenvaraible, oder auch mehrere, deklariert und/oder initialisiert. 
+  In diesem ersten Ausdruck wird typischerweise die Schleifenvaraible deklariert und/oder initialisiert.
+  (Es können auch mehrere Variablen deklariert und initialisiert werden.)
 \item Dann wird \texttt{Ausdruck2} ausgewertet.\\
   Dieser zweite Ausdruck wird zu Beginn jeder Ausführung der Schleife ausgewertet und wird als logischer Ausdruck interpretiert.
   Er stellt die Abbruchbedingung dar.
 
   Wenn \texttt{Ausdruck2} zu wahr ausgewertet wird, werden die Anweisungen im Körper der Schleife ausgeführt. 
-\item Nach Ausführung des Schleifekörpers wird \texttt{Ausdruck3} ausgewertet.\\
+\item Nach Ausführung des Schleifenkörpers wird \texttt{Ausdruck3} ausgewertet.\\
   Hier werden typischerweise Schleifenvariablen modifiziert.
 \end{enumerate}
 Als Beispiel nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren.
@@ -225,7 +234,7 @@ Dies lässt sich für Fälle verallgemeinern, in denen unerwartete oder nicht st
 \index{\texttt{do-while}}\index{\texttt{while}}\index{Schleife!\texttt{do-while}}\index{Schleife!\texttt{while}}
 C kennt zwei weitere Schleifenkonstrukte, nämlich die \verb|while| und die \verb|do-while| Schleife.
 Während die \verb|while| Schleife die Abbruchbedingung vor dem Ausführen des Schleifenkörpers überprüft und im Zweifel abbricht, wird bei der \verb|do-while| Schleife der Körper immer mindestens einmal ausgeführt.
-Das macht den großen Unterschied zwischen den beiden aus
+Das macht den großen Unterschied zwischen den beiden aus.
 Allgemein hat die \verb|while| Schleife folgende Form:
 \begin{lstlisting}[caption={while Schleife}, belowcaptionskip=0.3em]
 while (logischer Ausdruck)

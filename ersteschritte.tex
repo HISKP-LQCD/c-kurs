@@ -1,12 +1,11 @@
 \section{Ein erstes \texttt{C} Programm}
 
-Ein wichtiger Schritt hin zu einem Programm ist die Formulierung des Verfahrens für die Lösung eines Problems als Algorithmus.
+Ein wichtiger Schritt hin zu einem Programm ist die Formulierung des Verfahrens für die Lösung eines Problems als Algorithmus.\index{Algorithmus}
 \begin{myblock}{Definition: Algorithmus}
 Ein \textbf{Algorithmus} ist eine präzise Vorschrift, um aus vorgegebenen
 Eingaben in endlich vielen Schritten eine bestimmte Ausgabe zu
 ermitteln.
 \end{myblock}
-
 Hat man dies geschafft, so muss der Algorithmus in die jeweilige Programmiersprache, hier also \texttt{C}, umgesetzt werden.
 Betrachten wir als Beispiel folgendes Problem:
 Wir haben Daten
@@ -43,14 +42,14 @@ Speicher, egal ob Hauptspeicher oder Festplatte benutzt als kleinste Speicherzel
 Ein solches Element nennt man Bit.
 Das heißt mit einem Bit kann man genau zwei Zustände darstellen.
 Fasst man 8 Bits zu einem Byte zusammen, so kann man $2^8=256$ Zustände darstellen.
-Größere Speicherbereiche nennt man
+Größere Speicherbereiche nennt man\index{bit}\index{byte}\index{word}
 \begin{itemize}
 \item Byte:  1~Byte, $2^{8 }$ Zustände
 \item Word:  2~Byte, $2^{16}$ Zustände
 \item Dword: 4~Byte, $2^{32}$ Zustände
 \item Qword: 8~Byte, $2^{64}$ Zustände
 \end{itemize}
-Beispielsweise kann Text in einer Datei im ASCII Format gespeichert. 
+Beispielsweise kann Text in einer Datei im ASCII Format gespeichert werden. \index{ASCII Format}
 Das bedeutet, dass jedes Zeichen genau ein Byte in Anspruch nimmt.
 Damit kann aber im ASCII Format lediglich ein Zeichenumfang von $256$ Zeichen dargestellt werden.
 
@@ -66,19 +65,13 @@ Für uns ist hier aber lediglich der Unterschied Festplattenspeicher und Hauptsp
 
 \subsection{Maschinenzahlen}
 
-Auf einem Rechner ist lediglich eine Teilmenge $\mathcal{M}$ der
-reellen Zahlen darstellbar. Nach IEEE Standard wird eine Fließkomma
-Zahl wie folgt dargestellt:
+Auf einem Rechner ist lediglich eine Teilmenge $\mathcal{M}$ der reellen Zahlen darstellbar.
+Nach IEEE Standard wird eine Fließkommazahl wie folgt dargestellt:\index{Fließkommayahl}
 \begin{equation}
 x = \mathrm{sign}(x)\cdot a\cdot E^{e-k}
 \end{equation}
-wobei $E\in \mathbb{N}, E>1$ die Basis ist (meist $E=2$), $k\in
-\mathbb{N}$ die 
-Genauigkeit und $e$ im Exponentenbereich
-$e_\mathrm{min}<e<e_\mathrm{max}$ liegt mit
-$e_\mathrm{min},e_\mathrm{max}\in \mathbb{Z}$. Die Mantisse $a\in
-\mathbb{N}_0$ ist 
-definiert als
+wobei $E\in \mathbb{N}, E>1$ die Basis ist (meist $E=2$), $k\in \mathbb{N}$ die Genauigkeit und $e$ im Exponentenbereich $e_\mathrm{min}<e<e_\mathrm{max}$ liegt mit $e_\mathrm{min},e_\mathrm{max}\in \mathbb{Z}$.
+Die Mantisse $a\in \mathbb{N}_0$ ist  definiert als\index{Mantisse}
 \begin{equation}
 a = a_1 E^{k-1} + a_2 E^{k-2} + ... + a_k E^0\,,
 \end{equation}
@@ -103,27 +96,26 @@ Information verloren, eine Rückabbildung ist nicht eindeutig möglich.
     zum Fehlschlagen eines Verfahrens führt.
   \end{enumerate}
 \end{myexampleblock}
-Als Maschinengenauigkeit bezeichnet man die größte reelle Zahl
-$\delta_M$ für die der Rechner
+Als Maschinengenauigkeit bezeichnet man die größte reelle Zahl $\delta_M$ für die der Rechner
 \begin{equation}
 1 + \delta_M = 1
 \end{equation}
-liefert. Für die Abbildung der reellen Zahlen auf Maschinenzahlen gilt
-dann notwendigerweise
+liefert.
+Für die Abbildung der reellen Zahlen auf Maschinenzahlen gilt dann notwendigerweise
 \begin{equation}
--\delta_M \leq \delta x\leq \delta_M\,.
+-\delta_M \leq \delta x\leq \delta_M\,,
 \end{equation}
-
+wobei $\delta x$ den Zahlenbereich angibt, der zu $0$ ausgewertet wird.
 
 \subsection{\texttt{C} Quelltext}
 
 Daten werden im \texttt{C} Quelltext durch sogenannte Variablen repräsentiert. 
 Auf Variablen können wir Operation ausführen, oder sie an Funktionen übergeben.
 Zunächst stellen wir jetzt vor, wie man Variablen deklariert, ihnen einen Wert zuweist und wie man sie beispielsweise auf dem Monitor ausgeben kann.
-\texttt{C} kennt beispielsweise Datentypen für ganze Zahlen und für reelle Zahlen.
+\texttt{C} kennt Datentypen für ganze Zahlen und für reelle Zahlen.
 Beispiele sind \texttt{int} für ganze und \texttt{float} für reelle Zahlen.
-Diese sind in verschiedenen Längen verfügbar.
-Verschiedene Längen erlauben die Darstellung verschiedener Zahlenbereiche.
+Diese sind in verschiedenen Größen verfügbar, also mit verschiedener Anzahl an bits.
+Verschiedene bit-Anzahl erlaubt die Darstellung verschiedener Zahlenbereiche.
 
 \subsubsection{Ein erstes \texttt{C}-Programm}
 
@@ -162,7 +154,7 @@ Da auch Leerzeichen am Zeilenanfang beliebig sind, werden Zeilen normalerweise e
 Das erhöht die Lesbarkeit des Quelltextes.
 Gute Editoren stellen Einrückungs Schemata zur Verfügung.
 
-Soweite als Erklärung für das erste Programm.
+Soweit die Erklärung für das erste Programm.
 Wie übersetzt man nun dieses Programm?
 Mit Übersetzen bezeichnet man den Schritt, in dem der \texttt{C} Quelltext in sogenannten Maschinentext übersetzt wird.
 Maschinentext kann dann direkt von einem Rechner interpretiert werden.
@@ -224,7 +216,7 @@ Mit der Einbindung der Header-Datei wird die Funktion dem Compiler bekannt gemac
 Dies werden wir später noch genauer erörtern.
 
 Zweitens ist der Aufruf von \texttt{printf} (\emph{print formatted}) hinzugekommen.
-Die Funktion \texttt{printf} gibt in diesem Fall den String \glqq Hallo Welt\grqq\ auf dem Standard Ausgabegerät aus, was normalerweise die Kommandozeile selbst ist, wenn das Programm von der Kommandozeile aufgerufen wird. 
+Die Funktion \texttt{printf} gibt in diesem Fall die Zeichenkette (den \emph{string}) \glqq Hallo Welt\grqq\ auf dem Standard Ausgabegerät aus, was normalerweise die Kommandozeile selbst ist, wenn das Programm von der Kommandozeile aufgerufen wird. 
 Auch die Funktion \texttt{printf} werden wir später noch im Detail diskutieren.
 In diesem Beispiel kopiert \texttt{printf} die Zeichenkette unverändert zur standard Ausgabe, also wahrscheinlich auf die Konsole.
 \verb|\n| erzeugt einen Zeilenumbruch.

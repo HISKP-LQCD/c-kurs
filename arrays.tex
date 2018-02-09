@@ -7,14 +7,14 @@ Und diese Länge kann auch dann nicht mehr verändert werden.
 
 \subsection{Deklaration und Initialisierung eindimensionaler Felder}
 
-Die Deklaration eines Feldes ist gany analog zu anderen Variablen
+Die Deklaration eines Feldes ist ganz analog zu anderen Variablen
 \begin{lstlisting}
   int a[5]; // array declaration
 \end{lstlisting}
 was in diesem Fall ein Feld der Länge $5$ mit ganzen Zahlen erzeugt.
 
 Für die Initialisierung gibt es zwei Möglichkeiten.
-Man kann ersten Deklaration und Initialisierung in einem Schritt vornehmen, was wie folgt aussieht
+Man kann erstens Deklaration und Initialisierung in einem Schritt vornehmen
 \begin{lstlisting}
   int a1[5] = {1, 2, 3, 4, 5};
   int a2[] = {1, 2, 3, 4, 5};
@@ -30,6 +30,8 @@ Die zweite Möglichkeit besteht darin, jedes Element einzeln zuzuweisen:
 \end{lstlisting}
 was zum exakt gleichen Ergebnis führt.
 An diesem Beispiel sieht man bereits, dass in \texttt{C} die Indizierung von $0$ bis $n-1$ läuft.
+Außerdem kann auf die einzelnen Elemente des Feldes mit dem Indexoperator \verb|[ ]| zugegriffen werden.
+Erlaubte Argumente für den Indexoperator \verb|[ ]| sind positive ganze Zahlen.\index{Indexoperator \texttt{[ ]}}\index{\texttt{[ ]}}
 
 Es sei nocheinmal darauf hingewiesen, dass Felder wie wir sie bisher eingeführt haben, konstante Länge haben.
 So führt folgender Quelltext zu einer Fehlermeldung
@@ -64,7 +66,8 @@ Die Schreibweise wird am folgenden Beispiel für eine Funktion erklärt, die die
 \end{lstlisting}
 Die Schreibweise \texttt{a[]} teilt dem Compiler mit, dass es sich um ein Feld handelt.
 Es ist sehr wichtig hier zu verstehen, dass der Compiler aber keine Möglichkeit hat zu überprüfen, ob innerhalb der Funktion nur auf die vorhandenen Elemente von \texttt{a} zugegriffen wird.
-Diese Information ist sogar nicht verfügbar, wenn man nicht als Programmierer selbst sicherstellt, dass in diesem Fall \texttt{n} die richtige Länge als Wert enthält.
+Diese Information ist sogar nicht verfügbar, wenn man nicht als Programmierer selbst verfügbar macht.
+In diesem Fall bedeutet das, dass \texttt{n} die richtige Länge als Wert enthalten muss.
 Folgender Quelltext ist korrekter \texttt{C} Quelltext
 \begin{lstlisting}
 int list[5];
@@ -108,28 +111,28 @@ Die Dimensionalität eines Feldes kann dann in analoger Weise zu drei oder mehr 
 
 In C gibt es keinen elementaren Datentyp für Zeichenketten, sogenannte \emph{strings}.
 Zeichenkette werden mit Hilfe von Arrays abgebildet.
-Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden, siehe ASCII Zeichensatz.\footnote{%
-    Die Größe des Datentyps \texttt{char} ist immer ein Byte, also 8 Bit.
-    Eigentlich hätte man diesen Typ \texttt{byte} nennen sollen. Es können $2^8
-    = 256$ verschiedene Zeichen gespeichert werden. Dies reicht für Englisch
-    und ein paar Steuerzeichen, jedoch nicht für alle Sprachen dieser Welt. Der
-    ASCII Zeichensatz nutzt die ersten 128 Zustände (also die ersten 7 Bit) für
-    das im Englischen genutzte Alphabet. Die restlichen 128 Zustände werden
-    abhängig vom  \emph{Encoding} interpretiert. Für Deutsch kann man
-    \texttt{latin-1} nutzen. Je nach Encoding wird ein Zeichen mit Wert 204
-    interpretiert. Ist das Encoding nicht die richtige, erscheinen die Umlaute
-    nicht korrekt und scheinbar willkürliche Zeichen stehen an ihrer Stelle.
-    Sprachen, die mehr als 128 verschiedene Zeichen brauche, können im oberen
-    Teil von ASCII überhaupt nicht dargestellt werden. Die Einsicht, dass es
-    mehr als 256 verschiedene Zeichen gibt, wurde im Unicode Standard
-    manifestiert. Die Konsequenz ist jedoch, dass jetzt mehr als ein Byte pro
-    Zeichen benötigt wird. UTF-8 ist inzwischen das Standard-Encoding, sodass
-    beliebig viele verschiedene Zeichen in einer Textdatei genutzt werden
-    können. Der Preis ist jedoch, dass ein Buchstabe jetzt beliebig viele Byte
-    (meist eins) nutzt. Da hier der Fokus allerdings auf Numerischen Methoden
-    liegt, wird nicht weiter auf die vielfältigen Probleme mit Encodings
-    eingegangen.
-}
+Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden.
+Die Größe des Datentyps \texttt{char} ist immer ein Byte, also 8 Bit.
+
+\textbf{Bemerkung:}~ Im ASCII Zeichensatz können $2^8= 256$ verschiedene Zeichen gespeichert werden.
+Dies reicht für Englisch und ein paar Steuerzeichen, jedoch nicht für alle Sprachen dieser Welt.
+Der ASCII Zeichensatz nutzt die ersten 128 Zustände (also die ersten 7 Bit) für das im Englischen genutzte Alphabet.
+Die restlichen 128 Zustände werden abhängig vom  \emph{Encoding} interpretiert.
+Für Deutsch kann man \texttt{latin-1} nutzen.
+Je nach Encoding wird ein Zeichen mit Wert 204 interpretiert.
+Ist das Encoding nicht die richtige, erscheinen die Umlaute
+nicht korrekt und scheinbar willkürliche Zeichen stehen an ihrer Stelle.
+Sprachen, die mehr als 128 verschiedene Zeichen brauche, können im oberen
+Teil von ASCII überhaupt nicht dargestellt werden. Die Einsicht, dass es
+mehr als 256 verschiedene Zeichen gibt, wurde im Unicode Standard
+manifestiert. Die Konsequenz ist jedoch, dass jetzt mehr als ein Byte pro
+Zeichen benötigt wird. UTF-8 ist inzwischen das Standard-Encoding, sodass
+beliebig viele verschiedene Zeichen in einer Textdatei genutzt werden
+können. Der Preis ist jedoch, dass ein Buchstabe jetzt beliebig viele Byte
+(meist eins) nutzt. Da hier der Fokus allerdings auf Numerischen Methoden
+liegt, wird nicht weiter auf die vielfältigen Probleme mit Encodings
+eingegangen.
+
 Eine Zeichenkette kann also durch eine Array von Elementen vom Typ \verb|char| erzeugt werden.
 Das Ende einer Zeichenkette wird durch das Zeichen \verb|\0| angegeben.
 Im nächsten Beispiel lesen wir eine Zeichenkette von der Standardeingabe ein, bis wir das Zeichen für das Ende des Strings finden und testen, ob die Kette eine Zahl enthält:
@@ -165,16 +168,15 @@ Die Schleife wird dann mit \verb|break| abgebrochen, wenn das Endstring-Zeichen 
 In der Schleife wird dann jedes Element der Kette darauf überprüft, ob es eine Zahl ist.
 Dementsprechend wird die Variable \verb|ergebnis| gesetzt.
 Beim abschließenden \texttt{printf} wird eine wichtige Eigenschaft von \texttt{C} Feldern deutlich:
-Man benötigt keine Referenzierungsoperator \verb|&|.
+Man benötigt keine Referenzierungsoperator \verb|&|.\index{Adressoperator \&}\index{\&}
 Im nächsten Abschnitt über Zeiger wird klar werden, warum dies so ist.
 
 \subsubsection{\texttt{sprintf} und \texttt{snprintf}}
 
-Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abh\"{a}ngig vom Wert einer Variable zu machen.
+Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abhängig vom Wert einer Variable zu machen.
 
-Hierf\"{u}r stehen in C die beiden Funktionen \texttt{sprintf} aund \texttt{snprintf} zur Verf\"{u}gung, welche wie die schon bekannte \texttt{printf} Funktion funktioniern.
+Hierfür stehen in \texttt{C} die beiden Funktionen \texttt{sprintf} und \texttt{snprintf} zur Verfügung, welche wie die schon bekannte \texttt{printf} Funktion funktioniern.\index{\texttt{sprintf}}\index{\texttt{snprintf}}
 Im Gegensatz zu \texttt{printf}, schreiben diese Funktionen jedoch direkt in eine sich im Speicher befindliche Zeichenkette.
-
 \begin{lstlisting}
 #include <stdio.h>
 const int MAX_LENGTH = 1000;
@@ -211,12 +213,11 @@ int main()
   return 0;
 }
 \end{lstlisting}
-
 Ebenso wie bei \texttt{scanf}, besteht jedoch die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
 Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
 
-Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die L\"{a}nge der geschriebenen Zeichenkette zu beschr\"{a}nken.
-Desweiteren kann man durch \"{U}berpr\"{u}fung des R\"{u}ckgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
+Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die Länge der geschriebenen Zeichenkette zu beschränken.
+Desweiteren kann man durch Überprüfung des Rückgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
 
 \noindent Ausgabe:
 \begin{verbatim}
@@ -232,7 +233,7 @@ The Answer to the Ultimate Question of Life, The
 The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
 \end{verbatim}
 
-Die Benutzung von Arrays wird in folgendem Beispiel illustriert:
+Die Benutzung von Feldern wird in folgendem Beispiel illustriert:
 \begin{myexampleprogram}{Beispiel: Berechnung des Mittelwerts und der Varianz}
   Die Berechnung des Mittelwerts einer Datenreihe ist ein gutes Beispiel für die Benutzung von Arrays.
   Nehmen wir an, wir haben die folgend Daten gegeben:

@@ -48,46 +48,46 @@ deklarieren, so liegt dieser Zeiger selbst im statischen Speicherbereich.
 Er kann aber auf Speicher zeigen, der im dynamischen Speicherbereich liegt.
 Dies ist in Abbildung~\ref{abmem} illustriert.
 
-\begin{figure}[!ht]
-% Generated with LaTeXDraw 2.0.8
-% Tue Feb 28 11:46:41 CET 2017
-% \usepackage[usenames,dvipsnames]{pstricks}
-% \usepackage{epsfig}
-% \usepackage{pst-grad} % For gradients
-% \usepackage{pst-plot} % For axes
-\scalebox{0.5} % Change this value to rescale the drawing.
-{
-\begin{pspicture}(0,-1.2792188)(31.8,1.2792188)
-\psframe[linewidth=0.04,dimen=outer](31.8,1.1657813)(0.0,-1.0342188)
-\psline[linewidth=0.04cm](5.6,1.1657813)(5.6,-1.0342188)
-\rput(1.3,0.7 ){\LARGE Statischer}
-\rput(7.2,0.7 ){\LARGE Dynamischer}
-\rput(1.1,0.1 ){\LARGE Speicher}
-\rput(7.2,0.1 ){\LARGE Speicher}
-\psline[linewidth=0.04cm](3.4,1.1657813)(3.4,-1.0342188)
-\psline[linewidth=0.04cm](4.0,1.1657813)(4.0,-1.0342188)
-%\usefont{T1}{ptm}{m}{n}
-\rput(4.416406,-1.5){\LARGE Zeiger}
-\psframe[linewidth=0.04,dimen=outer](19.2,1.1657813)(14.4,-1.0342188)
-
-\rput(16,0.7 ){\LARGE Reservierter}
-\rput(16.5,0.1 ){\LARGE Speicherbereich}
-
-\pscustom[linewidth=0.04]
-{
-\newpath
-\moveto(4.,-2)
-%\lineto(7.5,1.5)
-\curveto(6,-3.)(10.5,-5.)(14.5,-1.5)
-}
-\psline[linewidth=0.04cm](14.1,-1.6)(14.5,-1.5)
-\psline[linewidth=0.04cm](14.3,-2.0)(14.5,-1.5)
-
-\end{pspicture} 
-}
-\vspace{0.6cm}
-\caption{\label{abmem} Illustration zu dynamischem und statischem Speicher eines Programms.}
-\end{figure}
+%\begin{figure}[!ht]
+%% Generated with LaTeXDraw 2.0.8
+%% Tue Feb 28 11:46:41 CET 2017
+%% \usepackage[usenames,dvipsnames]{pstricks}
+%% \usepackage{epsfig}
+%% \usepackage{pst-grad} % For gradients
+%% \usepackage{pst-plot} % For axes
+%\scalebox{0.5} % Change this value to rescale the drawing.
+%{
+%\begin{pspicture}(0,-1.2792188)(31.8,1.2792188)
+%\psframe[linewidth=0.04,dimen=outer](31.8,1.1657813)(0.0,-1.0342188)
+%\psline[linewidth=0.04cm](5.6,1.1657813)(5.6,-1.0342188)
+%\rput(1.3,0.7 ){\LARGE Statischer}
+%\rput(7.2,0.7 ){\LARGE Dynamischer}
+%\rput(1.1,0.1 ){\LARGE Speicher}
+%\rput(7.2,0.1 ){\LARGE Speicher}
+%\psline[linewidth=0.04cm](3.4,1.1657813)(3.4,-1.0342188)
+%\psline[linewidth=0.04cm](4.0,1.1657813)(4.0,-1.0342188)
+%%\usefont{T1}{ptm}{m}{n}
+%\rput(4.416406,-1.5){\LARGE Zeiger}
+%\psframe[linewidth=0.04,dimen=outer](19.2,1.1657813)(14.4,-1.0342188)
+%
+%\rput(16,0.7 ){\LARGE Reservierter}
+%\rput(16.5,0.1 ){\LARGE Speicherbereich}
+%
+%\pscustom[linewidth=0.04]
+%{
+%\newpath
+%\moveto(4.,-2)
+%%\lineto(7.5,1.5)
+%\curveto(6,-3.)(10.5,-5.)(14.5,-1.5)
+%}
+%\psline[linewidth=0.04cm](14.1,-1.6)(14.5,-1.5)
+%\psline[linewidth=0.04cm](14.3,-2.0)(14.5,-1.5)
+%
+%\end{pspicture} 
+%}
+%\vspace{0.6cm}
+%\caption{\label{abmem} Illustration zu dynamischem und statischem Speicher eines Programms.}
+%\end{figure}
 
 \subsection{Dynamische Speicherreservierung mit \texttt{malloc}}
 
@@ -225,98 +225,98 @@ Es ist wichtig, sich klar zu machen, dass \verb|array2d| vom Typ \verb|double**|
 Dementsprechend zeigt es auf Elemente vom Typ \verb|double*|, die dann selbst auf Elemente vom Typ \verb|double| zeigen.
 Dies ist in Abbildung~\ref{mem2d} dargestellt.
 
-\begin{figure}[!ht]
-% Generated with LaTeXDraw 2.0.8
-% Tue Feb 28 15:43:57 CET 2017
-% \usepackage[usenames,dvipsnames]{pstricks}
-% \usepackage{epsfig}
-% \usepackage{pst-grad} % For gradients
-% \usepackage{pst-plot} % For axes
-\center
-\scalebox{0.75} % Change this value to rescale the drawing.
-{
-\begin{pspicture}(0,-5)(14.8,4.1)
-
-\pscustom[linewidth=0.04]
-{
-\newpath
-\moveto(3.2,1.)
-%\lineto(7.5,1.5)
-\curveto(3.2,1.5)(4.8,3.5)(6.7,2.2)
-}
-\psline[linewidth=0.04cm](6.5,2.6)(6.7,2.2)
-\psline[linewidth=0.04cm](6.3,2.3)(6.7,2.2)
-
-
-
-\psframe[linewidth=0.04,dimen=outer](3.0,0.8725)(0.0,-0.1275)
-\rput(1.6, 1.3){Typ: double **}
-\rput(1.6, 0.3){Wert:0x1deb430}
-\rput(1.6,-0.7){Adresse: 0x7fff541bdbc8}
-
-
-\pscustom[linewidth=0.04]
-{
-\newpath
-\moveto(9.,2.1)
-%\lineto(7.5,1.5)
-\curveto(9.,2.5)(10.1,3.1)(11,3.8)
-}
-\psline[linewidth=0.04cm](10.6,3.7)(11,3.8)
-\psline[linewidth=0.04cm](10.6,3.2)(11,3.8)
-
-
-\psframe[linewidth=0.04,dimen=outer](8.8,1.8)(5.2,0.8)
-\rput(6.8, 2.0){Typ: double *}
-\rput(6.8, 1.4){Wert:0x1deb450}
-\rput(6.8, 0.4){Adresse: 0x1deb430}
-
-\pscustom[linewidth=0.04]
-{
-\newpath
-\moveto(9.,-0.2)
-%\lineto(7.5,1.5)
-\curveto(9.,-0.2)(10.1,-0.4)(11,-0.9)
-}
-\psline[linewidth=0.04cm](10.5,-0.5)(11,-0.9)
-\psline[linewidth=0.04cm](10.3,-0.7)(11,-0.9)
-
-\psframe[linewidth=0.04,dimen=outer](8.8,-0.25)(5.2,-1.25)
-\rput(6.8, -0.1){Typ: double *}
-\rput(6.8, -0.7){Wert:0x1deb470}
-\rput(6.8, -1.7){Adresse: 0x1deb438}
-
-
-
-
-\psframe[linewidth=0.04,dimen=outer](14.8,3.9)(11.2,2.9)
-\rput(13., 4.05){Typ: double }
-\rput(13., 3.5){Wert: $\pi$/4}
-\rput(13., 2.6){Adresse: 0x1deb450}
-
-\psframe[linewidth=0.04,dimen=outer](14.8,1.7)(11.2,0.7)
-\rput(13., 1.85){Typ: double }
-\rput(13., 1.3){Wert: $\pi$/4}
-\rput(13., 0.4){Adresse: 0x1deb458}
-
-\psframe[linewidth=0.04,dimen=outer](14.8,-0.7)(11.2,-1.7)
-\rput(13., -0.55){Typ: double }
-\rput(13., -1.1){Wert: -$\pi$/4}
-\rput(13., -2.){Adresse: 0x1deb470}
-
-\psframe[linewidth=0.04,dimen=outer](14.8,-2.9)(11.2,-3.9)
-\rput(13., -2.65){Typ: double }
-\rput(13., -3.2){Wert: $\pi$/4}
-\rput(13., -4.1){Adresse: 0x1deb478}
-
-
-\rput(1.464063,-4.8){\large Zeiger auf double Zeiger.}
-\rput(7.271094,-4.8){\large Zeiger auf double.}
-\rput(13.05875,-4.8){\large double}
-\end{pspicture} 
-}
-\caption{\label{mem2d} Illustration Zeiger auf Zeiger.}
-\end{figure}
+%\begin{figure}[!ht]
+%% Generated with LaTeXDraw 2.0.8
+%% Tue Feb 28 15:43:57 CET 2017
+%% \usepackage[usenames,dvipsnames]{pstricks}
+%% \usepackage{epsfig}
+%% \usepackage{pst-grad} % For gradients
+%% \usepackage{pst-plot} % For axes
+%\center
+%\scalebox{0.75} % Change this value to rescale the drawing.
+%{
+%\begin{pspicture}(0,-5)(14.8,4.1)
+%
+%\pscustom[linewidth=0.04]
+%{
+%\newpath
+%\moveto(3.2,1.)
+%%\lineto(7.5,1.5)
+%\curveto(3.2,1.5)(4.8,3.5)(6.7,2.2)
+%}
+%\psline[linewidth=0.04cm](6.5,2.6)(6.7,2.2)
+%\psline[linewidth=0.04cm](6.3,2.3)(6.7,2.2)
+%
+%
+%
+%\psframe[linewidth=0.04,dimen=outer](3.0,0.8725)(0.0,-0.1275)
+%\rput(1.6, 1.3){Typ: double **}
+%\rput(1.6, 0.3){Wert:0x1deb430}
+%\rput(1.6,-0.7){Adresse: 0x7fff541bdbc8}
+%
+%
+%\pscustom[linewidth=0.04]
+%{
+%\newpath
+%\moveto(9.,2.1)
+%%\lineto(7.5,1.5)
+%\curveto(9.,2.5)(10.1,3.1)(11,3.8)
+%}
+%\psline[linewidth=0.04cm](10.6,3.7)(11,3.8)
+%\psline[linewidth=0.04cm](10.6,3.2)(11,3.8)
+%
+%
+%\psframe[linewidth=0.04,dimen=outer](8.8,1.8)(5.2,0.8)
+%\rput(6.8, 2.0){Typ: double *}
+%\rput(6.8, 1.4){Wert:0x1deb450}
+%\rput(6.8, 0.4){Adresse: 0x1deb430}
+%
+%\pscustom[linewidth=0.04]
+%{
+%\newpath
+%\moveto(9.,-0.2)
+%%\lineto(7.5,1.5)
+%\curveto(9.,-0.2)(10.1,-0.4)(11,-0.9)
+%}
+%\psline[linewidth=0.04cm](10.5,-0.5)(11,-0.9)
+%\psline[linewidth=0.04cm](10.3,-0.7)(11,-0.9)
+%
+%\psframe[linewidth=0.04,dimen=outer](8.8,-0.25)(5.2,-1.25)
+%\rput(6.8, -0.1){Typ: double *}
+%\rput(6.8, -0.7){Wert:0x1deb470}
+%\rput(6.8, -1.7){Adresse: 0x1deb438}
+%
+%
+%
+%
+%\psframe[linewidth=0.04,dimen=outer](14.8,3.9)(11.2,2.9)
+%\rput(13., 4.05){Typ: double }
+%\rput(13., 3.5){Wert: $\pi$/4}
+%\rput(13., 2.6){Adresse: 0x1deb450}
+%
+%\psframe[linewidth=0.04,dimen=outer](14.8,1.7)(11.2,0.7)
+%\rput(13., 1.85){Typ: double }
+%\rput(13., 1.3){Wert: $\pi$/4}
+%\rput(13., 0.4){Adresse: 0x1deb458}
+%
+%\psframe[linewidth=0.04,dimen=outer](14.8,-0.7)(11.2,-1.7)
+%\rput(13., -0.55){Typ: double }
+%\rput(13., -1.1){Wert: -$\pi$/4}
+%\rput(13., -2.){Adresse: 0x1deb470}
+%
+%\psframe[linewidth=0.04,dimen=outer](14.8,-2.9)(11.2,-3.9)
+%\rput(13., -2.65){Typ: double }
+%\rput(13., -3.2){Wert: $\pi$/4}
+%\rput(13., -4.1){Adresse: 0x1deb478}
+%
+%
+%\rput(1.464063,-4.8){\large Zeiger auf double Zeiger.}
+%\rput(7.271094,-4.8){\large Zeiger auf double.}
+%\rput(13.05875,-4.8){\large double}
+%\end{pspicture} 
+%}
+%\caption{\label{mem2d} Illustration Zeiger auf Zeiger.}
+%\end{figure}
 
 Es bietet sich an für die Speicherreservierung einer zweidimensionalen Matrix eine eigene Funktion zu schreiben.
 Es ist schließlich ziemlich wahrscheinlich, dass mehr als eine solche Matrix benötigt wird.

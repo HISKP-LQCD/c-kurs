@@ -1,29 +1,27 @@
 \section{Einleitung}
 
-In diesem Skript wird die Programmiersprache C eingeführt. 
-C ist eine Programmiersprache, die in vielen Bereichen zum Einsatz kommt und viele Möglichkeiten bietet.
+In diesem Skript wird die Programmiersprache \texttt{C} eingeführt. 
+\texttt{C} ist eine Programmiersprache, die in vielen Bereichen zum Einsatz kommt und viele Möglichkeiten bietet.
 Im Allgemeinen besteht Programmieren aus dem Schreiben von Quelltext (auch \emph{Code}) in einer Programmiersprache, der dann in ausführbaren Maschinencode übersetzt werden muss. 
 Den letzten Schritt nennt man Übersetzen (auch \emph{compilieren}), und das Programm, das diese Aufgabe übernimmt \emph{Compiler}.
 
-C gehört zu den Programmiersprachen, für die zunächst der gesamte Quelltext geschrieben werden muss, um ihn dann zu Übersetzen. 
+\texttt{C} gehört zu den Programmiersprachen, für die zunächst der gesamte Quelltext geschrieben werden muss, um ihn dann zu Übersetzen. 
 Der übersetzte Code kann dann ausgeführt werden, man spricht auch vom ausführbaren Programm.
-Es gibt mehrere Gründe, sich für C als Programmiersprache zu entscheiden, unter anderem:
+Es gibt mehrere Gründe, sich für \texttt{C} als Programmiersprache zu entscheiden, unter anderem:
 \begin{itemize}
-\item C erzeugt meist effizienten Maschinencode:\\
-  Es gibt sehr gute Compiler und die Sprache C lässt sich sehr gut in Maschinencode übersetzen.
-\item C ist eine Hochsprache mit mächtigen Sprachelementen:\\
+\item \texttt{C} erzeugt meist effizienten Maschinencode:\\
+  Es gibt sehr gute Compiler und die Sprache \texttt{C} lässt sich sehr gut in Maschinencode übersetzen.
+\item \texttt{C} ist eine Hochsprache mit mächtigen Sprachelementen:\\
   Man muss nicht die Details der benutzten Computerarchitektur kennen, um guten Quelltext zu erzeugen.
-\item C ist sehr maschinennah:\\
+\item \texttt{C} ist sehr maschinennah:\\
   Wenn man doch einmal die Details beispielsweise der CPU ausnutzen möchte, so ist das möglich.
-\item C wird sehr häufig genutzt:\\
+\item \texttt{C} wird sehr häufig genutzt:\\
   Man kann sehr einfach und schnell Hilfe bekommen.
 \end{itemize}
-Viel der heute häufig genutzten Software ist ursprünglich in C geschrieben.
+Viel der heute häufig genutzten Software ist ursprünglich in \texttt{C} geschrieben.
 
-Der Inhalt dieses Skripts ist der folgende: Im ersten Teil werden wir sehen, wie man eine einfache Fragestellung mit Hilfe von C umsetzen kann.
-Anhand eines Beispiels, des sogenannten \emph{Einfügensortierens}, werden die grundlegenden Elemente von C vorgestellt.
-Dabei werden wir sehen, dass es Elemente gibt, die direkt zu C gehören, und solche, die in sogenannten Bibliotheken zur Verfügung gestellt werden.
-Wir beginnen mit der grundlegenden Struktur eines C Programms und erklären seine Bestandteile.
+Der Inhalt dieses Skripts ist der folgende: Im ersten Teil werden wir sehen, wie man eine einfache Fragestellung mit Hilfe von \texttt{C} umsetzen kann.
+Wir beginnen mit der grundlegenden Struktur eines \texttt{C} Programms und erklären seine Bestandteile.
 Dabei muss man zwei wichtige Konzepte verstehen:
 \begin{enumerate}
 \item Datentypen
@@ -31,46 +29,45 @@ Dabei muss man zwei wichtige Konzepte verstehen:
 \end{enumerate}
 Zum Beispiel: Wenn wir die Zahlen sortieren wollen, müssen wir zunächst entscheiden, ob wir ganze oder reelle Zahlen betrachten wollen.
 Auf jedem Datentyp sind Operationen definiert, die wir nutzen können.
-Wir werden alle C-Datentypen kennenlernen, und die dafür zur Verfügung stehenden Operationen.
+Wir werden alle \texttt{C}-Datentypen kennenlernen, und die dafür zur Verfügung stehenden Operationen.
 Um den Fluss des Programms zu beeinflussen, braucht man allerdings mehr als Operationen auf Daten.
-Dafür werden wir die C-Kontrollstrukturen einführen.
+Dafür werden wir die \texttt{C}-Kontrollstrukturen einführen.
 
 Ein weiteres wichtiges Konzept sind Funktionen.
 Im allgemeinen stellen Funktionen (im Idealfall kurze) mit Namen versehene Abschnitte im Programm dar, die dann über den Namen wieder aus dem Quelltext aufgerufen werden können.
-Das kleinste ausführbare C-Programm besteht aus genau einer Funktion, wie wir sehen werden.
+Das kleinste ausführbare \texttt{C}-Programm besteht aus genau einer Funktion, wie wir sehen werden.
 Funktionen bekommen Daten als Eingabe, führen bestimmte Operationen auf diesen Eingabedaten aus und liefern dann einen Rückgabewert.
 Die oben bereits erwähnten Bibliotheken stellen im wesentlichen Funktionen zur Verfügung.
-So wird zum Beispiel die Ein- und Ausgabe von Text in C über Bibliotheksfunktionen realisiert.
+So wird zum Beispiel die Ein- und Ausgabe von Text in \texttt{C} über Bibliotheksfunktionen realisiert.
 Wir werden zeigen, wie man Funktionen definiert und aufruft.
-Mit all diesem Wissen schreiben wir dann ein erstes etwas komplizierteres Programm.
 
-In dem zweiten Teil des Skripts werden wir komplexere Möglichkeiten von C einführen.
+Am Ende des Skripts werden wir komplexere Möglichkeiten von \texttt{C} einführen.
 Dabei wird es vor allem um Speicherverwaltung und zusammengesetzte Datentypen gehen.
-Das Verständnis von dynamischer Speicherverwaltung in C kann in vielen Situationen sehr hilfreich sein.
-Man denke nur an das Sortierproblem: Wenn nicht von Anfang an klar ist, welche Länge die zu sortierenden Zahlenreihen haben werden, dann sollte man in der Lage sein, diese Länge dynamisch anzupassen
-Der dabei am häufigsten auftretende Laufzeitfehler des Programms ist der sogenannte \emph{segmentation fault}, also ein Zugriff auf eine Sektion im Speicher, auf die nicht zugegriffen werden darf.
-Der Compiler kann solche Fehler nicht feststellen.
-Ein gutes Verständnis der Adressierung von Speicher in C hilft, solche Fehler zu vermeiden, bzw. solche Fehler schnell zu beheben.
-Dies wird einen wichtigen Teil im Skript einnehmen.
-Nebenbei werden wir in diesem Zusammenhang auch sogenannte \emph{strings} in C einführen.
+Das Verständnis von dynamischer Speicherverwaltung in \texttt{C} kann in vielen Situationen sehr hilfreich sein.
+Denken Sie an einen Algorithmus zum Sortieren von Zahlen: Wenn nicht von Anfang an klar ist, welche Länge die zu sortierenden Zahlenreihen haben werden, dann sollte man in der Lage sein, diese Länge dynamisch anzupassen
+%Der dabei am häufigsten auftretende Laufzeitfehler des Programms ist der sogenannte \emph{segmentation fault}, also ein Zugriff auf eine Stelle im Speicher, auf die nicht zugegriffen werden darf.
+%Der Compiler kann solche Fehler nicht feststellen.
+%Ein gutes Verständnis der Adressierung von Speicher in \texttt{C} hilft, solche Fehler zu vermeiden, bzw. solche Fehler schnell zu beheben.
+%Dies wird einen wichtigen Teil im Skript einnehmen.
+%Nebenbei werden wir in diesem Zusammenhang auch sogenannte \emph{strings} in \texttt{C} einführen.
 
 Zusammengesetzte Datenstrukturen sind sehr nützlich, um auf ein Problem angepasste Datentypen nutzen zu können. 
 Das ist unter anderem auch wichtig, weil damit unter Umständen Programme effizienter gemacht werden können.
 Wir werden dies am Beispiel eines schnelleren Sortier-Algorithmus aufzeigen.
 
-Schließlich, ein sehr wichtiger Punkt beim Programmieren ist das Kommentieren und das Codedesign.
+Schließlich, ein sehr wichtiger Punkt beim Programmieren ist das Kommentieren und das Code\-design.
 Dies erhöht die Wiederverwendbarkeit von Code und erlaubt es auch Code zu verstehen, den man vor einem Jahr geschrieben hat.
-Insbesondere werden wir diskutieren, wie man Quelltext in verschiedene Dateien verteilt.
+%Insbesondere werden wir diskutieren, wie man Quelltext in verschiedene Dateien verteilt.
 
-Die Sprache C verändert sich im Laufe der Zeit.
+Die Sprache \texttt{C} verändert sich im Laufe der Zeit.
 Deswegen existieren verschiedene sogenannte Standards.
 In diesem Skript werden wir uns an den C99 Standard halten.
 
 \subsection{Weitere Hilfe}
 
-Dieses Skript erhebt nicht den Anspruch, die Programmiersprache C in allen Details und vollständig zu behandeln.
-Es geht mehr darum, ein grundlegendes Verständnis von Programmierung zu bekommen und dies in C auf einfache Probleme anzuwenden.
-Weitere Möglichkeiten von C und sogar andere Programmiersprachen kann man sich dann relativ leicht im Selbststudium aneignen.
+Dieses Skript erhebt nicht den Anspruch, die Programmiersprache \texttt{C} in allen Details und vollständig zu behandeln.
+Es geht mehr darum, ein grundlegendes Verständnis von Programmierung zu bekommen und dies in \texttt{C} auf einfache Probleme anzuwenden.
+Weitere Möglichkeiten von \texttt{C} und sogar andere Programmiersprachen kann man sich dann relativ leicht im Selbststudium aneignen.
 Dazu gibt es eine Vielzahl von Büchern für jeden möglichen Geschmack und Anwendungsbereich.
 Beispielsweise
 \begin{itemize}

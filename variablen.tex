@@ -126,7 +126,7 @@ Dies macht es möglich, dass der Compiler Fehler in der Nutzung von Datentypen f
 Es gibt einige Regeln für die Namen von Objekten in \texttt{C}. 
 \texttt{C} eigene Schlüsselworte, wie z.B. \texttt{main} dürfen nicht verwendet werden.
 Auch dürfen die Namen nicht mit einer Zahl beginnen, auch wenn Zahlen generell erlaubt sind.
-Operatornamen, wie \verb|+| oder \verb|-| dürfen ebenfalls nicht verwendet werden.
+Operatornamen, wie z.B. \verb|+|, \verb|-| oder \verb|=|, dürfen ebenfalls nicht verwendet werden.
 Es ist ratsam, Variablen mit sinnvollen Namen zu versehen.
 Das macht den Quelltext lesbarer und erhöht die Verständlichkeit des Programms.
 Für den Algorithmus Einfügesortieren sollte man beispielsweise die beiden Liste mit \texttt{sortiert} und \texttt{unsortiert} benennen.
@@ -160,6 +160,7 @@ Im Quelltext sieht das wie folgt aus
 \begin{lstlisting}
 const int n = 5;
 \end{lstlisting}
+Notwedigerweise müssen als \verb|const| deklarierte Variablen immer initialisiert werden, denn eine spätere Zuweisung ist nicht erlaubt.
 Die Benutzung von \verb|const| kann große Vorteile haben.
 Erstens, wenn wir wissen, dass sich eine Variable nicht mehr ändern wird und wir sie als  \verb|const| deklariert haben, dann kann der Compiler das überprüfen und eine Fehlermeldung ausgeben, wenn wir versehentlich den Wert der Variablen doch ändern.
 Zweitens ist der Wert von \verb|const| Variablen zur Zeit der Übersetzung bekannt und erlaubt dem Compiler einige Optimierungen.
