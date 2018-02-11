@@ -58,8 +58,6 @@ void sort(int sortiert[], int unsortiert[], const int n)
 Diese Funktion hat drei Eingabeparameter: Das Array, dass die sortierten Zahlen enthalten soll, das Array, dass die zu sortierenden Zahlen enthält, und die Anzahl an zu sortierenden Zahlen.
 Wieder muss die aufrufende Funktion dafür Sorge tragen, dass für beide Arrays ausreichend Speicher bereitgestellt wurde.
 Überzeugen Sie sich bei den übrigen Zeilen, dass diese wirklich die $n$ Zahlen durch Einfügen in das Array \verb|sortiert| sortiert.
-Als neues Element haben wir an dieser Stelle den Rückgabewert von \verb|sort| als \verb|void| deklariert.
-Das bedeutet, dass die Funktion keinen Rückgabewert hat.
 
 Bleibt noch die \verb|main| Funktion, die wie folgt aussieht:
 \begin{lstlisting}
@@ -82,7 +80,7 @@ int main()
   // print them on the screen
   for (int i = 0; i < actual_length; ++i)
     {
-      printf("%d ", array[i]);
+      printf("%d ", sortiert[i]);
     }
   printf("\n");
 }

@@ -13,6 +13,7 @@ Natürlich berechnen diese Funktionen das Ergebnis nur zur gewünschten Genauigk
 Wir illustrieren dies am Bespiel vom Cosinus.
 Die Cosinus Funktion ist auf ganz $\mathbb{R}$ durch eine Taylorreihe um 0 definiert.
 \begin{equation}
+  \label{eq:cos}
   \cos\left(x\right)\ =\ \sum_{l=0}^{\infty} \left(-1\right)^{l} \dfrac{x^{2l}}{\left(2l\right)!}\,.
 \end{equation}
 Die Funktion 
@@ -35,17 +36,17 @@ int main(int argc, char *argv[])
     printf("Usage: ./print_cos Winkel Naeherungsordnung[optional]\n");
     return(-1);
   }
-  winkel = atof(argv[1]);  // Macht ein Fliesskommazahl aus einer Zeichenkette
+  winkel = atof(argv[1]);  // Konvertiert eine Zeichenkette in eine Fliesskommazahl
   coswinkel = cos(winkel); // cos aus math.h
   printf("Winkel=%e \t cos(Winkel) = %e\n", winkel, coswinkel);
   // nun selbst, wenn die Naeherungsordnung gegeben wurde
-  if (argc == 3) {
+  if (argc > 2) {
     int n;
     double coswinkelapprox;
     double zaehler = winkel; // Zaehler
     int nenner = 1;          // Nenner
-    n = atoi(argv[2]);       // atoi macht ein ganze Zahl aus einer Zeichenkette
-    coswinkelapprox = 1.;    // Das Ergebnis
+    n = atoi(argv[2]);       // atoi konvertiert eine Zeichenkette in eine ganze Zahl
+    coswinkelapprox = 1.;    // Das Ergebnis zu fuehrender Ordnung
     for (int i = 1; i < n; ++i) {
       int sign = 1;          // (-1)^l ist entweder 1 oder -1, wenn l gerade
       if( (i % 2) == 1 ) sign = -1; // oder ungerade ist
@@ -58,17 +59,14 @@ int main(int argc, char *argv[])
   return(0);
 }
 \end{lstlisting}
-Wenn auf der Kommandozeile die Ordnung der Näherung als zweiter Kommandozeilenparameter angegeben wurde, berechnen wir auch die Näherung selbst nach der Formel
-\begin{equation}
-  \cos\left(x,n\right)\ \approx\ \sum_{l=0}^{n} \left(-1\right)^{l} \dfrac{x^{2l}}{\left(2l\right)!}\,.
-\end{equation}
+Wenn auf der Kommandozeile die Ordnung der Näherung als zweiter Kommandozeilenparameter angegeben wurde, berechnen wir auch die Näherung selbst nach der Formel Gleichung~\ref{eq:cos}.
 Wie schon vorher erklärt, sind die Kommandozeilenparameter in der \texttt{main} Funktion nur als Zeichenkette verfügbar.
 Die Konvertierung der Ordnung in eine ganze Zahl kann man mit der standard Funktion \texttt{atoi} (ASCII to integer) durchführen.
 Genauso verwenden wir \texttt{atof} (ASCII to float) um den eingegebenen Winkel in the Fließkommazahl umzuwandeln.
 Man beachte, dass die standard Cosinus Funktion das Argument im Bogenmaß erwartet.
 
 Bei der Berechnung der Näherung müssen wir nicht in jedem Schritt die Potenz $x^{2i}$ und Fakultät $(2i)!$ neu berechnen, sonder müssen lediglich die Variablen \texttt{zaehler, nenner} entsprechend auffrischen.
-Dies ist ein generelles Konzept: Man verwendet mehr Speicher umd Rechnung zu sparen.
+Dies ist ein generelles Konzept: Man verwendet mehr Speicher um Rechnung zu sparen.
 
 \subsubsection{Übersetzen und Linken mit \texttt{math.h}}
 
@@ -138,7 +136,7 @@ Die Benutzung ist dann aber gleich zu C Datentypen, wie man an folgendem Beispie
     w = z*v;
     // Zugriff auf Real- und Imaginaerteile
     printf(``w = %e + i*%e\n'', creal(w), cimag(w));
-    // Anwendung der komplexe Exponetialfunktion
+    // Anwendung der komplexen Exponetialfunktion
     z = cexp(w);
     printf(``w = %e + i*%e\n'', creal(z), cimag(z));
     return 0;

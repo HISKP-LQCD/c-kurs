@@ -23,7 +23,7 @@ Es gibt einige vordefinierte streams, so genannte standard streams:
 \end{enumerate} 
 Standard Ein- und Ausgabe haben wir schon implizit mit \texttt{scanf} und \texttt{printf} benutzt.\index{\texttt{scanf}}\index{\texttt{printf}}
 Funktionen, die ebenfalls direkt auf \verb|stdin| und \texttt{stdout} arbeiten, sind \verb|getchar| and \verb|putchar|.\index{\texttt{putchar}}\index{\texttt{getchar}}
-Sie lesen bzw. schreiben genau ein Zeichen von \verb|stdin| bzw. \texttt{stdout}.
+Sie lesen bzw. schreiben genau ein Zeichen von \verb|stdin| bzw. nach \texttt{stdout}.
 Ihre Deklaration in \verb|stdio.h| sieht wie folgt aus:
 \begin{lstlisting}
 int getchar();
@@ -68,7 +68,7 @@ Dabei wird mit \texttt{filename} der Name der Datei als string übergeben.
 \item \texttt{"r+"}: Öffnen einer Datei zum Schreiben und Lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
 \item \texttt{"{}a+"}: Öffnen einer Datei zum Lesen und Hinzufügen. Zum Lesen zeigt der \emph{stream} auf den Anfang der Datei. Geschriebenes wird immer hinzugefügt.
 \end{itemize}
-Eine Datei, die mit \texttt{fopen} geöffnet wurde, muss mit der Funktion \texttt{fclose} wieder geschlossen werden:\index{\texttt{fclose}}, die folgende Definition hat:
+Eine Datei, die mit \texttt{fopen} geöffnet wurde, muss mit der Funktion \texttt{fclose} wieder geschlossen werden, die folgende Definition hat:\index{\texttt{fclose}}
 \begin{lstlisting}
 int fclose(FILE *stream);
 \end{lstlisting}
@@ -103,7 +103,7 @@ Dabei stehen unter anderem die folgenden speziellen Zeichen zur Verfügung
     \hline
   \end{tabular}
 \end{center}
-Alle anderen Zeichen im Formattierungstext werden eingelesen, aber nicht gespeichert. 
+Alle anderen Zeichen im Formatierungstext werden eingelesen, aber nicht gespeichert. 
 Nehmen wir an, wir müssen die Zahlen aus folgender ASCII Datei einlesen:
 \begin{verbatim}
 1212

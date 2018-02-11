@@ -15,7 +15,7 @@ Sie sind allerdings auch für jede Menge Verwirrung und Programmierfehler verant
 \end{figure}
 
 
-Um Zeiger verstehen zu können, muss man sich zunächst noch einmal ins Gedächtnis rufen, das eine Variable im Prinzip aus zwei Dingen besteht:
+Um Zeiger verstehen zu können, muss man sich zunächst klar machen, das eine Variable im Prinzip aus zwei Dingen besteht:
 Einerseits dem Typ der Variablen und andererseits der Speicheradresse, unter der ein Wert abgelegt wird.
 Über den Typ der Variablen weiß der Compiler, wie viele Bits im Speicher belegt sind, und wenn die Anfangsadresse für das erste Bit bekannt ist, dann kann die gesamte Anzahl an Bits ausgelesen und entsprechend dem Typ interpretiert werden.
 C erlaubt Zugriff sowohl auf den Wert einer Variablen, als auch auf die Adresse, an der der Wert abgelegt ist.
@@ -45,7 +45,7 @@ address = &n; // address zeigt auf n
 n == 5; // ist jetzt wahr.
 \end{lstlisting}
 Genauso gibt es einen Typ Zeiger auf \verb|double|, nämlich \verb|double*| und so weiter.
-Allgemein ist ein Zeiger eine Variable, die eine als Wert Adresse zusammen mit einem Datentyp speichert.
+Allgemein ist ein Zeiger eine Variable, die eine Adresse als Wert zusammen mit einem Datentyp speichert.
 Wir demonstrieren die Nützlichkeit von Zeigern zunächst an einem Beispiel.
 Wir definieren eine Funktion, die zwei Parameter \verb|a, b| übergeben bekommt und diese jeweils um eins erhöht.
 Anschließend sollen diese beiden neuen Werte zurückgegeben werden.
@@ -107,7 +107,7 @@ Damit werden also direkt die Werte der Variable \verb|a, b| in \verb|main| verä
 
 Zeiger kann man genau wie andere Variablen nutzen (womit auch klar ist, dass man auch Zeiger auf Zeiger definieren kann).
 Folgendes Beispiel illustriert die Nutzung noch einmal, wobei \verb|NULL| der Nullzeiger ist:\index{\texttt{NULL}}
-\begin{lstlisting}
+\begin{lstlisting}[numbers=left]
 #include <stdio.h>
 
 int main()
@@ -129,7 +129,7 @@ Dieser Quelltext weist sehr wahrscheinlich eine ungültige Adresse zu:
 \begin{lstlisting}
 int *p = 42;
 \end{lstlisting}
-Allerdings wird im diesen Fall der Compiler sehr wahrscheinlich\footnote{Hängt leider vom Compiler ab.} eine Warnung geben, denn 42 ist vom Typ \verb|int|, und nicht vom Typ \verb|int*|.
+Allerdings wird in diesem Fall der Compiler sehr wahrscheinlich\footnote{Hängt leider vom Compiler ab.} eine Warnung geben, denn 42 ist vom Typ \verb|int|, und nicht vom Typ \verb|int*|.
 GCC 6.3.1 gibt folgendes aus:
 \begin{verbatim}
 int-ptr.c:7:14: Warnung: Initialisierung erzeugt Zeiger 
@@ -147,13 +147,14 @@ Nehmen wir an, es wurde ein Feld wie oben eingeführt deklariert
 \begin{lstlisting}
   int n[] = {1, 2, 3, 4, 5};
 \end{lstlisting}
-Dann ist die variable \verb|n| vom Typ \verb|int *|, also Zeiger auf \verb|int|.
-Das bedeutet, folgendes ist korrekter \texttt{C} Quelltext
+Dann ist die variable \verb|n| eng verwandt mit dem Typ \verb|int *|, also Zeiger auf \verb|int|.
+Den subtile Unterschied kann man am ehesten damit erklären, dass \verb|n| konstant ist, also die Adresse nicht verändert werden darf.
+Das bedeutet, dass folgendes \texttt{C} Quelltext korrekt ist
 \begin{lstlisting}
   int n[] = {1, 2, 3, 4, 5};
   int * p = n;
 \end{lstlisting}
-und auch die folgenden zwei Funktionsdeklarationen sind äquivalent
+und auch die folgenden zwei Funktionsdeklarationen äquivalent sind
 \begin{lstlisting}
   void f1(int * a, const int n);
   void f2(int a[], const int n);
@@ -182,8 +183,7 @@ int main()
   return 0;
 }
 \end{lstlisting}
-Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren.\index{\texttt{const}}
-Will man nur die Elemente des Feldes konstant lassen, so schreibt man
+Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren \index{\texttt{const}}
 \begin{lstlisting}
   void f(const int * a, const int n);
 \end{lstlisting}
@@ -192,14 +192,11 @@ Will man nur die Elemente des Feldes konstant lassen, so schreibt man
 \subsection{Die Parameter der \texttt{main} Funktion}
 
 An dieser Stelle können wir jetzt auch die möglichen Parameter der Funktion \verb|main| einführen.
-Die ist nämlich allgemein wie folgt definiert:\index{\texttt{argc}}\index{\texttt{argv}}\index{\texttt{main}}
+Die ist nämlich allgemein wie folgt deklariert:\index{\texttt{argc}}\index{\texttt{argv}}\index{\texttt{main}}
 \begin{lstlisting}
-int main(int argc, char *argv[])
-{
-  return (0);
-}
+int main(int argc, char *argv[]);
 \end{lstlisting}
-An der Kommandozeile kann man dem Programm Parameter übergeben.
+An der Kommandozeile kann man mit Hilfe der Funktionsargument von \verb|main| dem Programm Parameter übergeben.
 Die Funktion \verb|main| erhält diese in Form einer Zeichkette.
 Leerzeichen in dieser Zeichenkette werden als Trennzeichen interpretiert, so dass die Zeichenkette \verb|argc| Wörter enthält.
 Das erste Wort ist immer der Name der Programms.
