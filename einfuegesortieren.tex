@@ -112,6 +112,96 @@ Damit kann man das Programm von der Kommandozeile wie folgt ausführen:
 $> ./sort < data.dat
 4 12 25 43 77
 \end{verbatim}
-Im zweiten Teil werden wir zeigen, wie man direkt mit C aus einer Datei einlesen kann.
+Man kann, natürlich, wie im letzten Abschintt gezeigt, auch direkt aus \texttt{C} aus der Datei lesen.
+
+\subsection{Header und Quelltextdateien}
+
+Das gerade besprochene Beispiel eignet sich gut auf eine Möglichkeit hinzuweisen, die das Entwickeln von Programmen deutlich erleichtern kann.
+Es ist nämlich möglich, den Quelltext für ein Programm auf verschiedene Dateien aufzuteilen.
+Im obigen Beispiel könnte man beispielsweise die zwei Funktionen \texttt{sort} und \texttt{read} in eigenen Dateien speichern. 
+Zweckdienlicherweise speichert man \texttt{read} in einer Datei \texttt{read.c}
+\begin{lstlisting}[caption={Datei \texttt{read.c}}, belowcaptionskip=0.3em]
+#include <stdio.h>
+#include "read.h"
+  
+int read(int array[], const int n)
+{
+  // Funktionendefinition wie oben
+  return i;
+}
+\end{lstlisting}
+und die Funktion \texttt{sort} in einer Datei \texttt{sort.c}
+\begin{lstlisting}[caption={Datei \texttt{sort.c}}, belowcaptionskip=0.3em]
+#include "sort.h"
+  
+void sort(int sortiert[], int unsortiert[], const int n)
+{
+  // Funktionendefinition wie oben
+  return;
+}
+\end{lstlisting}
+Das neue Element in diesen beiden Dateien ist das Einbinden von zwei sogenannten \emph{header} Dateien, \texttt{read.h} und \texttt{sort.h}.\index{Header Dateien}
+Das Einbinden erfolgt mit Hilfe von \texttt{include}, was im allgemeinen wie folgt aussieht
+\begin{lstlisting}
+#include "relative/path/header.h"
+\end{lstlisting}
+wobei der Pfad relativ zu dem Verzeichnis ist, in dem Übersetzt wird.
+Diese beiden header Dateien benötigt man, um die Funktionendeklarationen in der \texttt{main} Funktion bekannt zu machen.
+Und man bindet sie auch in den beiden Dateien \texttt{sort.c} und \texttt{read.c}, um die Deklarationen konsistent zu halten.
+Die beiden header Dateien enthalten also lediglich die Funktionendeklarationen, also für die Funktion \texttt{read}
+\begin{lstlisting}[caption={Datei \texttt{read.h}}, belowcaptionskip=0.3em]
+#pragma once
+  
+int read(int array[], const int n);
+\end{lstlisting}
+und für die Funktion \texttt{sort}
+\begin{lstlisting}[caption={Datei \texttt{sort.h}}, belowcaptionskip=0.3em]
+#pragma once
+  
+void sort(int sortiert[], int unsortiert[], const int n);
+\end{lstlisting}
+In diesen beiden header Dateien ist das sogenannte Pragma \texttt{#pragma once} hinzugekommen.\index{\texttt{#pragma once}}
+Es signalisiert dem Compiler, dass diese header Datei lediglich einmal einzubinden ist.
+Auf diese Weise verhindert man fehlerhaftes, wechselseitiges Einbinden von header Dateien, was zu unendlichen Schleifen führen kann.
+Die beiden header Dateien kann man nun nutzen, um die beiden Funktionen auch in der \texttt{main} Funktion bekannt zu machen.
+Für \texttt{main} schreiben man auch eine eigene Datei, sagen wir \texttt{main.c}
+\begin{lstlisting}[caption={Datei \texttt{main.c}}, belowcaptionskip=0.3em]
+#include<stdio.h>
+#include "read.h"
+#include "sort.h"
+
+int main() {
+  // Funktionendefinition wie oben
+  return 0;
+}
+\end{lstlisting}
+Bleibt noch zu erklären, wie man das Programm übersetzt, wenn es in verschiedenen Dateien gespeichert ist.
+Dafür kennt der Compiler die Möglichkeit, eine Datei nur zu übersetzen und nicht zu verlinken.
+Zum Beispiel für die drei Dateien geht das wie folgt
+
+\vspace*{0.5cm}
+\begin{verbatim}
+>$  gcc -std=c99 -Wpedantic -c main.c -o main.o
+>$  gcc -std=c99 -Wpedantic -c sort.c -o sort.o
+>$  gcc -std=c99 -Wpedantic -c read.c -o read.o
+\end{verbatim}
+\vspace*{0.5cm}
+
+Das flag \texttt{-c} zeigt dem Compiler an, dass nur übersetzt werden soll.
+Es wird eine sogenannte Objektdatei erzeugt, die typischerweise \texttt{.o} als Endung hat.\index{Objektdatei}
+Das heißt, dass die beiden Funktionen jetzt zwar deklariert, aber noch nicht definiert.
+Dementsprechend kann man eine Objektdatei auch nicht ausführen, man muss vorher noch linken.\index{Linken}
+Dies geschieht mit
+
+\vspace*{0.5cm}
+\begin{verbatim}
+>$  gcc main.o sort.o read.o -o main.exe
+\end{verbatim}
+\vspace*{0.5cm}
+
+In diesem Schritt wird dann die Deklaration in \texttt{main.o} mit den Definitionen in \textt{read.o} und \texttt{sort.o} verknüpft.
+Ein weiterer Vorteil von mehreren Dateien ist, dass man immer nur den Teil neu übersetzen muss, den man geändert hat.
+Dies ist unter Umständen ein immenser Zeitvorteil, wenn die Projekte etwas anspruchsvoller werden.
+Man kann dies mit Hilfe des Programms \texttt{make} auch automatisieren.
 
 \endinput
