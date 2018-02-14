@@ -160,7 +160,7 @@ und für die Funktion \texttt{sort}
   
 void sort(int sortiert[], int unsortiert[], const int n);
 \end{lstlisting}
-In diesen beiden header Dateien ist das sogenannte Pragma \texttt{#pragma once} hinzugekommen.\index{\texttt{#pragma once}}
+In diesen beiden header Dateien ist das sogenannte Pragma \verb|#pragma once| hinzugekommen.\index{\texttt{\#pragma once}}
 Es signalisiert dem Compiler, dass diese header Datei lediglich einmal einzubinden ist.
 Auf diese Weise verhindert man fehlerhaftes, wechselseitiges Einbinden von header Dateien, was zu unendlichen Schleifen führen kann.
 Die beiden header Dateien kann man nun nutzen, um die beiden Funktionen auch in der \texttt{main} Funktion bekannt zu machen.
@@ -199,9 +199,9 @@ Dies geschieht mit
 \end{verbatim}
 \vspace*{0.5cm}
 
-In diesem Schritt wird dann die Deklaration in \texttt{main.o} mit den Definitionen in \textt{read.o} und \texttt{sort.o} verknüpft.
+In diesem Schritt wird dann die Deklaration in \texttt{main.o} mit den Definitionen in \texttt{read.o} und \texttt{sort.o} verknüpft.
 Ein weiterer Vorteil von mehreren Dateien ist, dass man immer nur den Teil neu übersetzen muss, den man geändert hat.
 Dies ist unter Umständen ein immenser Zeitvorteil, wenn die Projekte etwas anspruchsvoller werden.
-Man kann dies mit Hilfe des Programms \texttt{make} auch automatisieren.
+Man kann dies mit Hilfe des Programms \texttt{make} auch automatisieren.\index{make}
 
 \endinput
