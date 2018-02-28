@@ -22,9 +22,9 @@ int read(int array[], const int n)
           break;
         }
     }
-  if (i != n)
-    printf("Sorry, es konnten nicht alle %d Zeichen eingelesen
-                                %werden.\n", n);
+  if (i != n) {
+    printf("Sorry, es konnten nicht alle %d Zeichen eingelesen werden.\n", n);
+  }
   return i;
 }
 \end{lstlisting}
@@ -55,7 +55,7 @@ void sort(int sortiert[], int unsortiert[], const int n)
     }
 }
 \end{lstlisting}
-Diese Funktion hat drei Eingabeparameter: Das Array, dass die sortierten Zahlen enthalten soll, das Array, dass die zu sortierenden Zahlen enthält, und die Anzahl an zu sortierenden Zahlen.
+Diese Funktion hat drei Eingabeparameter: Das Array, das die sortierten Zahlen enthalten soll, das Array, dass die zu sortierenden Zahlen enthält, und die Anzahl an zu sortierenden Zahlen.
 Wieder muss die aufrufende Funktion dafür Sorge tragen, dass für beide Arrays ausreichend Speicher bereitgestellt wurde.
 Überzeugen Sie sich bei den übrigen Zeilen, dass diese wirklich die $n$ Zahlen durch Einfügen in das Array \verb|sortiert| sortiert.
 
@@ -164,7 +164,7 @@ In diesen beiden header Dateien ist das sogenannte Pragma \verb|#pragma once| hi
 Es signalisiert dem Compiler, dass diese header Datei lediglich einmal einzubinden ist.
 Auf diese Weise verhindert man fehlerhaftes, wechselseitiges Einbinden von header Dateien, was zu unendlichen Schleifen führen kann.
 Die beiden header Dateien kann man nun nutzen, um die beiden Funktionen auch in der \texttt{main} Funktion bekannt zu machen.
-Für \texttt{main} schreiben man auch eine eigene Datei, sagen wir \texttt{main.c}
+Die \texttt{main} Funktion können wir auch in eine eigene Datei schreiben, sagen wir \texttt{main.c}
 \begin{lstlisting}[caption={Datei \texttt{main.c}}, belowcaptionskip=0.3em]
 #include<stdio.h>
 #include "read.h"
