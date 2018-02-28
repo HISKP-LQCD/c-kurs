@@ -1,7 +1,7 @@
 \section{Einleitung}
 
 In diesem Skript wird die Programmiersprache \texttt{C} eingeführt. 
-\texttt{C} ist eine Programmiersprache, die in vielen Bereichen zum Einsatz kommt und viele Möglichkeiten bietet.
+\texttt{C} ist eine m\"{a}chtige Programmiersprache, die in vielen Bereichen zum Einsatz kommt.
 Im Allgemeinen besteht Programmieren aus dem Schreiben von Quelltext (auch \emph{Code}) in einer Programmiersprache, der dann in ausführbaren Maschinencode übersetzt werden muss. 
 Den letzten Schritt nennt man Übersetzen (auch \emph{compilieren}), und das Programm, das diese Aufgabe übernimmt \emph{Compiler}.
 
@@ -16,15 +16,16 @@ Es gibt mehrere Gründe, sich für \texttt{C} als Programmiersprache zu entschei
 \item \texttt{C} ist sehr maschinennah:\\
   Wenn man doch einmal die Details beispielsweise der CPU ausnutzen möchte, so ist das möglich.
 \item \texttt{C} wird sehr häufig genutzt:\\
-  Man kann sehr einfach und schnell Hilfe bekommen.
+  Es gibt viele bestehende \emph{Bibliotheken}, in denen nützliche Funktionalität implementiert ist und es ist relativ einfach, schnell Hilfe zu verschiedensten Problemen zu erhalten.
 \end{itemize}
 Viel der heute häufig genutzten Software ist ursprünglich in \texttt{C} geschrieben.
 
 Der Inhalt dieses Skripts ist der folgende: Im ersten Teil werden wir sehen, wie man eine einfache Fragestellung mit Hilfe von \texttt{C} umsetzen kann.
 Wir beginnen mit der grundlegenden Struktur eines \texttt{C} Programms und erklären seine Bestandteile.
-Dabei muss man zwei wichtige Konzepte verstehen:
+Dabei muss man einige wichtige Konzepte verstehen:
 \begin{enumerate}
 \item Datentypen
+\item Kontrollstrukturen
 \item Funktionen
 \end{enumerate}
 Zum Beispiel: Wenn wir die Zahlen sortieren wollen, müssen wir zunächst entscheiden, ob wir ganze oder reelle Zahlen betrachten wollen.
@@ -41,9 +42,9 @@ Die oben bereits erwähnten Bibliotheken stellen im wesentlichen Funktionen zur 
 So wird zum Beispiel die Ein- und Ausgabe von Text in \texttt{C} über Bibliotheksfunktionen realisiert.
 Wir werden zeigen, wie man Funktionen definiert und aufruft.
 
-Am Ende des Skripts werden wir komplexere Möglichkeiten von \texttt{C} einführen.
+Der letzte Teil des Skripts behandelt einige fortgeschrittene Konzepte von \texttt{C}.
 Dabei wird es vor allem um Speicherverwaltung und zusammengesetzte Datentypen gehen.
-Das Verständnis von dynamischer Speicherverwaltung in \texttt{C} kann in vielen Situationen sehr hilfreich sein.
+Das Verständnis von dynamischer Speicherverwaltung in \texttt{C} kann in vielen Situationen unumgänglich sein.
 Denken Sie an einen Algorithmus zum Sortieren von Zahlen: Wenn nicht von Anfang an klar ist, welche Länge die zu sortierenden Zahlenreihen haben werden, dann sollte man in der Lage sein, diese Länge dynamisch anzupassen
 %Der dabei am häufigsten auftretende Laufzeitfehler des Programms ist der sogenannte \emph{segmentation fault}, also ein Zugriff auf eine Stelle im Speicher, auf die nicht zugegriffen werden darf.
 %Der Compiler kann solche Fehler nicht feststellen.
@@ -51,16 +52,17 @@ Denken Sie an einen Algorithmus zum Sortieren von Zahlen: Wenn nicht von Anfang 
 %Dies wird einen wichtigen Teil im Skript einnehmen.
 %Nebenbei werden wir in diesem Zusammenhang auch sogenannte \emph{strings} in \texttt{C} einführen.
 
-Zusammengesetzte Datenstrukturen sind sehr nützlich, um auf ein Problem angepasste Datentypen nutzen zu können. 
+Zusammengesetzte Datenstrukturen sind sehr nützlich, um auf ein Problem angepasste Datentypen nutzen zu können.
 Das ist unter anderem auch wichtig, weil damit unter Umständen Programme effizienter gemacht werden können.
 Wir werden dies am Beispiel eines schnelleren Sortier-Algorithmus aufzeigen.
+Ferner werden wir sehen, dass zusammengesetzte Datentypen dabei helfen können, den Quelltext für eine gegebene Problemlösung verständlicher zu gestalten.
 
-Schließlich, ein sehr wichtiger Punkt beim Programmieren ist das Kommentieren und das Code\-design.
+Ein sehr wichtiger in diese Richtung gehender Aspekt beim Programmieren ist auch das Kommentieren sowie das Code\-design.
+Letzteres werden wir insbesondere in Form der sogenannten \emph{modularen} Programmierung kennenlernen.
 Dies erhöht die Wiederverwendbarkeit von Code und erlaubt es auch Code zu verstehen, den man vor einem Jahr geschrieben hat.
 %Insbesondere werden wir diskutieren, wie man Quelltext in verschiedene Dateien verteilt.
 
-Die Sprache \texttt{C} verändert sich im Laufe der Zeit.
-Deswegen existieren verschiedene sogenannte Standards.
+Da sich die Sprache \texttt{C} im Laufe der Zeit verändert, existieren verschiedene sogenannte Standards.
 In diesem Skript werden wir uns an den C99 Standard halten.
 
 \subsection{Weitere Hilfe}
@@ -82,6 +84,6 @@ Beispielsweise sei hier auf \texttt{stackoverflow.com} hingewiesen, wo fast jede
 
 Dieses Dokument wurde mit \LaTeX\ erstellt und kann unter 
 \begin{center}
-  \texttt{https://github.com/urbach/ckurs2017} 
+  \texttt{https://github.com/urbach/c-kurs} 
 \end{center}
 frei heruntergeladen werden.
