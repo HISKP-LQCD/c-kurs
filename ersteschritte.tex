@@ -85,7 +85,7 @@ Information verloren, eine Rückabbildung ist nicht eindeutig möglich.
 
 \begin{myexampleblock}{Zahlendarstellung}
   \begin{enumerate}
-    \item Die Abbildung der Zahl $0{,}1$ im Dezimalsystem auf das
+   \item Die Abbildung der Zahl $0{,}1$ im Dezimalsystem auf das
     Dualsystem $0{,}1_{10} = 0{,}0001\,1001\,1001\,1001\ldots_2$ ist ein unendlicher
     periodischer Dualbruch und damit mit endlicher Stellenzahl nicht
     exakt darstellbar.
@@ -93,7 +93,14 @@ Information verloren, eine Rückabbildung ist nicht eindeutig möglich.
     Allgemeinen eine $k+1$ stellige Zahl. Überschreitet bei einem
     solchen Schritt $k+1$ die maximal verfügbare Stellenzahl, so kommt
     es zu einem sogenannten Überlauf (Englisch: \emph{overflow}), der
-    zum Fehlschlagen eines Verfahrens führt.
+    zum Fehlschlagen numerischer Verfahren führen kann. Dies ist jedoch
+    hauptsächlich bei ganzzahligen Datentypen von Relevanz.
+  \item die bei der Fließkommadarstellung inhärente Rundung führt dazu, dass 
+    ein gegebener Algorithmus Ergebnisse nur bis zu einer bestimmten Genauigkeit
+    berechnen kann. Man spricht hierbei von \emph{Rundungsfehlern}.
+    Es ist Vorsicht geboten: bei manchen numerischen Verfahren kann dies dazu führen,
+    dass unzureichend genaue oder gar völlig falsche Ergebnisse berechnet werden.
+    
   \end{enumerate}
 \end{myexampleblock}
 Als Maschinengenauigkeit bezeichnet man die größte reelle Zahl $\delta_M$ für die der Rechner
