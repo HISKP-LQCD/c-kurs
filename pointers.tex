@@ -1,5 +1,5 @@
 
-\section{Zeiger}
+\section{Zeiger}\label{sec:zeiger}
 
 Kommen wir nun zu der Frage, wie man aus Funktionen mehr als nur skalare Größen zurück gibt.
 Genauso, wie wir Felder an Funktionen uebergeben können, wollen wir auch Felder als Rückgabewert benutzen.
@@ -13,7 +13,6 @@ Sie sind allerdings auch für jede Menge Verwirrung und Programmierfehler verant
   \includegraphics[width=\linewidth]{graphics/zeiger}
   \caption{\label{fig:zeiger} Illustration Zeiger.}
 \end{figure}
-
 
 Um Zeiger verstehen zu können, muss man sich zunächst klar machen, das eine Variable im Prinzip aus zwei Dingen besteht:
 Einerseits dem Typ der Variablen und andererseits der Speicheradresse, unter der ein Wert abgelegt wird.
@@ -188,25 +187,7 @@ Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll,
   void f(const int * a, const int n);
 \end{lstlisting}
 
-
-\subsection{Die Parameter der \texttt{main} Funktion}
-
-An dieser Stelle können wir jetzt auch die möglichen Parameter der Funktion \verb|main| einführen.
-Die ist nämlich allgemein wie folgt deklariert:\index{\texttt{argc}}\index{\texttt{argv}}\index{\texttt{main}}
-\begin{lstlisting}
-int main(int argc, char *argv[]);
-\end{lstlisting}
-An der Kommandozeile kann man mit Hilfe der Funktionsargumente von \verb|main| dem Programm Parameter übergeben.
-Die Funktion \verb|main| erhält diese in Form einer Zeichkette.
-Leerzeichen in dieser Zeichenkette werden als Trennzeichen interpretiert, so dass die Zeichenkette \verb|argc| Wörter enthält.
-Das erste Wort ist immer der Name der Programms.
-Die Wörter werden in \verb|argv| gespeichert.
-Also, zum Bespiel
-\begin{verbatim}
-  ./main.exe 3 hallo
-\end{verbatim}
-liefert \verb|argc=3|, und \verb|argv[0] = "./main.exe"|, \verb|argv[1] = "3"| und \verb|argv[2] = "hallo"|.
-\newpage
+Als etwas ausführlicheres Beispiel für die Verwendung von Feldern, dient uns folgende numerische Abschätzung der Zahl $\pi$:
 \begin{myexampleprogram}{Beispiel: \texttt{Näherung von $\pi$}}
   In diesem Beispiel berechnen wir $\pi$ näherungsweise.
   Dafür verwenden wir folgende Integraldarstellung von $\pi$:
@@ -275,6 +256,24 @@ int main()
 
   Dieses Beispiel hätten wir natürlich auch ohne Arrays durchführen können, aber es illustriert deren Benutzung.
 \end{myexampleprogram}
+
+\subsection{Die Parameter der \texttt{main} Funktion}
+
+An dieser Stelle können wir jetzt auch die möglichen Parameter der Funktion \verb|main| einführen.
+Die ist nämlich allgemein wie folgt deklariert:\index{\texttt{argc}}\index{\texttt{argv}}\index{\texttt{main}}
+\begin{lstlisting}
+int main(int argc, char *argv[]);
+\end{lstlisting}
+An der Kommandozeile kann man mit Hilfe der Funktionsargumente von \verb|main| dem Programm Parameter übergeben.
+Die Funktion \verb|main| erhält diese in Form einer Zeichkette.
+Leerzeichen in dieser Zeichenkette werden als Trennzeichen interpretiert, so dass die Zeichenkette \verb|argc| Wörter enthält.
+Das erste Wort ist immer der Name der Programms.
+Die Wörter werden in \verb|argv| gespeichert.
+Also, zum Bespiel
+\begin{verbatim}
+  ./main.exe 3 hallo
+\end{verbatim}
+liefert \verb|argc=3|, und \verb|argv[0] = "./main.exe"|, \verb|argv[1] = "3"| und \verb|argv[2] = "hallo"|.
 
 \subsection{Zeigerarithmetik}
 

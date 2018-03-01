@@ -96,7 +96,8 @@ Der \verb|default| Zweig wird dann ausgeführt, wenn keiner der anderen Fälle g
 Im folgende Bespiel wird eine ganze Zahl von der Standardeingabe eingelesen, und zwar mit Hilfe der \verb|scanf| Funktion, die eine \verb|printf| sehr ähnliche Syntax hat.\index{\texttt{printf}}\index{\texttt{scanf}}
 Wir diskutieren die Details zu \verb|scanf| später.
 Dann wird, in Abhängigkeit vom eingegebenen Wert eine Ausgabe auf dem Bildschirm gemacht.
-\begin{lstlisting}
+\begin{myexampleprogram}{Beispiel: \texttt{switch} statement}
+\begin{lstlisting}[numbers=left]
 #include <stdio.h>
 
 int main()
@@ -123,6 +124,7 @@ int main()
   return (0);
 }
 \end{lstlisting}
+\end{myexampleprogram}
 D.h., wenn $0$ eingegeben wird, wird Zeile $10$ ausgeführt.
 Wenn $1$ eingegeben wird, wird Zeile $13$ und $15$ ausgeführt.
 Und, wenn keines von $0,1,2,3$ eingegeben wird, also keine der Möglichkeiten passt, so wird der \verb|default| Zweig ausgeführt, und damit Zeile $21$.

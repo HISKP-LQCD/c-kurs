@@ -51,6 +51,7 @@ Dagegen ist folgendes korrekt
 was es erlaubt die Feldlänge in einer Variablen zu speichern.
 Wenn sich nun im Quelltext diese Länge ändert, so muss man diese Änderung nur noch an einer Stelle vornehmen.
 
+
 \subsection{Eindimensionale Felder als Funktionenargumente}
 
 Wie schon im Abschnitt über Funktionen angedeutet, kann man auch Felder als Funktionenargument verwenden.
@@ -88,8 +89,6 @@ Genauer wird das im Abschnitt über Zeiger diskutiert.
 
 \subsection{Mehrdimensionale Felder}
 
-\todo[inline]{BaKo: ich bin mir hier etwas unschlüssig, ob es nicht an dieser Stelle schon nützlich wäre, die Art und Weise zu erklären, wie der Compiler diese Dinger abspeichert...}
-
 Ganz analog zu eindimensionalen Feldern lassen sich auch zweidimensionale Felder (Matrizen) erzeugen
 \begin{lstlisting}
   int A[3][5]; // Deklaration
@@ -101,160 +100,19 @@ Ganz analog zu eindimensionalen Feldern lassen sich auch zweidimensionale Felder
 \end{lstlisting}
 Und wie im eindimensionalen Fall kann man auch Deklaration und Initialisierung kombinieren
 \begin{lstlisting}
-  int A1[2][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
+  int A1[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
   int A2[][3]  = {{1,2,3}, {4,5,6}, {7,8,9}};
   int A3[][3] = {1,2,3,4,5,6,7,8,9}};
 \end{lstlisting}
 Die Anzahl der Zeilen kann der Compiler aus der Initialisierungsliste bestimmen.
 Die Anzahl der Spalten muss aber immer angegeben sein.
-Die Dimensionalität eines Feldes kann dann in analoger Weise zu drei oder mehr erweitert werden.
+Die Dimensionalität eines Feldes kann dann in analoger Weise zu drei oder mehr erweitert werden, wobei der \texttt{C}-Compiler die Feldelemente immer linear so im Speicher ablegt, wie für das Beispiel \texttt{A1} in Abbildung~\ref{fig:2darray} gezeigt.
+Das heisst, dass die Dimensionen des Arrays von rechts nach links zählend linear im Speicher abgelegt werden.
 
-\subsection{Zeichenketten oder Strings}
-
-In C gibt es keinen elementaren Datentyp für Zeichenketten, sogenannte \emph{strings}.
-Zeichenketten werden mit Hilfe von Arrays abgebildet.
-Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden.
-Die Größe des Datentyps \texttt{char} ist immer ein Byte, also 8 Bit.\footnote{\textbf{Bemerkung:}~ Im ASCII Zeichensatz können $2^8= 256$ verschiedene Zeichen gespeichert werden.
-Dies reicht für Englisch und ein paar Steuerzeichen, jedoch nicht für alle Sprachen dieser Welt.
-Der ASCII Zeichensatz nutzt die ersten 128 Zustände (also die ersten 7 Bit) für das im Englischen genutzte Alphabet.
-Die restlichen 128 Zustände werden abhängig vom  \emph{Encoding} interpretiert.
-Für Deutsch kann man \texttt{latin-1} nutzen.
-Je nach Encoding wird, z.B., ein Zeichen mit Wert 204 als solches oder jenes interpretiert.
-Ist das Encoding nicht das richtige, erscheinen z.B. Zeichen mit Umlauten
-nicht korrekt und scheinbar willkürliche Zeichen stehen an ihrer Stelle.
-Sprachen, die mehr als 128 verschiedene Zeichen benötigen, können im oberen
-Teil von ASCII überhaupt nicht dargestellt werden. Die Einsicht, dass es
-mehr als 256 verschiedene Zeichen gibt, wurde im Unicode Standard
-manifestiert. Die Konsequenz ist jedoch, dass jetzt mehr als ein Byte pro
-Zeichen benötigt wird. UTF-8 ist inzwischen vielerorts das Standard-Encoding, sodass
-beliebig viele verschiedene Zeichen in einer Textdatei genutzt werden
-können. Der Preis ist jedoch, dass ein Buchstabe jetzt beliebig viele Byte
-(meist eins) nutzt. Da hier der Fokus allerdings auf Numerischen Methoden
-liegt, wird nicht weiter auf die vielfältigen Probleme mit Encodings
-eingegangen.}
-
-Eine Zeichenkette kann also durch eine Array von Elementen vom Typ \verb|char| erzeugt werden.
-Das Ende einer Zeichenkette wird durch das Zeichen \verb|\0| angegeben.
-Man spricht auch von \emph{null-terminiert} oder \emph{0-terminiert}.
-Im nächsten Beispiel überprüfen wir, ob eine Zeichenkette eine Zahl enthält:
-\begin{lstlisting}
-#include <stdio.h>
-
-int main()
-{
-  char string[] = "sdfk99225kljsdfs\0";
-  int i = 0;
-  int ergebnis = 0;
-
-  while(1) {
-    if(string[i] == '\0') {
-      break;
-    }
-    if((string[i]) >= '0' && (string[i] <= '9')) {
-      ergebnis = 1;
-      break;
-    }
-    i++;
-  }
-  if (ergebnis){
-    printf("Der String %s enthaelt mindestens eine Zahl\n", string);
-  } else {
-    printf("Der String %s enthaelt keine Zahlen\n", string);
-  }
-  return 0;
-}
-\end{lstlisting}
-Wir deklarieren und initialisieren zunächst die Variable \texttt{string} mit einer Zeichenkette.
-Dann nutzen wir eine \verb|while| Schleife mit konstant wahrem logischem Ausdruck.
-Die Schleife wird dann mit \verb|break| abgebrochen, wenn das Endstring-Zeichen gefunden wurde.
-In der Schleife wird dann jedes Element der Kette darauf überprüft, ob es eine Zahl ist.
-Dementsprechend wird die Variable \verb|ergebnis| gesetzt.
-% BaKo: hier m.E. keine gute Stelle, um darauf hinzuweisen
-%       erstens sind Strings speziell (weil terminiert)
-%       zweitens sind die *printf Funktionen schrecklich kompliziert...
-% Beim abschließenden \texttt{printf} wird eine wichtige Eigenschaft von \texttt{C} Feldern deutlich:
-% Man benötigt keine Referenzierungsoperator \verb|&|.\index{Adressoperator \&}\index{\&}
-% Im nächsten Abschnitt über Zeiger wird klar werden, warum dies so ist.
-
-\subsubsection{\texttt{sprintf} und \texttt{snprintf}}
-
-Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abhängig vom Wert einer Variable zu machen.
-
-Hierfür stehen in \texttt{C} die beiden Funktionen \texttt{sprintf} und \texttt{snprintf} zur Verfügung, welche wie die schon bekannte \texttt{printf} Funktion funktioniern.\index{\texttt{sprintf}}\index{\texttt{snprintf}}
-Im Gegensatz zu \texttt{printf}, schreiben diese Funktionen jedoch direkt in eine sich im Speicher befindliche Zeichenkette.
-
-\todo[inline]{BaKo: Ich werde hier wohl noch auf die Signatur von sprintf und snprintf eingehen. Das Beispiel möchte ich lesbarer machen. Meines Erachtens ist \texttt{snprintf} wirklich sehr wichtig und ich möchte, dass der Punkt verstanden wird. Da die Vorlesung jetzt nicht so dicht gepackt ist, wird dies wohl kein Problem darstellen.}
-
-\begin{lstlisting}
-#include <stdio.h>
-// konstante Längen für lange und kurze Zeichenketten
-const int MAX_LENGTH = 1000;
-const int SHORT_LENGTH = 50;
-
-int main()
-{
-  char string[MAX_LENGTH];
-  const int i = 42;
-  sprintf(string,
-          "The Answer to the Ultimate Question of Life,"
-          "The Universe, and Everything is %d.\n\n",
-          i);
-  printf("%s", string);
-  
-  int rval;
-  char short_string[SHORT_LENGTH];
-  
-  // kurze Zeichenkette wird in short_string geschrieben, Rueckgaberwert wird ueberprueft
-  rval = snprintf(short_string, SHORT_LENGTH-1, "This is a test string.\n\n");
-  if(rval >= SHORT_LENGTH) {
-    printf("snprintf: The string was not completely written!\n");
-  } else {
-    printf("snprintf: wrote %d characters\n", rval);
-  }
-  printf("%s",short_string);
-  
-  // ueberlange Zeichenkette wird in short_string geschrieben, Rueckgaberwert wird ueberprueft
-  rval = snprintf(short_string, 
-                  SHORT_LENGTH-1, 
-                  "The Answer to the Ultimate Question of Life, "
-                  "The Universe, and Everything is %d.\n", 
-                  i);
-                  
-  if(rval >= SHORT_LENGTH) {
-    printf("snprintf: The string was not completely written!\n");
-  }
-  
-  printf("%s\n\n",short_string);
-  
-  // ACHTUNG: hier wird fremder Speicher ueberschrieben 
-  sprintf(short_string, 
-          "The Answer to the Ultimate Question of Life"
-          ", The Universe, and Everything is %d.\n",
-          i);
-  printf("%s",short_string); 
-  
-  return 0;
-}
-\end{lstlisting}
-Ebenso wie bei \texttt{scanf}, besteht jedoch die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
-Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
-
-Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die Länge der geschriebenen Zeichenkette zu beschränken.
-Desweiteren kann man durch Überprüfung des Rückgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
-
-\noindent Ausgabe:
-\begin{verbatim}
-$ ./test
-The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
-
-snprintf: wrote 24 characters
-This is a test string.
-
-snprintf: The string was not completely written!
-The Answer to the Ultimate Question of Life, The
-
-The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
-\end{verbatim}
+\begin{figure}[!ht]
+  \includegraphics[width=\textwidth]{graphics/2darray_im_speicher}
+  \caption{\label{fig:2darray} Das zweidimensionale Array \texttt{A1} im Speicher.}
+\end{figure}
 
 Die Benutzung von Feldern wird in folgendem Beispiel illustriert:
 \begin{myexampleprogram}{Beispiel: Berechnung des Mittelwerts und der Varianz}
@@ -303,6 +161,191 @@ double var = xsq / (double)size - mean * mean;
 printf("Die Varianz ist %e\n", var);
 \end{lstlisting}
 \end{myexampleprogram}
+\newpage
 
+\subsection{Zeichenketten oder Strings}
+
+In C gibt es keinen elementaren Datentyp für Zeichenketten, sogenannte \emph{strings}.
+Zeichenketten werden mit Hilfe von Arrays abgebildet.
+Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden.
+Die Größe des Datentyps \texttt{char} ist immer ein Byte, also 8 Bit.\footnote{\textbf{Bemerkung:}~ Im ASCII Zeichensatz können $2^8= 256$ verschiedene Zeichen gespeichert werden.
+Dies reicht für Englisch und ein paar Steuerzeichen, jedoch nicht für alle Sprachen dieser Welt.
+Der ASCII Zeichensatz nutzt die ersten 128 Zustände (also die ersten 7 Bit) für das im Englischen genutzte Alphabet.
+Die restlichen 128 Zustände werden abhängig vom  \emph{Encoding} interpretiert.
+Für Deutsch kann man \texttt{latin-1} nutzen.
+Je nach Encoding wird, z.B., ein Zeichen mit Wert 204 als solches oder jenes interpretiert.
+Ist das Encoding nicht das richtige, erscheinen z.B. Zeichen mit Umlauten
+nicht korrekt und scheinbar willkürliche Zeichen stehen an ihrer Stelle.
+Sprachen, die mehr als 128 verschiedene Zeichen benötigen, können im oberen
+Teil von ASCII überhaupt nicht dargestellt werden. Die Einsicht, dass es
+mehr als 256 verschiedene Zeichen gibt, wurde im Unicode Standard
+manifestiert. Die Konsequenz ist jedoch, dass jetzt mehr als ein Byte pro
+Zeichen benötigt wird. UTF-8 ist inzwischen vielerorts das Standard-Encoding, sodass
+beliebig viele verschiedene Zeichen in einer Textdatei genutzt werden
+können. Der Preis ist jedoch, dass ein Buchstabe jetzt beliebig viele Byte
+(meist eins) nutzt. Da hier der Fokus allerdings auf Numerischen Methoden
+liegt, wird nicht weiter auf die vielfältigen Probleme mit Encodings
+eingegangen.}
+
+Eine Zeichenkette kann also durch eine Array von Elementen vom Typ \verb|char| erzeugt werden.
+Das Ende einer Zeichenkette wird durch das Zeichen \verb|\0| angegeben.
+Man spricht auch von \emph{null-terminiert} oder \emph{0-terminiert} und das Zeichen \verb|\0| wird auch \emph{Nullterminierungszeichen} genannt.
+Im nächsten Beispiel überprüfen wir, ob eine Zeichenkette eine Zahl enthält:
+\begin{myexampleprogram}{Beispiel: Durchsuchen von Zeichenketten}
+\begin{lstlisting}
+#include <stdio.h>
+
+int main()
+{
+  char string[] = "sdfk99225kljsdfs\0";
+  int i = 0;
+  int ergebnis = 0;
+
+  while(1) {
+    if(string[i] == '\0') {
+      break;
+    }
+    if((string[i]) >= '0' && (string[i] <= '9')) {
+      ergebnis = 1;
+      break;
+    }
+    i++;
+  }
+  if (ergebnis){
+    printf("Der String %s enthaelt mindestens eine Zahl\n", string);
+  } else {
+    printf("Der String %s enthaelt keine Zahlen\n", string);
+  }
+  return 0;
+}
+\end{lstlisting}
+\end{myexampleprogram}
+Wir deklarieren und initialisieren zunächst die Variable \texttt{string} mit einer Zeichenkette.
+Dann nutzen wir eine \verb|while| Schleife mit konstant wahrem logischem Ausdruck.
+Die Schleife wird dann mit \verb|break| abgebrochen, wenn das Endstring-Zeichen gefunden wurde.
+In der Schleife wird dann jedes Element der Kette darauf überprüft, ob es eine Zahl ist.
+Dementsprechend wird die Variable \verb|ergebnis| gesetzt.
+% BaKo: hier m.E. keine gute Stelle, um darauf hinzuweisen
+%       erstens sind Strings speziell (weil terminiert)
+%       zweitens sind die *printf Funktionen schrecklich kompliziert...
+% Beim abschließenden \texttt{printf} wird eine wichtige Eigenschaft von \texttt{C} Feldern deutlich:
+% Man benötigt keine Referenzierungsoperator \verb|&|.\index{Adressoperator \&}\index{\&}
+% Im nächsten Abschnitt über Zeiger wird klar werden, warum dies so ist.
+
+\subsubsection{\texttt{sprintf} und \texttt{snprintf}}
+
+Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abhängig vom Wert einer Variable zu machen.
+
+Wie haben die Funktion \texttt{printf} schon öfter zur Textausgabe verwendet und werden im Detail in Teil~\ref{sec:ein_ausgabe} auf die \emph{formatierte} Ausgabe eingehen eingehen.
+Möchte man jedoch, anstelle auf die Konsole, in eine Zeichenkette formatierten Text, sowie Textdarstellungen von Variablen ausgeben, stehen in \texttt{C} die beiden Funktionen \texttt{sprintf} und \texttt{snprintf} zur Verfügung.
+Diese funktionieren wie die schon bekannte \texttt{printf} Funktion und werden mit der Headerdatei \texttt{stdio.h} eingebunden.\index{\texttt{sprintf}}\index{\texttt{snprintf}}
+Im Gegensatz zu \texttt{printf}, schreiben diese Funktionen jedoch direkt in eine sich im Speicher befindliche Zeichenkette.
+
+Diese Funktionen haben die Signaturen
+\begin{lstlisting}
+  int sprintf(char *str, const char *format, ...);
+  int snprintf(char *str, size_t size, const char *format, ...);
+\end{lstlisting}
+wobei das Argument \enquote{\texttt{str}} für die Zeichenkette steht, in die geschrieben werden soll und \enquote{\texttt{format}} eine konstante Zeichenkette ist, in der wir beschreiben werden, wie dies zu erfolgen hat.
+Die Bedeutung von \enquote{\texttt{char *}} und \enquote{\texttt{const char *}} wird in Teil~\ref{sec:zeiger} noch genau erklärt werden.
+Die sogenannte \emph{variable Argumentenliste}, \enquote{\texttt{...}}, dient bei den Funktionen aus \texttt{stdio.h} als Platzhalter für eine beliebige Anzahl von Variablen oder Konstanten, die man ausgeben möchte.
+Die Stelle in der Zeichenkette, an denen diese Ausgabe stattfinden soll, sowie das Format in der diese Ausgabe erfolgen soll, geben wir anhand von Platzhaltern an, genau so, wie wir es auch schon bei \texttt{printf} getan haben.
+
+Da wir jedoch nicht auf die Konsole ausgeben, sondern direkt in Speicher schreiben, muss man bei der Verwendung insbesondere von \texttt{printf} sehr vorsichtig sein, wie in folgendem Beispiel gezeigt wird.
+
+\begin{myexampleprogram}{Beispiel: Formatierte Erstellung von Zeichenketten mit \texttt{sprintf} und \texttt{snprintf}}
+\begin{lstlisting}[numbers=left]
+#include <stdio.h>
+// konstante Längen für lange und kurze Zeichenketten
+const int MAX_LENGTH = 1000;
+const int SHORT_LENGTH = 50;
+
+int main()
+{
+  char string[MAX_LENGTH];
+  const int i = 42;
+  sprintf(string,
+          "The Answer to the Ultimate Question of Life,"
+          "The Universe, and Everything is %d.\n\n",
+          i);
+  printf("string: %s", string);
+  
+  int rval;
+  char short_string[SHORT_LENGTH];
+  
+  // kurze Zeichenkette wird in short_string geschrieben
+  // Rueckgaberwert wird ueberprueft
+  rval = snprintf(short_string, 
+                  SHORT_LENGTH-1, 
+                  "This is a test string.\n\n");
+  if(rval >= SHORT_LENGTH) {
+    printf("snprintf: The string was not completely written!\n");
+  } else {
+    printf("snprintf: wrote %d characters\n", rval);
+  }
+  printf("short_string: %s",short_string);
+  
+  // ueberlange Zeichenkette wird in short_string geschrieben
+  // Rueckgaberwert wird ueberprueft
+  rval = snprintf(short_string, 
+                  SHORT_LENGTH-1, 
+                  "The Answer to the Ultimate Question of Life, "
+                  "The Universe, and Everything is %d.\n", 
+                  i);
+                  
+  if(rval >= SHORT_LENGTH) {
+    printf("snprintf: The string was not completely written!\n");
+  }
+  
+  printf("short_string: %s\n\n",short_string);
+  
+  // ACHTUNG: hier wird fremder Speicher ueberschrieben 
+  sprintf(short_string, 
+          "The Answer to the Ultimate Question of Life"
+          ", The Universe, and Everything is %d.\n",
+          i);
+  printf("short_string: %s",short_string); 
+  
+  return 0;
+}
+\end{lstlisting}
+\end{myexampleprogram}
+Ebenso wie bei \texttt{scanf}, besteht die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
+Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
+
+Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die Länge der geschriebenen Zeichenkette zu beschränken.
+Desweiteren kann man durch Überprüfung des Rückgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
+Wie man an der folgenden Ausgabe sehen kann, schreibt das Programm in der Anweisung in den Zeilen $46$ bis $49$ in fremden Speicher.
+\texttt{printf} liest bei Angabe von \texttt{\%s} die angegebene Speicherstelle immer bis zum nächsten Nullterminierungszeichen aus.
+
+\noindent \textbf{Ausgabe des Beispielprogramms:}
+{\footnotesize
+\begin{lstlisting}[numbers=left]
+$ ./test
+string: The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
+
+snprintf: wrote 24 characters
+short_string: This is a test string.
+
+snprintf: The string was not completely written!
+short_string: The Answer to the Ultimate Question of Life, The
+
+short_string: The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
+\end{lstlisting}
+}
+
+\begin{myalertblock}{Anmerkung: konstante Zeichenketten teilen}
+Im vorherigen Beispiel haben wir uns der Eigenschaft konstanter Zeichenketten in \texttt{C} bedient, dass mehrere, aufeinander folgende und nicht mit Kommata getrennte Zeichenketten zu einer einzigen Zeichenkette Zusammengefasst werden.
+Der Compiler interpretiert
+\begin{lstlisting}
+  "Zeichenkette mit Platzhalter: %d "
+  "Zweite Zeichenkette"
+\end{lstlisting}
+also als
+\begin{lstlisting}
+  "Zeichenkette mit Platzhalter: %d Zweite Zeichenkette"
+\end{lstlisting}
+was es uns erlaubt, den Quelltext für das Beispielprogramm durch Zeilenumbrüche sauberer und verständlicher zu gestalten.
+\end{myalertblock}
 
 \endinput
