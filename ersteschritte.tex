@@ -195,9 +195,9 @@ Eine Alternative zum \texttt{gcc} ist der \texttt{clang} Compiler.
 Er hat einen ganz ähnlichen Aufruf\index{\texttt{clang}}
 
 \vspace*{0.5cm}
-\begin{verb}
+\begin{verbatim}
 >$  clang -std=c99 -Wall -pedantic main.c -o main.exe
-\end{verb}
+\end{verbatim}
 \vspace*{0.5cm}
 
 \noindent\texttt{clang} und \texttt{gcc} sind beide freie Software.
@@ -223,7 +223,7 @@ Mit der Einbindung der Header-Datei wird die Funktion dem Compiler bekannt gemac
 Dies werden wir später noch genauer erörtern.
 
 Zweitens ist der Aufruf von \texttt{printf} (\emph{print formatted}) hinzugekommen.
-Die Funktion \texttt{printf} gibt in diesem Fall die Zeichenkette (den \emph{string}) \glqq Hallo Welt\grqq\ auf dem Standard Ausgabegerät aus, was normalerweise die Kommandozeile selbst ist, wenn das Programm von der Kommandozeile aufgerufen wird. 
+Die Funktion \texttt{printf} gibt in diesem Fall die Zeichenkette (den \emph{string}) \enquote{Hallo Welt} auf dem Standard Ausgabegerät aus, was normalerweise die Kommandozeile selbst ist, wenn das Programm von der Kommandozeile aufgerufen wird. 
 Auch die Funktion \texttt{printf} werden wir später noch im Detail diskutieren.
 In diesem Beispiel kopiert \texttt{printf} die Zeichenkette unverändert zur standard Ausgabe, also wahrscheinlich auf die Konsole.
 \verb|\n| erzeugt einen Zeilenumbruch.

@@ -2,29 +2,34 @@
 \documentclass[12pt]{scrbook}
 \usepackage{iftex}
 
-\ifPDFTeX
- \usepackage{ucs}
- \usepackage[utf8]{inputenc}
- \usepackage[T1]{fontenc}
- \usepackage[ngerman]{babel}
-\else
-  \ifXeTeX
-    \usepackage{xltxtra}
-    \usepackage{polyglossia}
-    \setmainlanguage[spelling=new, latesthyphen=true]{german}
-    \setotherlanguage{english}
-    \usepackage{fontspec}
-    \defaultfontfeatures{Ligatures=TeX}
-    \defaultfontfeatures{Mapping=tex-text}
-    %% Deutsche Anfuehrungszeichen...
-    \DeclareUTFcharacter[\UTFencname]{x201C}{\grqq}
-    \DeclareUTFcharacter[\UTFencname]{x201E}{\glqq}
-  \else
-    \usepackage{luatextra}
-    \DeclareUTFcharacter[\UTFencname]{x201C}{\grqq}
-    \DeclareUTFcharacter[\UTFencname]{x201E}{\glqq}
-  \fi
-\fi
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+%% BaKo: using csquotes, proper german quotes can be generated portably
+%% through the use of the \enquotes command
+\usepackage{csquotes}
+ 
+% \else
+%   \ifXeTeX
+%     \usepackage{xltxtra}
+%     \usepackage{polyglossia}
+%     \setmainlanguage[spelling=new, latesthyphen=true]{german}
+%     \setotherlanguage{english}
+%     \usepackage{fontspec}
+%     \defaultfontfeatures{Ligatures=TeX}
+%     \defaultfontfeatures{Mapping=tex-text}
+%     %% Deutsche Anfuehrungszeichen...
+%% BaKo: this causes issues on my machine, these characters appear on the first page
+%% and the definition obviously does not pass
+% %     \DeclareUTFcharacter[\UTFencname]{x201C}{\grqq}
+% %     \DeclareUTFcharacter[\UTFencname]{x201E}{\glqq}
+%   \else
+%     \usepackage{luatextra}
+% %     \DeclareUTFcharacter[\UTFencname]{x201C}{\grqq}
+% %     \DeclareUTFcharacter[\UTFencname]{x201E}{\glqq}
+%   \fi
+% \fi
 
 
 

@@ -4,7 +4,7 @@ programmierkurs_fpcu.pdf: ersteschritte.tex definitions.tex intro.tex kontrollst
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make programmierkurs_fpcu.tex
 
 heapsort.pdf: heapsort.tex
-	latexmk -bibtex -pdf -pdflatex="pdflatex -interaction=nonstopmode" -use-make $<
+	latexmk -bibtex -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make $<
 
 publish: programmierkurs_fpcu.pdf
 	cp programmierkurs_fpcu.pdf lecturenotes/publish/skript.pdf
