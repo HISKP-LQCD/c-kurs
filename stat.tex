@@ -1,7 +1,7 @@
 In Unix wir identifizieren ein Datein mit seinem Name. Wir können Funktionen aus dem Standardbibliothek verwenden, um
 detallierte Informationen über ihnen zu erhalten. In diesem Fall die \texttt{C} Sprache bietet uns den \texttt{stat} Funktion 
 und ihren Rückgabewert die \texttt{stat} Strukture. 
-\begin{myexampleblock}{Definition: \texttt{struct stat}}
+\begin{mydefinitionblock}{Definition: \texttt{struct stat}}
 \begin{lstlisting}
 struct tm
 {
@@ -22,8 +22,8 @@ struct tm
 \end{lstlisting}
 \vspace{-0.4cm}
 Das Definition befindet sich im Standardbibliothek \texttt{sys/stat.h}.
-\end{myexampleblock}
-\begin{myexampleblock}{Definition: \texttt{struct passwd}}
+\end{mydefinitionblock}
+\begin{mydefinitionblock}{Definition: \texttt{struct passwd}}
 \begin{lstlisting}
 struct passwd
 {
@@ -37,8 +37,8 @@ struct passwd
 \vspace{-0.4cm}
 Das Definition befindet sich im Standardbibliothek \texttt{passwd.h}.
 Die Punkten stehen für Elementen, die uns nicht interessiert.
-\end{myexampleblock}
-\begin{myexampleblock}{Definition: \texttt{struct group}}
+\end{mydefinitionblock}
+\begin{mydefinitionblock}{Definition: \texttt{struct group}}
 \begin{lstlisting}
 struct group
 {
@@ -51,15 +51,15 @@ struct group
 \vspace{-0.4cm}
 Das Definition befindet sich im Standardbibliothek \texttt{grp.h}.
 Die Punkten stehen für Elementen, die uns nicht interessiert.
-\end{myexampleblock}
-\begin{myexampleblock}{Funktion: \texttt{stat}}
+\end{mydefinitionblock}
+\begin{mydefinitionblock}{Funktion: \texttt{stat}}
 \begin{lstlisting}
 int stat(char *path, struct stat *buf);
 \end{lstlisting}
 \vspace{-.4cm}
 Information erhalten über das Datein bennant als $path$. Die Informations werden im $buf$ gespeichert.
 Der Rückgabewert ist 0, wenn alles geklappt hat, und -1 bei einem Fehler.
-\end{myexampleblock}
+\end{mydefinitionblock}
 Bevor wir mit einem Datein arbeiten, müssen wir sicher sein, ob wir die entsprechende Rechte haben, um ihn zu 
 erstellen oder einzulesen. Die Felden \texttt{uid} und \texttt{gid} in der \texttt{stat} Strukture geben Informationen 
 über die Besitzer des Dateins. Der Supervisor hat immer \texttt{(0,0)} als \texttt{(uid,gid)}. Normalweise der erste Anwänder 

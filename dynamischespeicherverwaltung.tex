@@ -96,7 +96,7 @@ Dies ist in Abbildung~\ref{abmem} illustriert.
 Um Speicher dynamisch zu reservieren, nutzt man Funktionen aus der Standardbibliothek \verb|stdlib.h|.
 Das Reservieren erledigt die Funktion \verb|malloc|, was für \emph{memory allocation} steht.
 \verb|malloc| hat die folgenden Syntax:
-\begin{myexampleblock}{Definition \texttt{malloc}}
+\begin{mydefinitionblock}{Definition \texttt{malloc}}
   \begin{lstlisting}
     void *malloc(size_t size);
   \end{lstlisting}
@@ -114,7 +114,7 @@ Das Reservieren erledigt die Funktion \verb|malloc|, was für \emph{memory alloc
   Man beachte, dass der reservierte Speicherbereich mit der Funktion \verb|free| (siehe unten) wieder freigegeben werden muss, wenn er nicht mehr benötigt wird. 
   Ansonsten steht er für das Programm nicht mehr zur Verfügung.
   Am Ende des Programms wird aller vom Programm reservierte Speicher automatisch freigegeben.
-\end{myexampleblock}
+\end{mydefinitionblock}
 Wir haben schon den Rückgabewert \verb|void| kennengelernt, der für keinen Rückgabewert steht.
 Ein Zeiger auf \verb|void| repräsentiert einen Zeiger ohne Typ.
 Er kann bzw. muss später mit einem \emph{cast} in jeden anderen Zeigertyp umgewandelt werden.
@@ -130,7 +130,7 @@ Die Größe eines Typs in byte liefert die Funktion \verb|sizeof|.
 \index{\texttt{free}}
 Wie schon angedeutet, dynamisch reservierter Speicher muss wieder freigegeben werden, wenn er nicht mehr benötigt wird.
 Dafür gibt es die Funktion \verb|free|:
-\begin{myexampleblock}{Funktion Definition \texttt{free}}
+\begin{mydefinitionblock}{Funktion Definition \texttt{free}}
   \begin{lstlisting}
     void free(void *memory);
   \end{lstlisting}
@@ -143,7 +143,7 @@ Dafür gibt es die Funktion \verb|free|:
       free(array);
     \end{lstlisting}
   \end{itemize}
-\end{myexampleblock}
+\end{mydefinitionblock}
 Wendet man \verb|free| auf einen Zeiger an, der nicht auf den Anfang eines mit \verb|malloc| reservierten Bereiches zeigt, so erhält man einen Laufzeitfehler.
 
 \subsection{Mehrdimensionale Arrays}

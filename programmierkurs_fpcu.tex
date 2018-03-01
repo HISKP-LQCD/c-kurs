@@ -54,8 +54,7 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \PassOptionsToPackage{svgnames}{xcolor}
 \usepackage{tcolorbox}
-\tcbuselibrary{skins,breakable}
-\usetikzlibrary{shadings,shadows}
+\tcbuselibrary{breakable}
 
  %\usepackage[scaled]{beramono}
 
@@ -76,7 +75,7 @@
   keywordstyle=\color{blue},       % keyword style
   language=C,                      % the language of the code
   morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
   numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
   rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
@@ -97,46 +96,37 @@
 
 \usepackage{todonotes}
 
-\makeindex
-
-\newenvironment{myexampleblock}[1]{%
-    \tcolorbox[beamer,%
-    noparskip,breakable,
-    colback=White,colframe=ForestGreen,%
-    colbacklower=LimeGreen!75!White,%
+\newenvironment{mydefinitionblock}[1]{%
+    \tcolorbox[noparskip,breakable,%
+    colback=White,colframe=OliveGreen,%
     title=#1]}%
     {\endtcolorbox}
 
 \newenvironment{myalertblock}[1]{%
-    \tcolorbox[beamer,%
-    noparskip,breakable,
-    colback=White,colframe=Bittersweet,%
-    colbacklower=Peach!75!White,%
+    \tcolorbox[noparskip,breakable,%
+    colback=White,colframe=RawSienna,%
     title=#1]}%
     {\endtcolorbox}
 
 \newenvironment{myblock}[1]{%
-    \tcolorbox[beamer,%
-    noparskip,breakable,
-    colback=White,colframe=RoyalBlue,%
-    colbacklower=TealBlue!75!White,%
+    \tcolorbox[noparskip,breakable,%
+    colback=White,colframe=Bittersweet,%
     title=#1]}%
     {\endtcolorbox}
 
 \newenvironment{myexampleprogram}[1]{%
-    \tcolorbox[beamer,%
-    noparskip,breakable,
-    colback=White,colframe=Goldenrod,%
-    colbacklower=Yellow!75!White,%
+    \tcolorbox[noparskip,breakable,%
+    colback=White,colframe=RoyalBlue,%
     title=#1]}%
     {\endtcolorbox}
 %--------
-%\usepackage[magyar]{babel}
-\title{Programmieren in \texttt{C}}
-\author{B.~Kostrzewa, F.~Pittler, M.~Ueding, C.~Urbach}
 
-\lowertitleback{Copyright \copyright\ 2017--\the\year\ B.~Kostrzewa,
-  F.~Pitter, M.~Ueding and C.~Urbach. 
+\makeatletter
+\title{Programmieren in \texttt{C}}                     \let\Title\@title
+\author{B.~Kostrzewa, F.~Pittler, M.~Ueding, C.~Urbach} \let\Author\@author
+\makeatother
+
+\lowertitleback{Copyright \copyright\ 2017--\the\year\ \Author 
 
   Permission is granted to copy and distribute non-commercially under the
   Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)
@@ -148,7 +138,10 @@
   Please send typos or mistakes to urbach@hiskp.uni-bonn.de.
 }
 
+\makeindex
+
 \begin{document}
+
 \maketitle
 
 \tableofcontents
@@ -171,6 +164,7 @@
 
 %\input{stapelspeicher}
 %\input{endprojekt}
+
 
 \printindex
 
