@@ -2,15 +2,11 @@
 \documentclass[12pt]{scrbook}
 \usepackage{iftex}
 
-\usepackage[utf8]{inputenc}
-%% BaKo: [T1]{fontenc} causes ß to be rendered incorrectly... seems to work with just the
-%% [utf8]{inputenc}
-% \usepackage[T1]{fontenc}
-%% BaKo: using csquotes, proper german quotes can be generated portably
-%% through the use of the \enquotes command
-\usepackage{csquotes}
- 
 \ifPDFTeX
+  \usepackage[utf8]{inputenc}
+  %% BaKo: [T1]{fontenc} causes ß to be rendered incorrectly... seems to work with just the
+  %% [utf8]{inputenc}
+  % \usepackage[T1]{fontenc}
   \usepackage[ngerman]{babel}
 \else
   \usepackage{fontspec}
@@ -22,6 +18,10 @@
     \usepackage{luatextra}
   \fi
 \fi
+%% BaKo: using csquotes, proper german quotes can be generated portably
+%% through the use of the \enquotes command
+\usepackage{csquotes}
+
 
 %     \setotherlanguage{english}
     

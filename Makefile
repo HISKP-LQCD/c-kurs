@@ -1,6 +1,6 @@
 all: programmierkurs_fpcu.pdf
 
-programmierkurs_fpcu.pdf: ersteschritte.tex definitions.tex intro.tex kontrollstrukturen.tex pointers.tex programmierkurs_fpcu.tex variablen.tex endprojekt.tex einfuegesortieren.tex dynamischespeicherverwaltung.tex complexdatatypen.tex dateinverarbeitung.tex stapelspeicher.tex funktionen.tex standartbibliothek.tex arrays.tex Makefile
+programmierkurs_fpcu.pdf: *.tex graphics/*.pdf Makefile
 	latexmk -pdf -pdflatex="xelatex --shell-escape --interaction=nonstopmode" -use-make programmierkurs_fpcu.tex
 
 heapsort.pdf: heapsort.tex
