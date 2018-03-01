@@ -2,24 +2,29 @@
 \documentclass[12pt]{scrbook}
 \usepackage{iftex}
 
-
-
 \usepackage[utf8]{inputenc}
 %% BaKo: [T1]{fontenc} causes ß to be rendered incorrectly... seems to work with just the
 %% [utf8]{inputenc}
 % \usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
 %% BaKo: using csquotes, proper german quotes can be generated portably
 %% through the use of the \enquotes command
 \usepackage{csquotes}
  
-% \else
-%   \ifXeTeX
-%     \usepackage{xltxtra}
-%     \usepackage{polyglossia}
-%     \setmainlanguage[spelling=new, latesthyphen=true]{german}
+\ifPDFTeX
+  \usepackage[ngerman]{babel}
+\else
+  \usepackage{fontspec}
+  \usepackage{polyglossia}
+  \setmainlanguage[spelling=new, latesthyphen=true]{german}
+  \ifXeTeX
+    \usepackage{xltxtra}
+  \else
+    \usepackage{luatextra}
+  \fi
+\fi
+
 %     \setotherlanguage{english}
-%     \usepackage{fontspec}
+    
 %     \defaultfontfeatures{Ligatures=TeX}
 %     \defaultfontfeatures{Mapping=tex-text}
 %     %% Deutsche Anfuehrungszeichen...
