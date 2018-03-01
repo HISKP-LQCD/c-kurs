@@ -11,4 +11,5 @@ publish: programmierkurs_fpcu.pdf
 
 .PHONY: clean
 clean:
-	rm -f -- $(scrap_aux) $(scrap_main)
+	latexmk -CA
+	#rm -f -- $(scrap_aux) $(scrap_main)

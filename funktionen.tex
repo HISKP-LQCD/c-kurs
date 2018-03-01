@@ -20,7 +20,7 @@ Typ1 parameter1, Typ2 parameter2, ...
 \end{lstlisting}
 Die Parameterliste kann auch leer sein.
 Der Rückgabetyp kann jeder C Typ und jeder selbst definierte Typ sein.
-Bei streng strukturierten Programmiersprachen wie C werden der Funktionsname, die Parameterliste und der Rückgabetyp zusammen als Signatur der Funktion bezeichnet.
+Bei streng strukturierten Programmiersprachen wie C werden der Funktionsname, die Parameterliste und der Rückgabetyp zusammen als \emph{Signatur} der Funktion bezeichnet.
 
 \subsection{Funktionen Definition}
 
@@ -87,21 +87,23 @@ int main()
 
 \subsection{Typenüberprüfung und sinnvolle Eingabewerte}
 
-Wie schon oben erwähnt, führt der C Compiler eine strickte Typenpüfung durch.
+Wie schon oben erwähnt, führt der C Compiler für Aufrufe einer Funktion eine Typenüberpüfung durch, man muss jedoch bei elementaren Datentypen vorsichtig sein, da implizite casts zu unerwarteten Ergebnissen führen können.
 Der Aufruf der Funktion in der Form
 \begin{lstlisting}
   unsigned long int result;
-  double x = 20.;
+  double x = -2.0;
   result = Fakultaet(x);
 \end{lstlisting}
-wird also vom Compiler nicht akzeptiert (es sei denn, man hat die entsprechenden Überprüfungen abgeschaltet).
-Das ist sehr hilfreich, um Fehler im eigenen Quelltext ausfindig zu machen.
+wird leider vom Compiler\footnote{getestet unter \texttt{gcc 5.4.0} mit \texttt{-Wall -Wpedantic}} problemlos übersetzt.
+Die implizite Umwandlung macht aus \texttt{double} den einfachsten, ganzzahligen und vorzeichenbehafteten Datentyp, \texttt{int}.
+Dies führt wiederum dazu, dass nach einer weiteren Umwandlung zu \texttt{unsigned int}, die Zahl $4294967294$ übergeben wird und das Programm in einer Endlosschleife endet.
 
 Der Compiler kann allerdings nicht überprüfen, ob die Eingabe sinnvoll ist.
-Im Fall \verb|Fakultaet| bekommt die Funktion nur einen Parameter vom Typ \verb|unsigned long int| übergeben. 
+Im Fall \verb|Fakultaet| bekommt die Funktion nur einen Parameter vom Typ \verb|unsigned int| übergeben. 
 An dieser Stelle sollte man sich als Programmierer fragen, ob jede mögliche Eingabe zu einer sinnvollen Ausgabe führt. 
 Das ist offensichtlich dann nicht mehr der Fall, wenn die funktionsinterne Variable \verb|fak| aus dem Wertebereich für \verb|long unsigned int| herausläuft. 
 Man kann sich leicht überlegen, für welche Werte von \verb|zahl| dies geschieht.
+Eine solche Überprüfung würde auch den oben aufgeführten Fehler zumindest abfangen und die Endlosscheife beenden.
 
 Optimalerweise sollte in der Funktion überprüft werden, ob \verb|zahl| im sinnvollen Wertebereich liegt. 
 Wenn dies nicht der Fall ist, sollte die Bearbeitung abbrechen, zum Beispiel so

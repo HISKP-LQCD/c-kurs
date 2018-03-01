@@ -115,7 +115,7 @@ int main()
   int q = 10;
   int *p = NULL;
   p = &q;
-  printf("Der Wert an der Adresse p ist:%d\n", *p);
+  printf("Der Wert an der Adresse %p ist:%d\n", p, *p);
   return 0;
 }
 \end{lstlisting}
@@ -148,8 +148,8 @@ Nehmen wir an, es wurde ein Feld wie oben eingeführt deklariert
   int n[] = {1, 2, 3, 4, 5};
 \end{lstlisting}
 Dann ist die variable \verb|n| eng verwandt mit dem Typ \verb|int *|, also Zeiger auf \verb|int|.
-Den subtile Unterschied kann man am ehesten damit erklären, dass \verb|n| konstant ist, also die Adresse nicht verändert werden darf.
-Das bedeutet, dass folgendes \texttt{C} Quelltext korrekt ist
+Den subtilen Unterschied kann man am ehesten damit erklären, dass \verb|n| konstant ist, also die Adresse nicht verändert werden darf.
+Das bedeutet, dass folgender \texttt{C} Quelltext korrekt ist
 \begin{lstlisting}
   int n[] = {1, 2, 3, 4, 5};
   int * p = n;
@@ -196,7 +196,7 @@ Die ist nämlich allgemein wie folgt deklariert:\index{\texttt{argc}}\index{\tex
 \begin{lstlisting}
 int main(int argc, char *argv[]);
 \end{lstlisting}
-An der Kommandozeile kann man mit Hilfe der Funktionsargument von \verb|main| dem Programm Parameter übergeben.
+An der Kommandozeile kann man mit Hilfe der Funktionsargumente von \verb|main| dem Programm Parameter übergeben.
 Die Funktion \verb|main| erhält diese in Form einer Zeichkette.
 Leerzeichen in dieser Zeichenkette werden als Trennzeichen interpretiert, so dass die Zeichenkette \verb|argc| Wörter enthält.
 Das erste Wort ist immer der Name der Programms.
