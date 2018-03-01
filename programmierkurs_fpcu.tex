@@ -1,4 +1,5 @@
-\documentclass{article}[12pt]
+%\documentclass[12pt]{article}
+\documentclass[12pt]{scrbook}
 \usepackage{iftex}
 
 \ifPDFTeX
@@ -40,12 +41,12 @@
 \usepackage{pst-grad} % For gradients
 \usepackage{pst-plot} % For axes
 \usepackage{makeidx}
-
+\usepackage[totoc]{idxlayout}
 \usepackage{graphicx}
 \usepackage{hyperref}
 
-\addtolength{\hoffset}{-1.5cm}
-\addtolength{\textwidth}{3cm}
+%\addtolength{\hoffset}{-1.5cm}
+%\addtolength{\textwidth}{3cm}
 \usepackage{listings}
 \usepackage{color}
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -133,23 +134,39 @@
 %\usepackage[magyar]{babel}
 \title{Programmieren in \texttt{C}}
 \author{B.~Kostrzewa, F.~Pittler, M.~Ueding, C.~Urbach}
+
+\lowertitleback{Copyright \copyright\ 2017--\the\year\ B.~Kostrzewa,
+  F.~Pitter, M.~Ueding and C.~Urbach. 
+
+  Permission is granted to copy and distribute non-commercially under the
+  Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)
+  licence.
+
+  This script is distributed in the hope that it will be useful,
+  but without any warranty.
+
+  Please send typos or mistakes to urbach@hiskp.uni-bonn.de.
+}
+
 \begin{document}
 \maketitle
 
 \tableofcontents
 
 \clearpage
-
+\chapter{Grundlagen}
 \input{intro}
 \input{ersteschritte}
 \input{variablen}
 \input{kontrollstrukturen}
 \input{funktionen}
 \input{arrays}
+\chapter{Zeiger und Co}
 \input{pointers}
 \input{standartbibliothek}
 \input{dateinverarbeitung}
 \input{einfuegesortieren}
+\chapter{Flexibilität}
 \input{dynamischespeicherverwaltung}
 \input{complexdatatypen}
 
