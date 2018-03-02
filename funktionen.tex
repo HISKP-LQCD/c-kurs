@@ -141,4 +141,40 @@ Diese Funktion kann dann wie folgt aufgerufen werden
   // more code
 \end{lstlisting}
 also ohne eine Zuweisung des Funktionswertes an eine entsprechende Variable.
+
+\subsection{Funktionsaufrufe mit vielen Argumenten}
+
+Wenn einer Funktion viele Argumente übergeben werden, so kann man mithilfe von Kommentaren verdeutlichen, welcher Wert, welchem Parameter entspricht.
+
+\begin{myalertblock}{mehrzeiliger Funktionsaufruf}
+  Der Aufruf einer Funktion mit vielen Argumenten kann recht schnell schwer verständlich werden.
+  \begin{lstlisting}
+    void func(const int par1, const double par2, 
+              const char par3, const int par4, 
+              const double par5, const double par6,
+              const unsigned long int par7)
+    {
+      [...]
+    }
+    double x = 2.0;
+    double y = 4.5;
+    [...]
+    func(1, x, 'c', 3, y, 7.3, 8908123908);
+  \end{lstlisting}
+  Wir können diesen Aufruf übersichtlicher gestalten, indem wir den Aufruf ersten auf mehrere Zeilen aufspalten und zweitens, Kommentare einfügen, die den Parameter entweder beschreiben oder benennen.
+  \begin{lstlisting}
+    double x = 2.0;
+    double y = 4.5;
+    [...]
+    func(/* par1 */           1,
+         /* par2 */           x,
+         /* par3 */         'c',
+         /* par4 */           3,
+         /* par5 */           y,
+         /* par6 */         7.3,
+         /* par7 */  8908123908);
+  \end{lstlisting}
+  Blickt man jetzt auf die Funktionssignatur und vergleicht mit dem Aufruf, sieht man viel schneller, ob man für die einzelnen Argumente die richtigen Datentypen sowie Werte übergibt.
+\end{myalertblock}
+
 \endinput

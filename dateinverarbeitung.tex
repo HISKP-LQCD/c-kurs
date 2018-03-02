@@ -230,6 +230,7 @@ Bei letzterer Funktion wir der \verb|offset| in Bytes relativ zu \verb|whence| g
 \verb|whence| kann auf \verb|SEEK_SET|, \verb|SEEK_CUR| or \verb|SEEK_END| gesetzt werden, was Anfang, momentane Position oder Ende in der Datei bedeutet.
 \index{\texttt{SEEK\_SET}}\index{\texttt{SEEK\_CUR}}\index{\texttt{SEEK\_END}}
 Im folgenden ein Beispiel:
+\begin{myexampleprogram}{Beispiel: Summe der Quadrate}
 \begin{lstlisting}
 #include <stdio.h>
 #include <stdlib.h>
@@ -288,6 +289,7 @@ int main()
   return (0);
 }
 \end{lstlisting}
+\end{myexampleprogram}
 Die Datei wird zum Schreiben und Lesen geöffnet.
 Dabei wird eine eventuell existierende Datei gleichen Namens überschrieben.
 Danach werden die Quadrate von $i=1,...,n$ zuerst in die Datei geschrieben.

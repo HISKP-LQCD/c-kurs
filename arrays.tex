@@ -107,7 +107,7 @@ Und wie im eindimensionalen Fall kann man auch Deklaration und Initialisierung k
 Die Anzahl der Zeilen kann der Compiler aus der Initialisierungsliste bestimmen.
 Die Anzahl der Spalten muss aber immer angegeben sein.
 Die Dimensionalität eines Feldes kann dann in analoger Weise zu drei oder mehr erweitert werden, wobei der \texttt{C}-Compiler die Feldelemente immer linear so im Speicher ablegt, wie für das Beispiel \texttt{A1} in Abbildung~\ref{fig:2darray} gezeigt.
-Das heisst, dass die Dimensionen des Arrays von rechts nach links zählend linear im Speicher abgelegt werden.
+Das heißt, dass die Dimensionen des Arrays von rechts nach links zählend linear im Speicher abgelegt werden.
 
 \begin{figure}[!ht]
   \includegraphics[width=\textwidth]{graphics/2darray_im_speicher}
@@ -117,7 +117,7 @@ Das heisst, dass die Dimensionen des Arrays von rechts nach links zählend linea
 Die Benutzung von Feldern wird in folgendem Beispiel illustriert:
 \begin{myexampleprogram}{Beispiel: Berechnung des Mittelwerts und der Varianz}
   Die Berechnung des Mittelwerts einer Datenreihe ist ein gutes Beispiel für die Benutzung von Arrays.
-  Nehmen wir an, wir haben die folgend Daten gegeben:
+  Nehmen wir an, wir haben die folgenden Daten gegeben:
 \begin{lstlisting}
 double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9, 1.3, 1.4, 4.5,
                  5.5, 5.3, 6.7, 2.1, 2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
@@ -232,13 +232,13 @@ Dementsprechend wird die Variable \verb|ergebnis| gesetzt.
 % Man benötigt keine Referenzierungsoperator \verb|&|.\index{Adressoperator \&}\index{\&}
 % Im nächsten Abschnitt über Zeiger wird klar werden, warum dies so ist.
 
-\subsubsection{\texttt{sprintf} und \texttt{snprintf}}
+\subsubsection{Formatierte Erstellung von Zeichenketten mit \texttt{sprintf} und \texttt{snprintf}}
 
 Die Manipulation von Zeichenketten ist oft ein wichtiger Bestandteil eines Programms, zum Beispiel um Ausgabedateinamen abhängig vom Wert einer Variable zu machen.
 
-Wie haben die Funktion \texttt{printf} schon öfter zur Textausgabe verwendet und werden im Detail in Teil~\ref{sec:ein_ausgabe} auf die \emph{formatierte} Ausgabe eingehen eingehen.
-Möchte man jedoch, anstelle auf die Konsole, in eine Zeichenkette formatierten Text, sowie Textdarstellungen von Variablen ausgeben, stehen in \texttt{C} die beiden Funktionen \texttt{sprintf} und \texttt{snprintf} zur Verfügung.
-Diese funktionieren wie die schon bekannte \texttt{printf} Funktion und werden mit der Headerdatei \texttt{stdio.h} eingebunden.\index{\texttt{sprintf}}\index{\texttt{snprintf}}
+Wie haben die Funktion \texttt{printf} schon öfter zur Textausgabe verwendet und werden im Detail in Teil~\ref{sec:ein_ausgabe} auf die \emph{formatierte} Ausgabe eingehen.
+Möchte man jedoch formatierte Textdarstellungen von Variablen nicht auf die Konsole, sondern direkt in eine Zeichenkette ausgeben, so stehen in \texttt{C} die beiden Funktionen \texttt{sprintf} und \texttt{snprintf} zur Verfügung.
+Diese ähneln in ihrer Benutzung der bekannten \texttt{printf} Funktion und werden mit der Headerdatei \texttt{stdio.h} eingebunden.\index{\texttt{sprintf}}\index{\texttt{snprintf}}
 Im Gegensatz zu \texttt{printf}, schreiben diese Funktionen jedoch direkt in eine sich im Speicher befindliche Zeichenkette.
 
 Diese Funktionen haben die Signaturen
@@ -249,9 +249,10 @@ Diese Funktionen haben die Signaturen
 wobei das Argument \enquote{\texttt{str}} für die Zeichenkette steht, in die geschrieben werden soll und \enquote{\texttt{format}} eine konstante Zeichenkette ist, in der wir beschreiben werden, wie dies zu erfolgen hat.
 Die Bedeutung von \enquote{\texttt{char *}} und \enquote{\texttt{const char *}} wird in Teil~\ref{sec:zeiger} noch genau erklärt werden.
 Die sogenannte \emph{variable Argumentenliste}, \enquote{\texttt{...}}, dient bei den Funktionen aus \texttt{stdio.h} als Platzhalter für eine beliebige Anzahl von Variablen oder Konstanten, die man ausgeben möchte.
+Bei \texttt{snprintf} steht das Argument \enquote{\texttt{size}} für die maximale Anzahl an Zeichen (inklusive des Nullterminierungszeichens), welche in die Zeichenkette \texttt{str} geschrieben werden soll.
 Die Stelle in der Zeichenkette, an denen diese Ausgabe stattfinden soll, sowie das Format in der diese Ausgabe erfolgen soll, geben wir anhand von Platzhaltern an, genau so, wie wir es auch schon bei \texttt{printf} getan haben.
 
-Da wir jedoch nicht auf die Konsole ausgeben, sondern direkt in Speicher schreiben, muss man bei der Verwendung insbesondere von \texttt{printf} sehr vorsichtig sein, wie in folgendem Beispiel gezeigt wird.
+Da wir jedoch nicht auf die Konsole ausgeben, sondern direkt in Speicher schreiben, muss man bei der Verwendung insbesondere von \texttt{sprintf} sehr vorsichtig sein, wie in folgendem Beispiel gezeigt wird.
 
 \begin{myexampleprogram}{Beispiel: Formatierte Erstellung von Zeichenketten mit \texttt{sprintf} und \texttt{snprintf}}
 \begin{lstlisting}[numbers=left]
@@ -309,15 +310,6 @@ int main()
   return 0;
 }
 \end{lstlisting}
-\end{myexampleprogram}
-Ebenso wie bei \texttt{scanf}, besteht die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
-Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
-
-Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da ersteres es erlaubt, die Länge der geschriebenen Zeichenkette zu beschränken.
-Desweiteren kann man durch Überprüfung des Rückgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf den Fehler reagieren.
-Wie man an der folgenden Ausgabe sehen kann, schreibt das Programm in der Anweisung in den Zeilen $46$ bis $49$ in fremden Speicher.
-\texttt{printf} liest bei Angabe von \texttt{\%s} die angegebene Speicherstelle immer bis zum nächsten Nullterminierungszeichen aus.
-
 \noindent \textbf{Ausgabe des Beispielprogramms:}
 {\footnotesize
 \begin{lstlisting}[numbers=left]
@@ -333,6 +325,15 @@ short_string: The Answer to the Ultimate Question of Life, The
 short_string: The Answer to the Ultimate Question of Life, The Universe, and Everything is 42.
 \end{lstlisting}
 }
+
+\end{myexampleprogram}
+Ebenso wie bei \texttt{scanf}, besteht die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
+Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
+
+Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da erstere Funktion es erlaubt, die Länge der geschriebenen Zeichenkette zu beschränken.
+Desweiteren kann man durch Überprüfung des Rückgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf mögliche Fehler reagieren.
+Wie man an der folgenden Ausgabe sehen kann, schreibt das Programm in der Anweisung in den Zeilen $46$ bis $49$ in fremden Speicher.
+\texttt{printf} liest bei Angabe von \texttt{\%s} die angegebene Speicherstelle immer bis zum nächsten Nullterminierungszeichen aus.
 
 \begin{myalertblock}{Anmerkung: konstante Zeichenketten teilen}
 Im vorherigen Beispiel haben wir uns der Eigenschaft konstanter Zeichenketten in \texttt{C} bedient, dass mehrere, aufeinander folgende und nicht mit Kommata getrennte Zeichenketten zu einer einzigen Zeichenkette Zusammengefasst werden.
