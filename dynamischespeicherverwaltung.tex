@@ -2,32 +2,13 @@
 
 Mit den bisher eingeführten Grundlagen der Programmiersprache \texttt{C} kann man einfache Probleme lösen.
 Das haben wir am Beispiel des Einfügesortierens gesehen.
-Im folgenden zweiten Teil werden wir versuchen, die Kenntnis von \texttt{C} zu vertiefen und zu erweitern.
+Aber erst mit Hilfe dynamischer Speicherverwaltung und zusammengesetzter Datentypen kann man die volle Stärke von \texttt{C} ausnutzen.
 
-Dafür werden wir den Quelltext für das Sortieren von Zahlen in drei Richtungen versuchen zu verbessern:
-\begin{enumerate}
-\item Bei der Benutzung von Arrays muss man immer schon zur Zeit der Übersetzung wissen, wie groß das Array maximal werden darf.
-  Das ist eine relativ starke Einschränkung, die sehr ineffizient sein kann.
-  Entweder, man hat viel zu viel Speicher bereitgestellt, oder zu wenig.
-  Genau passen wird es selten.
-  Diese Einschränkung werden wir mit Hilfe der dynamischen Speicherverwaltung überwinden.
+Bei der Benutzung von Arrays muss man immer schon zur Zeit der Übersetzung wissen, wie groß das Array maximal werden darf.
+Das ist eine relativ starke Einschränkung, die sehr ineffizient sein kann.
+Entweder, man hat viel zu viel Speicher bereitgestellt, oder zu wenig.
+Genau passen wird es selten.
 
-\item Man kann sich relativ schnell klar machen, dass der Einfügesortier-Algorithmus im schlechtesten Fall (\emph{worst case}) Größenordnung $n^2$ Operation benötigt, um das korrekte Ergebnis zu erzeugen.
-  Nehmen Sie eine Folge von Zahlen, die absteigend sortiert ist.
-  Dann braucht man $1 + 2 + 3 + ... + n = n(n+1)/2$ Vergleichs- und Vertauschoperationen, um die Folge aufsteigend zu sortieren.
-  Für sehr große $n$ ergibt das Ordnung $n^2$ Operationen.
-  Man sagt auch, der Algorithmus ist von der Ordnung $O(n^2)$.
-  Es gibt Algorithmen, die ein wesentlich besseres worst case Skalierungsverhalten haben. 
-
-\item Beim Einlesen haben wir bisher den Standardeingabe benutzt.
-  Das können wir verbessern, indem wir direkt aus Dateien einlesen.
-\end{enumerate}
-Darüber hinaus werden wir diskutieren, wie man Quelltext sinnvoll in verschiedene Dateien verteilt.
-Damit soll die Übersicht einfacher und das Programmieren weniger fehleranfällig werden.
-Beim Beispiel Einfügesortieren hatten wir bereits Unterprobleme in jeweils eigene Funktionen ausgelagert.
-Diese werden wir auf mehrere Dateien verteilen und zeigen, wie man ein solches Projekt effizient übersetzt.
-
-Zuerst diskutieren wir, wie man Speicher dynamisch reserviert, darauf zugreift und ihn wieder freigibt.
 Der Speicher, der einem Programm zugeteilt ist, kann in zwei Kategorien unterteilt werden.
 \begin{enumerate}
 \item Statischer Speicher\\
@@ -121,12 +102,12 @@ Es handelt sich um eine lineare Abbildung, die einen zweidimensionalen Vektor $(
   \end{array}\right)
   \left(\begin{array}{c}x\\y\end{array}\right)
 \end{equation}
-Die entsprechende Matrix kann man in C mit Hilfe von zweidimensionalen Arrays darstellen.
+Die entsprechende Matrix kann man in \texttt{C} mit Hilfe von zweidimensionalen Arrays darstellen.
 Die Deklaration eines statische $2\times2$ Arrays sieht wie folgt aus:
 \begin{lstlisting}
 double rotate2d[2][2];
 \end{lstlisting}
-Von dieser Deklaration kann man sehen, dass ein zweidimensionales Array ein Array von Arrays ist.
+An Hand dieser Deklaration kann man mit dem jetzigen Vorwissen ahnen, dass ein zweidimensionales Array ein Array von Arrays ist.
 Daher entspricht ein solches zweidimensionales Array auch einem Zeiger auf einen Zeiger auf einen Typ.
 Diskutieren wir wieder ein Beispiel:
 \begin{lstlisting}
@@ -261,16 +242,17 @@ Das führt relativ schnell zur Unbenutzbarkeit des entsprechenden Rechners.
 Ein Beispiel für einen solchen Fehler ist der folgende (nicht besonders sinnvolle) Code Abschnitt
 \begin{lstlisting}
 int list[50];
+doubke *p;
 for (int i = 0; i < 50; i++)
   {
-    double *p = malloc(sizeof(double));
+    p = malloc(sizeof(double));
     *p = i * i;
     list[i] = *p + (*p) * (*p);
   }
-free(p); // falsch, p ist hier nicht mehr sichtbar!
+free(p); // falsche Stelle!
 \end{lstlisting}
 In jedem Durchlauf der Schleife wird Speicher für \verb|p| reserviert, ohne ihn wieder frei zu geben.
-Nach Ende der Schleife ist keine der Adressen all dieser Reservierungen mehr verfügbar.
+Nach Ende der Schleife ist keine der Adressen all dieser Reservierungen (bzw. nur noch die letzte) mehr verfügbar.
 D.h. man kann den Speicher weder weiter benutzen, noch kann man ihn nachträglich frei geben.
 
 \endinput

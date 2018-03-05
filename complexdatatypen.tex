@@ -4,12 +4,12 @@
 
 \index{\texttt{typedef}}
 Je nach Problemstellung ist es manchmal sehr hilfreich, Datenstrukturen selbst erzeugen zu können.
-C bietet dafür die Möglichkeit, und zwar auf verschiedene Weisen.
-Zunächst kann man in C einen neuen Typ definieren, z.B. einen eigenen Typ für reelle Zahlen:
+\texttt{C} bietet dafür die Möglichkeit, und zwar auf verschiedene Weisen.
+Zunächst kann man in \texttt{C} einen neuen Typ definieren, z.B. einen eigenen Typ für reelle Zahlen:
 \begin{lstlisting}
 typedef float real;
 \end{lstlisting}
-Dieser kann im Quelltext danach wie native C Typen verwendet werden
+Dieser kann im Quelltext danach wie native \texttt{C} Typen verwendet werden
 \begin{lstlisting}
 typedef float real;
 int main()
@@ -30,11 +30,10 @@ ersetzt.
 
 \index{\texttt{struct}}
 Eine weitere Art, einen neuen Datentyp zu definieren, ist zusammengesetzte Datentypen zu definieren.
-Ein einfaches mathematisches Beispiel ist eine Datentyp für komplexe Zahlen.
-Eine komplexe Zahl muss dabei eine Real- und Imaginärteil haben.
-Genau für solche Fälle stellt C die Möglichkeit zur Verfügung, zusammengesetzte Datentypen zu definieren.
+Ein einfaches mathematisches Beispiel sind Vektoren, die $n$ Elemente haben.
+Genau für solche Fälle stellt \texttt{C} die Möglichkeit zur Verfügung, zusammengesetzte Datentypen zu definieren.
 Das entsprechende Schlüsselwort ist \verb|struct|.
-Solche zusammengesetzten Datentypen in C kann man sich wie Kontainer vorstellen.
+Solche zusammengesetzten Datentypen in \texttt{C} kann man sich wie Kontainer vorstellen.
 Die allgemeine Benutzung von \verb|struct| ist wie folgt:
 \begin{lstlisting}
   struct name
@@ -107,9 +106,9 @@ int main()
 {
   struct coord r;
   struct coord *v = &r;
-  v->x = 1.0;
-  v->y = 3.4;
-  v->z = -0.55
+  v->x = 1.0;          // aequivalent zu (*v).x = 1.0;
+  v->y = 3.4;          // aequivalent zu (*v).y = 3.4;
+  v->z = -0.55         // aequivalent zu (*v).z = -0.55;
   printf("r hat Koordinaten (%e, %e, %e)\n", v->x, v->y, v->z);
   return 0;
 }
@@ -166,69 +165,8 @@ typedef struct
   double x, y, z;
 } coord;
 \end{lstlisting}
-Damit ist natürlich \verb|struct coord| nicht definiert, aber man kann \verb|coord| wie einen C Typ verwenden.
+Damit ist natürlich \verb|struct coord| nicht definiert, aber man kann \verb|coord| wie einen \texttt{C} Typ verwenden.
 
 
 \endinput
 
-Ein Beispiel aus der C Standardbibliothek \verb|time.h| ist das \verb|struct tm| für Datum und Zeit:
-\begin{lstlisting}
-struct tm
-{
-  int tm_sec; // Sekunde
-  int tm_min; // Minute
-  int tm_hour; // Stunde
-  int tm_mday; // Tag
-  int tm_mon; // Monat
-  int tm_year; // Jahr
-  int tm_wday; // Wochentag
-  int tm_yday; // Tag im Jahr
-  int tm_isdst; // Sommerzeit oder nicht
-};
-\end{lstlisting}
-Damit kann über die Funktion
-\begin{mydefinitionblock}{Funktion: \texttt{time}}
-\begin{lstlisting}
-time_t time(time_t *t)
-\end{lstlisting}
-  \verb|time| gibt die Zeit in Sekunden seit 1970-01-01 00:00:00 +0000 (UTC) zurück.
-  Falls \verb|t| nicht \verb|NULL| ist, wird das Ergebnis zusätzlich in \verb|t| gespeichert.
-  \verb|time_t| ist vom Typ \verb|long int|.
-\end{mydefinitionblock}
-und die Funktion
-\begin{mydefinitionblock}{Funktion: \texttt{localtime}}
-\begin{lstlisting}
-struct tm *localtime(time_t *timer);
-\end{lstlisting}
-  Eingabeparameter: Zeiger auf eine Variable vom Typ \verb|time_t|.
-  Rückgabeparameter: Zeiger auf ein \verb|struct tm|.
-\end{mydefinitionblock}
-die beide in \verb|time.h| deklariert sind.
-Folgendes Beispiel illustriert deren Benutzung:
-\begin{lstlisting}
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-int main()
-{
-  time_t now;
-  struct tm *local_date_time;
-  char *tagarray[7] = {"Sonntag",    "Montag",  "Dienstag", "Mittwoch",
-                       "Donnerstag", "Freitag", "Samstag"};
-  now = time(NULL);
-  local_date_time = localtime(&now);
-
-  printf("Jahr: %d\n", local_date_time->tm_year + 1900);
-  printf("Monat: %d\n", local_date_time->tm_mon);
-  printf("Tag: %s\n", tagarray[local_date_time->tm_wday]);
-  printf("Stunde: %d\n", local_date_time->tm_hour);
-  printf("Minute: %d\n", local_date_time->tm_min);
-  printf("Sekunde: %d\n", local_date_time->tm_sec);
-  return (0);
-}
-\end{lstlisting}
-Es gibt das aktuelle Datum und die aktuelle Zeit aus.
-Dabei wird zunächst die Funktion \verb|time| aufgerufen, und desse Rückgabewert dann an die Funktion \verb|localtime| übergeben.
-In beiden Funktionsaufrufen mussten wir nicht mit den $9$ Elementen von \verb|struct tm| hantieren, sondern konnten bequem den Container übergeben.
-Da \verb|local_date_time| ein Zeiger ist, greifen wir auf dessen Elemente wieder mit dem \verb|->| Operator zu.

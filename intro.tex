@@ -20,50 +20,42 @@ Es gibt mehrere Gründe, sich für \texttt{C} als Programmiersprache zu entschei
 \end{itemize}
 Viel der heute häufig genutzten Software ist ursprünglich in \texttt{C} geschrieben.
 
-Der Inhalt dieses Skripts ist der folgende: Im ersten Teil werden wir sehen, wie man eine einfache Fragestellung mit Hilfe von \texttt{C} umsetzen kann.
-Wir beginnen mit der grundlegenden Struktur eines \texttt{C} Programms und erklären seine Bestandteile.
-Dabei muss man einige wichtige Konzepte verstehen:
+Der Inhalt dieses Skripts ist der folgende: Im ersten Teil werden die Grundlagen behandelt, mit deren Hilfe man einfache Fragestellungen in \texttt{C} umsetzen kann.
+Dabei beginnen wir mit der grundlegenden Struktur eines \texttt{C} Programms und erklären seine Bestandteile.
+Das Verständniss der folgenden Konzepte ist dabei fundamental:
 \begin{enumerate}
 \item Datentypen
 \item Kontrollstrukturen
 \item Funktionen
 \end{enumerate}
-Zum Beispiel: Wenn wir die Zahlen sortieren wollen, müssen wir zunächst entscheiden, ob wir ganze oder reelle Zahlen betrachten wollen.
-Auf jedem Datentyp sind Operationen definiert, die wir nutzen können.
-Wir werden alle \texttt{C}-Datentypen kennenlernen, und die dafür zur Verfügung stehenden Operationen.
-Um den Fluss des Programms zu beeinflussen, braucht man allerdings mehr als Operationen auf Daten.
-Dafür werden wir die \texttt{C}-Kontrollstrukturen einführen.
+Will man bespielsweise eine Reihe von Zahlen sortieren, so muss man zunächst entscheiden, ob ganze oder reelle Zahlen sortiert werden sollen.
+Man muss sich also über den Datentyp klar werden.
+Auf jedem \texttt{C} Datentyp sind bestimmte Operationen definiert.
+Alle \texttt{C}-Datentypen und die dafür zur Verfügung stehenden Operationen werden eingeführt.
+Um den Ablauf eines Programms beeinflussen zu können, braucht man allerdings mehr als Operationen auf Daten, nämlich sogenannte \texttt{C}-Kontrollstrukturen wie Schleifen und Verzweigungen.
 
 Ein weiteres wichtiges Konzept sind Funktionen.
 Im allgemeinen stellen Funktionen (im Idealfall kurze) mit Namen versehene Abschnitte im Programm dar, die dann über den Namen wieder aus dem Quelltext aufgerufen werden können.
-Das kleinste ausführbare \texttt{C}-Programm besteht aus genau einer Funktion, wie wir sehen werden.
+Das kleinste ausführbare \texttt{C}-Programm besteht aus genau einer Funktion.
 Funktionen bekommen Daten als Eingabe, führen bestimmte Operationen auf diesen Eingabedaten aus und liefern dann einen Rückgabewert.
 Die oben bereits erwähnten Bibliotheken stellen im wesentlichen Funktionen zur Verfügung.
 So wird zum Beispiel die Ein- und Ausgabe von Text in \texttt{C} über Bibliotheksfunktionen realisiert.
 Wir werden zeigen, wie man Funktionen definiert und aufruft.
 
-Der letzte Teil des Skripts behandelt einige fortgeschrittene Konzepte von \texttt{C}.
-Dabei wird es vor allem um Speicherverwaltung und zusammengesetzte Datentypen gehen.
+Der zweite Teil des Skripts behandelt zwei fortgeschrittene Konzepte von \texttt{C}, nämlich dynamische Speicherverwaltung und zusammengesetzte Datentypen.
 Das Verständnis von dynamischer Speicherverwaltung in \texttt{C} kann in vielen Situationen unumgänglich sein.
 Denken Sie an einen Algorithmus zum Sortieren von Zahlen: Wenn nicht von Anfang an klar ist, welche Länge die zu sortierenden Zahlenreihen haben werden, dann sollte man in der Lage sein, diese Länge dynamisch anzupassen
-%Der dabei am häufigsten auftretende Laufzeitfehler des Programms ist der sogenannte \emph{segmentation fault}, also ein Zugriff auf eine Stelle im Speicher, auf die nicht zugegriffen werden darf.
-%Der Compiler kann solche Fehler nicht feststellen.
-%Ein gutes Verständnis der Adressierung von Speicher in \texttt{C} hilft, solche Fehler zu vermeiden, bzw. solche Fehler schnell zu beheben.
-%Dies wird einen wichtigen Teil im Skript einnehmen.
-%Nebenbei werden wir in diesem Zusammenhang auch sogenannte \emph{strings} in \texttt{C} einführen.
 
 Zusammengesetzte Datenstrukturen sind sehr nützlich, um auf ein Problem angepasste Datentypen nutzen zu können.
 Das ist unter anderem auch wichtig, weil damit unter Umständen Programme effizienter gemacht werden können.
-Wir werden dies am Beispiel eines schnelleren Sortier-Algorithmus aufzeigen.
 Ferner werden wir sehen, dass zusammengesetzte Datentypen dabei helfen können, den Quelltext für eine gegebene Problemlösung verständlicher zu gestalten.
 
 Ein sehr wichtiger in diese Richtung gehender Aspekt beim Programmieren ist auch das Kommentieren sowie das Code\-design.
 Letzteres werden wir insbesondere in Form der sogenannten \emph{modularen} Programmierung kennenlernen.
 Dies erhöht die Wiederverwendbarkeit von Code und erlaubt es auch Code zu verstehen, den man vor einem Jahr geschrieben hat.
-%Insbesondere werden wir diskutieren, wie man Quelltext in verschiedene Dateien verteilt.
 
 Da sich die Sprache \texttt{C} im Laufe der Zeit verändert, existieren verschiedene sogenannte Standards.
-In diesem Skript werden wir uns an den C99 Standard halten.
+In diesem Skript werden wir uns an den C99 Standard halten.\index{C99 Standard}
 
 \subsection{Weitere Hilfe}
 

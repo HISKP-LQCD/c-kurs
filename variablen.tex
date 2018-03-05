@@ -14,7 +14,7 @@ Die Variable muss dann noch initialisiert werden
 \begin{lstlisting}
 name = value;
 \end{lstlisting}
-Es geht auch beides zusammen
+Es geht auch beides zusammen in einem Schritt
 \begin{lstlisting}
 Datatype name = value;
 \end{lstlisting}
@@ -101,9 +101,9 @@ Das ist eine sehr nützliche Eigenschaft von Compilern, wenn es auch manchmal et
 Man kann dies durch einen expliziten \emph{cast} umgehen.\index{cast}\index{cast!explizit}
 Beispielsweise wandelt \texttt{int n=4; double x = (double)n;} die ganze Zahl \texttt{n} in eine Fließkommazahl mit \texttt{double} Genauigkeit um.
 Dafür sollte man aber sehr genau wissen, was man tut.
-Leider ist die Typenkontrolle vom Compiler abhängig und meist wird bei einer Zuweisung ein impliziter \emph{cast} durchgeführt, wenn nötig und möglich.\index{cast!implizit}
+Leider ist die Typenkontrolle vom Compiler abhängig und meist wird bei einer Zuweisung ein impliziter \emph{cast} durchgeführt, wenn nötig und möglich.\index{cast!implicit}
 Beispielsweise wird folgender Code ohne Beanstandung übersetzt
-\begin{lstlisting}[caption={Ungenaue Variablenzuweisung, implizit cast}, belowcaptionskip=0.3em]
+\begin{lstlisting}[caption={Ungenaue Variablenzuweisung, implicit cast}, belowcaptionskip=0.3em]
 #include <stido.h>
 
 int main()
@@ -129,16 +129,16 @@ Auch dürfen die Namen nicht mit einer Zahl beginnen, auch wenn Zahlen generell 
 Operatornamen, wie z.B. \verb|+|, \verb|-| oder \verb|=|, dürfen ebenfalls nicht verwendet werden.
 Es ist ratsam, Variablen mit sinnvollen Namen zu versehen.
 Das macht den Quelltext lesbarer und erhöht die Verständlichkeit des Programms.
-Für den Algorithmus Einfügesortieren sollte man beispielsweise die beiden Liste mit \texttt{sortiert} und \texttt{unsortiert} benennen.
+Für den Algorithmus Einfügesortieren könnte man beispielsweise die beiden Liste mit \texttt{sortiert} und \texttt{unsortiert} benennen.
 Im folgenden Quelltext sind einige Beispiele für richtige und falsche Variablendeklarationen zu finden:
 \begin{lstlisting}
 int main()
 {
-  int m1 = 4, n1 = 5, l1 = 6; // Richtig
+  int m1 = 4, n1 = 5, l1 = 6;               // Richtig
   int m2 = 4, char n2 = 'a', float m2 = 4.; // Falsch
-  char m3 = 'a';
-  double n3 = 18.9; // Richtig
-  float 4m = 1.; // Falsch
+  char m3 = 'a';                            // Richtig
+  double n3 = 18.9;                         // Richtig
+  float 4m = 1.;                            // Falsch
   return (0);
 }
 \end{lstlisting} 
@@ -146,11 +146,12 @@ Wie man sieht, kann man mehrere Variable in einer Anweisung deklarieren, definie
 Die Variablen werden dabei durch ein Komma getrennt.
 Wie schon oben erwähnt, können mehrere Anweisung in der gleichen Zeile stehen, solange sie mit dem Semikolon abgeschlossen werden.
 
-Bei folgenden Wörtern handelt es sich um C99 Schlüsselworte:\\
+Bei folgenden Wörtern handelt es sich um C99 Schlüsselworte:\index{Schlüsselwörter}\\
 \textbf{auto, double, int, struct, break, else, long, switch, case,
   enum, register, typedef, char, extern, inline, return, union, const, float,
   short, unsigned, continue, for, restrict, signed, void, default, got, sizeof,
   volatile, do, if, static, while, \_Bool, \_Complex, \_Imaginary}
+Der überwiegende Teil dieser Schlüsselwörter wird in diesem Dokument vorgestellt.
 
 \subsection{Konstanten}
 
@@ -190,10 +191,10 @@ Wieder sieht man es am einfachsten an einem Beispiel:
 int main()
 {
   int a = 2;
-  printf("%d\n", a++);
-  printf("%d\n", a);
-  printf("%d\n", ++a);
-  printf("%d\n", a);
+  printf("%d\n", a++); // gibt 2 aus
+  printf("%d\n", a);   // gibt 3 aus
+  printf("%d\n", ++a); // gibt 4 aus
+  printf("%d\n", a);   // gibt 4 aus
   return 0;
 }
 \end{lstlisting}
@@ -217,7 +218,7 @@ In Bezug auf die Anzahl ihrer Argumente gibt es drei verschiedene Typen von Oper
 Neben arithmetischen Operatoren gibt es auch noch solche, die bit--weise wirken. 
 Außerdem gibt es logische Operatoren.
 Bit--weise Operatoren sind binäre Operatoren und wirken auf jedes bit des Arguments.
-In den Tabellen~\ref{oper}, \ref{vergoper} und \ref{vergoper2} fassen wir die wichtigsten arithmetischen Operatoren und logischen Operatoren zusammen.
+In den Tabellen~\ref{oper}, \ref{vergoper} und \ref{vergoper2} sind die wichtigsten arithmetischen Operatoren und logischen Operatoren zusammen gefasst. \index{Operator!arithmentisch}\index{Operator!logisch}
 
 Es gibt einige Dinge, die man sich bei der Benutzung von Operatoren bewusst machen sollte.
 An dieser Stelle weisen wir auf eine davon explizit hin:
@@ -239,7 +240,7 @@ Es ist empfehlenswert, dies immer explizit zu tun, damit es nicht durch spätere
 
 \subsection{Logische Ausdrücke}
 
-Vergleichsoperatoren (siehe Tabelle~\ref{vergoper}) und logische Operatoren (siehe Tabelle~\ref{vergoper2}) werden zum bilden sogenannter logischer Ausdrücke verwendet.
+Vergleichsoperatoren (siehe Tabelle~\ref{vergoper}) und logische Operatoren (siehe Tabelle~\ref{vergoper2}) werden zum Bilden sogenannter logischer Ausdrücke verwendet.
 Logische Ausdrücke werden entweder zu wahr (\emph{true}) oder falsch (\emph{false}) ausgewertet.
 Intern repräsentiert \texttt{C} jeden logischen Ausdruck als ganze Zahl.
 Dabei entspricht $\neq 0$ wahr (\emph{true}) und $0$ falsch (\emph{false}).
@@ -248,13 +249,13 @@ Ein sehr einfacher logischer Ausdruck ist also beispielsweise
 \begin{lstlisting}
   1; // -> wahr
 \end{lstlisting}
-Etwas komplexer geht es mit Vergleichsoperatoren
+Etwas komplexer geht es mit Vergleichsoperatoren\index{Operator!Vergleich}
 \begin{lstlisting}
   double x = 5.;
   int n = 3;
   (x > 1.);   // wahr
   (x < 0.);   // falsch
-  (x == 3);   // wahr
+  (n == 3);   // wahr
   (x == 4.9); // falsch, aber mit Fliesskommanzahlen nicht empfehlenswert
 \end{lstlisting}
 Das Prüfen auf Gleichheit ist für reelle Maschinenzahlen nicht wohl definiert.

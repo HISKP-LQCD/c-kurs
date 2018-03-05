@@ -8,26 +8,26 @@ ermitteln.
 \end{mydefinitionblock}
 Hat man dies geschafft, so muss der Algorithmus in die jeweilige Programmiersprache, hier also \texttt{C}, umgesetzt werden.
 Betrachten wir als Beispiel folgendes Problem:
-Wir haben Daten
+Nehmen wir an wir betrachten Daten
 \[
 x_0, x_1,\ldots,x_{n-1}
 \]
 von einem bestimmten Datentyp, für den wir eine Operation größer-gleich (oder kleiner-gleich) und kleiner (oder größer) definiert haben.
 Man beachte, dass wir ab jetzt bei der Indizierung der \texttt{C} Konvention folgen und von $0$ bis $n-1$ indizieren.
-Die Aufgabe ist nun eine Permutation $\sigma(i)$, $i=0,...,n-1$ zu finden, so dass wir folgende \emph{sortierte} Liste von Daten
+Die Aufgabe ist eine Permutation $\sigma(i)$, $i=0,...,n-1$ zu finden, so dass wir folgende \emph{sortierte} Liste 
 \[
 x_{\sigma(0)}\ \leq\ x_{\sigma(1)}\ \leq\ \ldots\ \leq\ x_{\sigma(n-1)}
 \]
-erhalten.
+von Daten erhalten.
 
-Ein einfacher Algorithmus, um dieses Problem zu lösen heißt \emph{Einfügesortieren}.
+Ein einfacher Algorithmus, um dieses Problem zu lösen heißt \emph{Einfügesortieren}.\index{Algorithmus!Einfügesortieren}
 Er kann in folgen Schritten formuliert werden:
 \begin{enumerate}
-\item Wir starten mit zwei Listen, eine sortierte $S$ und eine unsortierte $U$.\\
+\item Beginne mit zwei Listen, einer sortierten Liste $S$ und einer unsortierten $U$.\\
   Am Anfang besteht $U$ aus der zu sortierenden Liste und $S$ ist leer.
-\item Nun verschieben wir jeweils das erste Element aus $U$ nach $S$.
-  Wir fügen das Element dabei so in $S$ ein, dass $S$ immer sortiert ist.
- \item Wir wiederholen 2. so oft, bis $U$ leer ist.
+\item Verschiebe das jeweils erste Element aus $U$ nach $S$.
+  Füge das Element dabei so in $S$ ein, dass $S$ immer sortiert ist.
+ \item Wiederhole 2. so oft, bis $U$ leer ist.
 \end{enumerate}
 Wahrscheinlich ist jedem klar, dass diese Vorschrift in $n$ Schritten das gewünschte Ergebnis liefern wird.
 Leider wird der Computer bzw. der \texttt{C}-Compiler den Algorithmus so nicht verstehen.
@@ -58,8 +58,8 @@ Die verschiedenen Speichertypen haben zwei wichtigen Eigenschaften:
 \item Die totale Größe
 \item Die Zugriffszeit
 \end{itemize}
-Typischerweise ist die Zugriffszeit länger, wenn die totale Größe des Speichermediums größer ist.
-Zum Beispiel ist Hauptspeicher ungefähr $10.000$ mal schneller zu erreichen als eine Festplatte, aber 50 mal langsamer zu erreichen als die Register einer CPU.
+Typischerweise ist die Zugriffszeit invers proportional zur totalen Größe des Speichermediums.
+Zum Beispiel ist Hauptspeicher ungefähr $10.000$ mal schneller zu erreichen, als eine Festplatte, aber 50 mal langsamer als die Register einer CPU.
 Die Register bestehen aber nur aus wenigen Kilobytes, der Hauptspeicher aus einigen Gigabyte, und die Festplatte heutzutage aus einigen Terabyte.
 Für uns ist hier aber lediglich der Unterschied Festplattenspeicher und Hauptspeicher von Bedeutung, da die Register im Normalfall vom Compiler angesteuert werden.
 
@@ -126,7 +126,7 @@ Verschiedene bit-Anzahl erlaubt die Darstellung verschiedener Zahlenbereiche.
 
 \subsubsection{Ein erstes \texttt{C}-Programm}
 
-Ein \texttt{C}-Programm ist ein Stück Text, der entsprechend den Sprachregeln von \texttt{C} formuliert sein muss.
+Ein \texttt{C}-Programm ist ein Textstück, das entsprechend den Sprachregeln von \texttt{C} formuliert sein muss.
 Es besteht im Allgemeinen aus Deklarationen, Anweisungen, Kontrollstrukturen und Kommentaren.
 Das vielleicht einfachste \texttt{C}-Programm hat folgende Form:
 \begin{lstlisting}[caption={Ein erstes \texttt{C}-Programm}, belowcaptionskip=0.3em]
@@ -144,7 +144,7 @@ Jedes Programm in \texttt{C} muss die Funktion \texttt{main} genau einmal defini
 Die \texttt{main} Funktion ist auch der Startpunkt für jedes \texttt{C} Programm.
 Die von uns gerade definiert Funktion \texttt{main} hat eine ganze Zahl (\texttt{int}) als Rückgabewert.
 Da der geklammerte Bereich direkt nach \texttt{main} leer ist, bekommt die Funktion keine Parameter übergeben.
-Schlüsselwörter, hier \texttt{int} und \texttt{main} werden durch ein oder mehrere Leerzeichen getrennt.
+Schlüsselwörter, hier \texttt{int} und \texttt{main} werden durch ein oder mehrere Leerzeichen voneinander getrennt.
 
 Mit den geschweiften Klammern wird ein Abschnitt oder Block definiert, in diesem Fall der Block der Funktion.
 Die beiden Schrägstriche \texttt{//} lassen den Compiler alles danach folgende bis zum Zeilenende als Kommentar interpretieren.
@@ -201,7 +201,7 @@ Er hat einen ganz ähnlichen Aufruf\index{\texttt{clang}}
 \vspace*{0.5cm}
 
 \noindent\texttt{clang} und \texttt{gcc} sind beide freie Software.
-Ihre Installation unter Linux ist sehr leicht, aber auch unter Windows kann man, mit einigem Aufwand beide ebenfalls installieren.
+Ihre Installation unter Linux ist sehr leicht, aber auch unter Windows kann man beide -- mit einigem Aufwand -- ebenfalls installieren.
 
 Bisher tut unser erstes Programm noch nichts, außer Null zurückgeben. 
 Wir können es um eine Ausgabe auf den Bildschirm erweitern:
@@ -228,11 +228,11 @@ Auch die Funktion \texttt{printf} werden wir später noch im Detail diskutieren.
 In diesem Beispiel kopiert \texttt{printf} die Zeichenkette unverändert zur standard Ausgabe, also wahrscheinlich auf die Konsole.
 \verb|\n| erzeugt einen Zeilenumbruch.
 Wieder wird der Aufruf von \texttt{printf} mit einem Semikolon \texttt{;} abgeschlossen.
-Man beachte, dass \texttt{return} die Klammern um den Rückgabewert nicht benötigt.
+Man beachte, dass \texttt{return} keine Klammern um den Rückgabewert benötigt.
 \texttt{return} stellt keinen Funktionsaufruf dar.
 
 
-Der Rückgabewert von \texttt{main} kann übrigens an der Kommandozeile wie folgt abgefragt werden
+Der Rückgabewert von \texttt{main} kann übrigens an der Linux (Unix) Kommandozeile wie folgt abgefragt werden
 
 \vspace*{0.5cm}
 \begin{verbatim}

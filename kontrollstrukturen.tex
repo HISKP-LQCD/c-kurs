@@ -5,7 +5,7 @@ Wir werden nun Kontrollstrukturen einführen, die es erlauben, den Fluss eines P
 Beispielsweise kann man, in Abhängigkeit von Werten von Variablen entweder einen, oder einen anderen Block von Anweisungen ausführen.
 Solche Kontrollstrukturen nennt man Verzweigungen.
 Das kann beispielsweise bedeuten, dass der Programmteil \texttt{A} ausgeführt wird, falls eine Variable $x$ größer als Null ist, und sonst der Programmteil \texttt{B}.
-Die Entscheidung wird auf Grundlage logischer Ausdrücke gefällt, siehe letztes Kapitel.
+Die Entscheidung wird auf Grundlage logischer Ausdrücke gefällt, siehe den vorangegangenen Abschnitt.
 
 \subsection{Einfache Verzweigung: \texttt{if-else}}
 
@@ -235,6 +235,8 @@ Dies lässt sich für Fälle verallgemeinern, in denen unerwartete oder nicht st
 
 \index{\texttt{do-while}}\index{\texttt{while}}\index{Schleife!\texttt{do-while}}\index{Schleife!\texttt{while}}
 C kennt zwei weitere Schleifenkonstrukte, nämlich die \verb|while| und die \verb|do-while| Schleife.
+\texttt{for} Schleifen haben in der Regel eine fest vorgegebene Anzahl von Durchläufen.
+Die \texttt{while} Schleifen Familie ist da flexibler: Die Anzahl an Durchläufen hängt nur von einem logischen Ausdruck ab.
 Während die \verb|while| Schleife die Abbruchbedingung vor dem Ausführen des Schleifenkörpers überprüft und im Zweifel abbricht, wird bei der \verb|do-while| Schleife der Körper immer mindestens einmal ausgeführt.
 Das macht den großen Unterschied zwischen den beiden aus.
 Allgemein hat die \verb|while| Schleife folgende Form:
@@ -257,4 +259,6 @@ while (logischer Ausdruck);
 Die Anweisungen werden also mindestens einmal ausgeführt bis der \texttt{logische Ausdruck} das erste Mal ausgewertet wird.
 
 Ausführungen von \verb|while| und \verb|do-while| Schleifen können ebenfalls mit \verb|break| abgebrochen werden.
+Natürlich können \verb|while|, \verb|do-while| und \verb|for| Schleifen immer ineinander überführt werden.
+Allerdings ist dies manchmal mit Aufwand verbunden und es erscheint fast immer natürlich die eine oder andere Schleifenform zu verwenden.
 \endinput

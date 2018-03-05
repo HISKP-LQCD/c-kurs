@@ -8,7 +8,7 @@ Eine Funktion haben wir schon kennen gelernt, nämlich die Funktion \verb|main|.
 
 \subsection{Funktionen Prototypen}
 
-In C sind Funktionen Variablen sehr ähnlich.
+In \texttt{C} sind Funktionen Variablen sehr ähnlich.
 Eine Funktion kann wie folgt deklariert werden
 \begin{lstlisting}
 Rueckgabetyp Funktionsname(Parameterliste);
@@ -19,8 +19,8 @@ Die Parameterliste besteht aus durch Kommata getrennten Variablendeklarationen
 Typ1 parameter1, Typ2 parameter2, ...
 \end{lstlisting}
 Die Parameterliste kann auch leer sein.
-Der Rückgabetyp kann jeder C Typ und jeder selbst definierte Typ sein.
-Bei streng strukturierten Programmiersprachen wie C werden der Funktionsname, die Parameterliste und der Rückgabetyp zusammen als \emph{Signatur} der Funktion bezeichnet.
+Der Rückgabetyp kann jeder \texttt{C} Typ und jeder selbst definierte Typ sein.
+Bei streng strukturierten Programmiersprachen wie \texttt{C} werden der Funktionsname, die Parameterliste und der Rückgabetyp zusammen als \emph{Signatur} der Funktion bezeichnet.
 
 \subsection{Funktionen Definition}
 
@@ -40,7 +40,7 @@ Die in der Parameterliste deklarierten Variablen sind dann innerhalb dieses Bloc
 Außerdem sind alle \emph{global} deklarierten Variablen im Funktionsblock sichtbar.
 Für den Funktionsnamen gelten die gleichen Regeln, wie für Variablennamen.
 
-Als Beispiel für eine Funktion schreiben wir einen Abschnitt, der die Fakultät einer ganzen Zahl berechnet:
+Als Beispiel betrachten wir eine Funktion, die die Fakultät einer ganzen Zahl berechnet:
 \begin{lstlisting}
 unsigned long int Fakultaet(const unsigned int zahl)
 {
@@ -68,7 +68,7 @@ Ergebnistyp Ergebnis = Funktionsname(Uebergabeliste);
 Die \verb|Uebergabeliste| enthält dabei Variablen aus dem aufrufenden Codeabschnitt oder konstante Ausdrücke.
 Dabei muss die Reihenfolge in der \verb|Uebergabeliste| genau mit der in der \verb|Parameterliste| in der Funktionsdeklaration übereinstimmen.
 Auch die Typen in \verb|Uebergabeliste| müssen mit denen in der \verb|Parameterliste| übereinstimmen.
-Der C Compiler überprüft dies strickt und bricht die Übersetzung ab, falls es Abweichungen gibt.
+Der \texttt{C} Compiler überprüft dies strickt und bricht die Übersetzung ab, falls es Abweichungen gibt.
 Obige Funktion zur Berechnung der Fakultät kann wie folgt im Hauptprogramm aufgerufen werden:
 \begin{lstlisting}
 #include <stdio.h>
@@ -87,7 +87,7 @@ int main()
 
 \subsection{Typenüberprüfung und sinnvolle Eingabewerte}
 
-Wie schon oben erwähnt, führt der C Compiler für Aufrufe einer Funktion eine Typenüberpüfung durch, man muss jedoch bei elementaren Datentypen vorsichtig sein, da implizite casts zu unerwarteten Ergebnissen führen können.
+Wie schon oben erwähnt, führt der \texttt{C} Compiler für Aufrufe einer Funktion eine Typenüberpüfung durch, man muss jedoch bei elementaren Datentypen vorsichtig sein, da implizite casts zu unerwarteten Ergebnissen führen können.
 Der Aufruf der Funktion in der Form
 \begin{lstlisting}
   unsigned long int result;
