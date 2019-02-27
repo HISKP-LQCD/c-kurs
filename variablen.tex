@@ -26,7 +26,7 @@ int main()
 {
   int n;
   n = 4;
-  printf("Wir werden n zahlen sortieren:\n");
+  printf("Wir werden n=%d zahlen sortieren\n", d);
   return(0);
 }
 \end{lstlisting}
@@ -46,6 +46,8 @@ Im Einzelnen geschieht das folgende:
   An der entsprechenden Stelle im Speicher wird dieser Wert abgelegt.
   Bei einer Definition führt \texttt{C} keine Initialisierung durch.\index{Variable!Initialisierung}
   Nach der reinen Definition (ohne Zuweisung) ist der Wert der Variablen \texttt{n} also rein zufällig.
+\item \verb|printf(...)|\\
+  Diese Anweisung gibt den Text auf der Konsole aus und ersetzt den Platzhalter \verb|%d| mit dem Wert der Variablen \verb|n|, mehr Details dazu in Abschnitten \ref{subsec:Operatoren} und \ref{subsec:FormattedInAndOutput}.
 \end{itemize}
 Es ist wichtig, dass jeder Benutzung einer Variablen, beispielsweise in einer Zuweisung, die Deklaration der Variablen vorangehen muss.
 
@@ -62,7 +64,8 @@ Sie sind in allen Funktionen, die nach der globalen Deklaration definiert werden
 
 Variablen haben immer einen Datentyp und einen Wert. 
 Der Datentyp entscheidet, welche Werte eine Variable annehmen kann und wie viel Arbeitsspeicher dafür reserviert wird.\index{Datentypen}
-In der Tabelle~\ref{tab:PPer} sind die elementaren \texttt{C}-Datentypen mit ihren Wertebereichen aufgelistet.
+In der Tabelle~\ref{tab:PPer} sind die elementaren \texttt{C}-Datentypen mit ihren Wertebereichen beispielhaft aufgelistet, wobei man bedenken muss, dass sowohl die Wertebereiche, als auch die Größe in Byte architekturabhängig sein können.
+Ferner gibt es für ganzzahlige Datentypen auch \verb|long long| Varianten, welche meist eine Größe von $8$ Byte aufweisen und entsprechend große Wertebereiche haben.
 
 \begin{table}[t]
 \caption{Elementare Datentypen\label{tabelle1}}  % title name of the table
@@ -103,6 +106,8 @@ Beispielsweise wandelt \texttt{int n=4; double x = (double)n;} die ganze Zahl \t
 Dafür sollte man aber sehr genau wissen, was man tut.
 Leider ist die Typenkontrolle vom Compiler abhängig und meist wird bei einer Zuweisung ein impliziter \emph{cast} durchgeführt, wenn nötig und möglich.\index{cast!implicit}
 Beispielsweise wird folgender Code ohne Beanstandung übersetzt
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Ungenaue Variablenzuweisung, implicit cast}, belowcaptionskip=0.3em]
 #include <stido.h>
 
@@ -113,6 +118,7 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
 obwohl hier implizit die reelle Zahl $4.5$ durch Abschneiden in eine ganze Zahl umgewandelt wird.
 \texttt{n} hat den Wert $4$.
 
@@ -167,7 +173,7 @@ Erstens, wenn wir wissen, dass sich eine Variable nicht mehr ändern wird und wi
 Zweitens ist der Wert von \verb|const| Variablen zur Zeit der Übersetzung bekannt und erlaubt dem Compiler einige Optimierungen.
 Im Allgemeinen sollte man \verb|const| immer verwenden, wenn die Variable sich nicht mehr ändern soll.
 
-\subsection{Operatoren}
+\subsection{Operatoren} \label{subsec:Operatoren}
 
 \index{Operator}
 Variablen können mit Hilfe von Operationen manipuliert werden.
@@ -294,15 +300,15 @@ Durch geschickte Ordnung der logischen Ausdrücke kann man dann unter Umständen
     \hline
     Operator & Ausdruck & Auswertung \\
     \hline
-    Zuweisung & \verb|a = b| & Werte von \verb|b| \\
+    Zuweisung & \verb|a = b| & Wert von \verb|b| \\
     Addition & \verb|a + b| & Summe von \verb|a| und \verb|b| \\
     Subtraktion & \verb|a - b| & Differenz von \verb|a| und \verb|b| \\
     Multiplikation & \verb|a * b| & Produkt von \verb|a| und \verb|b| \\
     Division & \verb|a / b| & Quotient von \verb|a| und \verb|b| \\
-    Zuweisung und Addition & \verb|a += b| & Werte von \verb|a+b| \\
-    Zuweisung und Subtraktion & \verb|a -= b| & Werte von \verb|a-b| \\
-    Zuweisung und Multiplikation & \verb|a *= b| & Werte von \verb|a*b| \\
-    Zuweisung und Division & \verb|a /= b| & Werte von \verb|a/b| \\
+    Zuweisung und Addition & \verb|a += b| & Wert von \verb|a+b| \\
+    Zuweisung und Subtraktion & \verb|a -= b| & Wert von \verb|a-b| \\
+    Zuweisung und Multiplikation & \verb|a *= b| & Wert von \verb|a*b| \\
+    Zuweisung und Division & \verb|a /= b| & Wert von \verb|a/b| \\
     Modulo & \verb|a % b| & \verb|a| modulo \verb|b| \\
     Inkrement & \verb|++a, a++| & Präfix: \verb|a|+1, Postfix: \verb|a| \\
     Dekrement & \verb|--a, a--| & Präfix: \verb|a|-1, Postfix: \verb|a| \\

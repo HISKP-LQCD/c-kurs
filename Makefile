@@ -1,7 +1,7 @@
 all: programmierkurs_fpcu.pdf
 
 programmierkurs_fpcu.pdf: *.tex graphics/*.pdf Makefile
-	latexmk -pdf -pdflatex="xelatex --shell-escape --interaction=nonstopmode" -use-make programmierkurs_fpcu.tex
+	latexmk -f -pdf -pdflatex="xelatex --shell-escape --interaction=nonstopmode" -use-make programmierkurs_fpcu.tex
 
 heapsort.pdf: heapsort.tex
 	latexmk -bibtex -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make $<

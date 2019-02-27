@@ -88,7 +88,7 @@
   keywordstyle=\color{blue},       % keyword style
   language=C,                      % the language of the code
   morekeywords={*,...},            % if you want to add more keywords to the set
-  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
   numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
   rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
@@ -108,6 +108,15 @@
 \usepackage{amssymb}
 
 \usepackage{todonotes}
+
+\usepackage{cleveref}
+
+\usepackage{etoolbox}
+
+%% to indicate inline which source file has been included
+\newtoggle{isdraft}
+% \toggletrue{isdraft}
+\togglefalse{isdraft}
 
 \newenvironment{mydefinitionblock}[1]{%
     \tcolorbox[noparskip,breakable,%
@@ -159,18 +168,30 @@
 
 \clearpage
 \chapter{Grundlagen}
+\iftoggle{isdraft}{\newpage \textbf{intro.tex} \\}{}
 \input{intro}
+\iftoggle{isdraft}{\newpage \textbf{ersteschritte.tex \\}}{}
 \input{ersteschritte}
+\iftoggle{isdraft}{\newpage \textbf{variablen.tex} \\}{}
 \input{variablen}
+\iftoggle{isdraft}{\newpage \textbf{kontrollstrukturen.tex} \\}{}
 \input{kontrollstrukturen}
+\iftoggle{isdraft}{\newpage \textbf{funktionen.tex} \\}{}
 \input{funktionen}
+\iftoggle{isdraft}{\newpage \textbf{arrays.tex} \\}{}
 \input{arrays}
+\iftoggle{isdraft}{\newpage \textbf{standardbibliothek.tex} \\}{}
 \input{standartbibliothek}
 \chapter{Zeiger und Co}
+\iftoggle{isdraft}{\newpage \textbf{pointers.tex} \\}{}
 \input{pointers}
+\iftoggle{isdraft}{\newpage \textbf{dateienverarbeitung.tex} \\}{}
 \input{dateinverarbeitung}
+\iftoggle{isdraft}{\newpage \textbf{einfuegensortieren.tex} \\}{}
 \input{einfuegesortieren}
+\iftoggle{isdraft}{\newpage \textbf{dynamischespeicherverwaltung.tex} \\}{}
 \input{dynamischespeicherverwaltung}
+\iftoggle{isdraft}{\newpage \textbf{exomplexdatatypen.tex} \\}{}
 \input{complexdatatypen}
 
 %\input{stapelspeicher}

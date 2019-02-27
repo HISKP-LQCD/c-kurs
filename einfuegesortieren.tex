@@ -120,9 +120,11 @@ Das gerade besprochene Beispiel eignet sich gut auf eine Möglichkeit hinzuweise
 Es ist nämlich möglich, den Quelltext für ein Programm auf verschiedene Dateien aufzuteilen.
 Im obigen Beispiel könnte man beispielsweise die zwei Funktionen \texttt{sort} und \texttt{read} in eigenen Dateien speichern. 
 Zweckdienlicherweise speichert man \texttt{read} in einer Datei \texttt{read.c}
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Datei \texttt{read.c}}, belowcaptionskip=0.3em]
-#include <stdio.h>
 #include "read.h"
+#include <stdio.h>
   
 int read(int array[], const int n)
 {
@@ -130,7 +132,10 @@ int read(int array[], const int n)
   return i;
 }
 \end{lstlisting}
+\end{minipage}
 und die Funktion \texttt{sort} in einer Datei \texttt{sort.c}
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Datei \texttt{sort.c}}, belowcaptionskip=0.3em]
 #include "sort.h"
   
@@ -140,6 +145,7 @@ void sort(int sortiert[], int unsortiert[], const int n)
   return;
 }
 \end{lstlisting}
+\end{minipage}
 Das neue Element in diesen beiden Dateien ist das Einbinden von zwei sogenannten \emph{header} Dateien, \texttt{read.h} und \texttt{sort.h}.\index{Header Dateien}
 Das Einbinden erfolgt mit Hilfe von \texttt{include}, was im allgemeinen wie folgt aussieht
 \begin{lstlisting}

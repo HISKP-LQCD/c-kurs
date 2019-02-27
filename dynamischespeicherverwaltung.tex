@@ -172,7 +172,7 @@ Dies ist in Abbildung~\ref{fig:mem2d} dargestellt.
 
 \begin{figure}[!ht]
 \includegraphics[width=\textwidth]{graphics/zeiger_auf_zeiger}
-\caption{\label{fig:mem2d} Illustration Zeiger auf Zeiger.}
+\caption{Illustration Zeiger auf Zeiger. \label{fig:mem2d}}
 \end{figure}
 
 Es bietet sich an für die Speicherreservierung einer zweidimensionalen Matrix eine eigene Funktion zu schreiben.
@@ -253,6 +253,6 @@ free(p); // falsche Stelle!
 \end{lstlisting}
 In jedem Durchlauf der Schleife wird Speicher für \verb|p| reserviert, ohne ihn wieder frei zu geben.
 Nach Ende der Schleife ist keine der Adressen all dieser Reservierungen (bzw. nur noch die letzte) mehr verfügbar.
-D.h. man kann den Speicher weder weiter benutzen, noch kann man ihn nachträglich frei geben.
+D.h. man kann den Speicher weder weiter benutzen, noch kann man ihn nachträglich frei geben, ein Umstand der als Speicherleck oder \emph{memory leak} bezeichnet wird.
 
 \endinput

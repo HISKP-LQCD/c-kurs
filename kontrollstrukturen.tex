@@ -10,6 +10,8 @@ Die Entscheidung wird auf Grundlage logischer Ausdrücke gefällt, siehe den vor
 \subsection{Einfache Verzweigung: \texttt{if-else}}
 
 Im Allgemeinen hat das \emph{if-else} Konstrukt folgendes Aussehen:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={if-else Statement}, belowcaptionskip=0.3em]
 if (logischer Ausdruck)
   {
@@ -26,6 +28,7 @@ else // optional
     ...;
   }
 \end{lstlisting}
+\end{minipage}
 In Abhängigkeit vom logischen Ausdruck wird entweder der erste (nach \emph{if}) oder der zweite (nach \emph{else}) Codeblock ausgeführt.
 Diese beiden Codeblöcke sind durch geschweifte Klammern definiert.
 Die Klammern können auch weggelassen werden, wenn ein Block nur aus genau einer Anweisung besteht.
@@ -41,6 +44,8 @@ Wird der \emph{else} Block ausgelassen, so wird in dem Fall, in dem der logische
 Nehmen wir beispielsweise an, wir wollen den Absolutwert einer Variablen \verb|a| ausgeben.
 Dafür kann man einen \verb|if-else| Ausdruck verwenden.\index{\texttt{if-else}}
 Der entsprechende Quelltext könnte so aussehen:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 
@@ -61,6 +66,7 @@ int main()
   return (0);
 }
 \end{lstlisting}
+\end{minipage}
 In Abhängigkeit davon, ob \verb|a > 0| zu wahr ausgewertet wird oder nicht, wird in diesem Beispiel entweder der Codeblock nach dem Schlüsselwort \verb|if| oder der nach dem Schlüsselwort \verb|else| ausgeführt.
 Die Variable \verb|absolutevalue| ist außerhalb beider Blöcke deklariert, und damit in beiden sichtbar.
 Die Zuweisung, die \verb|absolutevalue| innerhalb der Blöcke bekommt, ist damit auch nach Ende der Blöcke weiterhin erhalten.
@@ -69,8 +75,10 @@ Die Zuweisung, die \verb|absolutevalue| innerhalb der Blöcke bekommt, ist damit
  
 \index{\texttt{switch}}
 Ein dem \emph{if-else} Konstrukt verwandtes Konstrukt ist das \emph{switch} Konstrukt.
-Es erlaubt eine ganze Liste von Alternativen abzuarbeiten.
+Es erlaubt eine ganze Liste von \emph{ganzzahligen} Alternativen abzuarbeiten.
 Im Allgemeinen sieht das also so aus:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={switch statement}, belowcaptionskip=0.3em]
 switch (int)
   {
@@ -88,6 +96,7 @@ switch (int)
       break; // optional
   }
 \end{lstlisting}
+\end{minipage}
 Das Konstrukt wird mit dem Schlüsselwort \verb|switch| eingeleitet.\index{\texttt{switch}}
 Jede der Möglichkeiten beginnt mit dem Schlüsselwort \verb|case|, gefolgt vom möglichen Wert des Ausdruckes und einem Doppelpunkt. 
 Falls die entsprechende Möglichkeit realisiert ist, werden alle noch folgenden Anweisungen ausgeführt, bis ein \verb|break| Schlüsselwort kommt, oder der \verb|switch| Block zu Ende ist.\index{\texttt{break}}
@@ -134,6 +143,8 @@ Und, wenn keines von $0,1,2,3$ eingegeben wird, also keine der Möglichkeiten pa
 \index{Schleife!\texttt{for}}\index{\texttt{for}}
 Eine wesentlich wichtigere Kontrollstruktur sind sogenannte \emph{for} Schleifen.
 Allgemein sieht die \emph{for} Schleife wie folgt aus:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={for Schleife}, belowcaptionskip=0.3em]
 for (Ausdruck1; Ausdruck2; Ausdruck3)
   {
@@ -142,6 +153,7 @@ for (Ausdruck1; Ausdruck2; Ausdruck3)
     ...;
   }
 \end{lstlisting}
+\end{minipage}
 Im Einzelnen bedeutet das:
 \begin{enumerate}
 \item Zuerst wird \texttt{Ausdruck1} ausgewertet.\\
@@ -155,8 +167,9 @@ Im Einzelnen bedeutet das:
 \item Nach Ausführung des Schleifenkörpers wird \texttt{Ausdruck3} ausgewertet.\\
   Hier werden typischerweise Schleifenvariablen modifiziert.
 \end{enumerate}
-Als Beispiel nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren.
-Dann können wir das mit folgendem Quelltext machen:
+Als Beispiel nehmen wir an, wir möchten die ganzen Zahlen von $0$ bis $n-1$ aufsummieren und schreiben dazu folgenden Quelltext:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 
@@ -171,6 +184,7 @@ int main()
   return (0);
 }
 \end{lstlisting}
+\end{minipage}
 Dabei ist \texttt{Ausdruck1} die Deklaration und Initialisierung von \verb|i|
 \begin{lstlisting}
   int i = 0;
@@ -194,6 +208,8 @@ Da \verb|summe| außerhalb der Schleife deklariert und initialisiert wurde, ist 
 Interessanterweise dürfen auch alle drei Ausdrücke leer sein.
 Dann wird die Schleife im Prinzip unendlich oft ausgeführt.
 In einem solchen Fall kann man die Schleife mit Hilfe von \verb|break| explizit abbrechen, wie man im folgenden modifizierten Beispiel sieht:\index{\texttt{break}}
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 
@@ -211,6 +227,7 @@ int main()
   return (0);
 }
 \end{lstlisting}
+\end{minipage}
 Der Quelltext führt immer noch die gleiche Aufgabe aus. 
 Allerdings stellt das Verwenden einer \texttt{for} Schleife in dieser Weise sehr schlechten Stil dar.
 Der Grund ist, dass man am Schleifenkopf nicht mehr erkennen kann, wann die Schleife abgebrochen wird und was die Schleifenvariablen sind.
@@ -220,6 +237,8 @@ Der Quelltext wird also wesentlich unleserlicher und fehleranfälliger.
 Die Benutzung von \verb|break| kann und ist aber an vielen Stellen sinnvoll.
 Soll beispielsweise innerhalb einer Schleife eine externe Funktion aufgerufen werden, so sollte man immer überprüfen, ob diese Funktion auch ohne Fehler ausgeführt wurde.
 Falls die Funktion einen Fehler meldet, kann man mit Hilfe von \verb|break| die Ausführung der Schleife unterbrechen:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
   for (int i = 0; i < n; i++) {
     int errorcode = myFunction(i);
@@ -229,7 +248,8 @@ Falls die Funktion einen Fehler meldet, kann man mit Hilfe von \verb|break| die 
     }
   }
 \end{lstlisting}
-Dies lässt sich für Fälle verallgemeinern, in denen unerwartete oder nicht standard Dinge innerhalb der Ausführung einer Schleife auftreten.
+\end{minipage}
+Dies lässt sich für Fälle verallgemeinern, in denen unerwartete Bedingungen innerhalb der Ausführung einer Schleife auftreten.
 
 \subsection{Schleifen: \texttt{while} und \texttt{do-while}}
 
@@ -240,15 +260,20 @@ Die \texttt{while} Schleifen Familie ist da flexibler: Die Anzahl an Durchläufe
 Während die \verb|while| Schleife die Abbruchbedingung vor dem Ausführen des Schleifenkörpers überprüft und im Zweifel abbricht, wird bei der \verb|do-while| Schleife der Körper immer mindestens einmal ausgeführt.
 Das macht den großen Unterschied zwischen den beiden aus.
 Allgemein hat die \verb|while| Schleife folgende Form:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={while Schleife}, belowcaptionskip=0.3em]
 while (logischer Ausdruck)
   {
     Anweisungen;
   }
 \end{lstlisting}
+\end{minipage}
 Hier ist der \texttt{logische Ausdruck} die Abbruchbedingung.
 So lange der logische Ausdruck zu wahr ausgewertet wird, werden die Anweisungen im Schleifenkörper ausgeführt.
 Die Abbruckbedingung steht bei der \verb|do-while| Schleife am Ende, wie man an der allgemeinen Form sieht:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={do-while Schleife}, belowcaptionskip=0.3em]
 do
   {
@@ -256,6 +281,7 @@ do
   }
 while (logischer Ausdruck);
 \end{lstlisting}
+\end{minipage}
 Die Anweisungen werden also mindestens einmal ausgeführt bis der \texttt{logische Ausdruck} das erste Mal ausgewertet wird.
 
 Ausführungen von \verb|while| und \verb|do-while| Schleifen können ebenfalls mit \verb|break| abgebrochen werden.

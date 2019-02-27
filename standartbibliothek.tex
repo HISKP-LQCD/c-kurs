@@ -21,7 +21,7 @@ Die Funktion
   double cos(double x);
 \end{lstlisting}
 berechnet den Cosinus in \texttt{double} Genauigkeit.
-Im folgenden Quelltext berechnen wir den Cosinus einmal mit Hilfe der Funktion aus \texttt{math.h} und einmal über die Reihenentwicklung, die wir zu einer angegebenen Ordnung abbrechen:
+Im folgenden Quelltext berechnen wir den Cosinus einmal mit Hilfe der Funktion aus \texttt{math.h} und einmal über die Reihenentwicklung, die wir zu einer in der Kommandozeile angegebenen Ordnung abbrechen:
 \begin{lstlisting}[caption={Beispiel zur Verwendung des Cosinus}, belowcaptionskip=0.3em]
 #include <math.h>
 #include <stdio.h>
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   return(0);
 }
 \end{lstlisting}
-Wenn auf der Kommandozeile die Ordnung der Näherung als zweiter Kommandozeilenparameter angegeben wurde, berechnen wir auch die Näherung selbst nach der Formel Gleichung~\ref{eq:cos}.
+Wenn auf der Kommandozeile die Ordnung der Näherung als zweiter Kommandozeilenparameter angegeben wurde\footnote{die Bedeutung von \texttt{argc} und \texttt{argv} wird in \cref{subsec:CommandLineArguments} erläutert}, berechnen wir auch die Näherung selbst nach der Formel Gleichung~\ref{eq:cos}.
 Wie schon vorher erklärt, sind die Kommandozeilenparameter in der \texttt{main} Funktion nur als Zeichenkette verfügbar.
 Die Konvertierung der Ordnung in eine ganze Zahl kann man mit der standard Funktion \texttt{atoi} (ASCII to integer) durchführen.
 Genauso verwenden wir \texttt{atof} (ASCII to float) um den eingegebenen Winkel in the Fließkommazahl umzuwandeln.

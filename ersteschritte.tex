@@ -136,7 +136,7 @@ int main()
   /*
     Dies ist ein mehrzeiliger Kommentar
   */
-  return 0; // Rueckgabe 0, nicht zwingend notwendig
+  return 0; // Rueckgabe 0
 }
 \end{lstlisting}
 An Hand dieses einfachen Programms können wir schon einiges über die \texttt{C} Sprachregeln lernen.
@@ -184,7 +184,7 @@ Dann kann man die Datei mit folgendem Aufruf auf der Kommandozeile übersetzen:
 \vspace*{0.5cm}
 
 \noindent von der Kommandozeile aus ausgeführt werden. 
-In obigem Aufruf des GNU Compilers sind nicht alle Kommandozeilenparameter strickt notwendig.
+In obigem Aufruf des GNU Compilers sind nicht alle Kommandozeilenparameter strikt notwendig.
 Die Parameter \texttt{-Wall -pedantic} sorgen dafür, dass der Compiler möglichst viele Warnungen ausgibt und alle möglichen Probleme im Quelltext auch mitteilt.
 Wir denken, dass es gerade für Anfänger sehr wichtig ist, Quelltext so sauber wie möglich zu schreiben.
 Deshalb möchten wir dringend dazu auffordern, diese Compiler Parameter zu benutzen.
@@ -205,6 +205,9 @@ Ihre Installation unter Linux ist sehr leicht, aber auch unter Windows kann man 
 
 Bisher tut unser erstes Programm noch nichts, außer Null zurückgeben. 
 Wir können es um eine Ausgabe auf den Bildschirm erweitern:
+
+% minipage to avoid page break in this short bit of code
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Programm Hallo Welt}, belowcaptionskip=0.3em]
 #include <stdio.h>
 
@@ -215,6 +218,8 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
+
 Es sind zwei Dinge dazugekommen:
 Erstens haben wir eine sogenannte Header-Datei, in diesem Fall \texttt{stdio.h} eingebunden.\index{\texttt{stdio.h}}
 Das ist nötig, damit der \texttt{C}-Compiler die Funktion \texttt{printf} kennt.\index{\texttt{printf}}
