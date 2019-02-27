@@ -181,6 +181,8 @@ und auch die folgenden zwei Funktionsdeklarationen äquivalent sind
 Daraus folgt auch, dass ein Feld in \texttt{C} immer \emph{by reference} übergeben wird.\index{call by reference}
 Wird in Funktion \texttt{f1} oder \texttt{f2} in das Feld \texttt{a} geschrieben, so wird das ursprüngliche Feld aus dem aufrufenden Quelltextblock modifiziert.
 Obiges Beispiel kann man also auch wie folgt schreiben:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
   #include <stdio.h>
 // einfache Funktion um a,b um 1 zu erhoehen
@@ -202,6 +204,7 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
 Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren \index{\texttt{const}}
 \begin{lstlisting}
   void f(const int * a, const int n);
