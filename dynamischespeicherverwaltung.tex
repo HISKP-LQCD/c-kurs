@@ -1,8 +1,15 @@
+\newpage
+
 \section{Dynamische Speicherverwaltung}
 
 Mit den bisher eingeführten Grundlagen der Programmiersprache \texttt{C} kann man einfache Probleme lösen.
 Das haben wir am Beispiel des Einfügesortierens gesehen.
 Aber erst mit Hilfe dynamischer Speicherverwaltung und zusammengesetzter Datentypen kann man die volle Stärke von \texttt{C} ausnutzen.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{graphics/zeiger_auf_dynamischen_speicher}
+\caption{\label{fig:abmem} Dynamischer und statischer Speicher eines Programms.}
+\end{figure}
 
 Bei der Benutzung von Arrays muss man immer schon zur Zeit der Übersetzung wissen, wie groß das Array maximal werden darf.
 Das ist eine relativ starke Einschränkung, die sehr ineffizient sein kann.
@@ -28,11 +35,6 @@ int *list;
 deklarieren, so liegt dieser Zeiger selbst im statischen Speicherbereich.
 Er kann aber auf Speicher zeigen, der im dynamischen Speicherbereich liegt.
 Dies ist in Abbildung~\ref{fig:abmem} illustriert.
-
-\begin{figure}[!ht]
-\includegraphics[width=\textwidth]{graphics/zeiger_auf_dynamischen_speicher}
-\caption{\label{fig:abmem} Illustration zu dynamischem und statischem Speicher eines Programms.}
-\end{figure}
 
 \subsection{Dynamische Speicherreservierung mit \texttt{malloc}}
 

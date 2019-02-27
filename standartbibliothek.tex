@@ -82,38 +82,6 @@ Das Programm kann man wie folgt übersetzen
 Dies geschieht mit dem Argument \texttt{-lm}.
 In Tabelle~\ref{math} listen wir einige wichtige Funktionen auf, die \texttt{math.h} bereitstellt.
 
-\begin{table}[t]
-  \centering
-  % centering table
-  \begin{tabular}{|l l|}
-    \hline
-    \texttt{Deklaration} & \texttt{Rückgabewert} \\
-    % creating 10 columns
-    \hline
-    \texttt{double acos(double x);} & Arcuscosinus von \texttt{x}\\
-    \texttt{double asin(double x);} & Arcussinus von \texttt{x}\\
-    \texttt{double atan(double x);} & Arcustangenz von \texttt{x}\\
-    \texttt{double atan2(double y,double x);} & Arcustangenz von \texttt{x/y}\\
-    \texttt{double ceil(double x);} & Kleinste ganze Zahl, welche $\ge$ \texttt{x} ist \\
-    \texttt{double cos(double x);} & Cosinus von \texttt{x}\\
-    \texttt{double cosh(double x);} & Cosinus hyperbolicus von \texttt{x}\\
-    \texttt{double exp(double x);} & $e^{x}$ wobei $e=2.7182..$\\
-    \texttt{double fabs(double x);} & $\vert x\vert$\\
-    \texttt{double floor(double x);} & Größte ganze Zahl, welche $\le$ \texttt{x} ist \\
-    \texttt{double ldexp(double x, double y);} & $xe^{y}$ \\
-    \texttt{double log(double x);} & Natürlicher Logarithmus von \texttt{x}\\
-    \texttt{double log10(double x);} & Zehnerlogarithmus von \texttt{x}\\
-    \texttt{double pow(double x, double y);} & $x^{y}$\\
-    \texttt{double sin(double x);} & Sinus von \texttt{x}\\
-    \texttt{double sinh(double x);} & Sinus hyperbolicus von \texttt{x}\\
-    \texttt{double sqrt(double x);} & $\sqrt{x}$\\
-    \texttt{double tan(double x);} & Tangens von \texttt{x}\\
-    \texttt{double tanh(double x);} & Tangens hyperbolikus von \texttt{x}\\
-    \hline
-  \end{tabular}
-  \caption{Einige Funktionen, die in \texttt{math.h} deklariert sind.\label{math}}
-\end{table}
-
 \subsection{Komplexe Zahlen mit \texttt{complex.h}}
 
 Als zweite Standardbibliothek weisen wir noch auf \texttt{complex.h} hin.\index{\texttt{complex.h}}
@@ -152,3 +120,35 @@ Auf Real- und Imaginärteil kann mit \texttt{creal} und \texttt{cimag} zugegriff
 Die entsprechenden Exponentialfunktionen heißen dann \texttt{cexpf} und \texttt{cexpl}.
 Das komplex konjugierte erhält man mit \texttt{conj}, bzw. \texttt{conjf} und \texttt{conjl}.
 \index{\texttt{complex.h}}\index{\texttt{creal}}\index{\texttt{cimag}}\index{\texttt{conj}}
+
+\begin{table}
+  \centering
+  % centering table
+  \begin{tabular}{|l l|}
+    \hline
+    \texttt{Deklaration} & \texttt{Rückgabewert} \\
+    % creating 10 columns
+    \hline
+    \texttt{double acos(double x);} & Arcuscosinus von \texttt{x}\\
+    \texttt{double asin(double x);} & Arcussinus von \texttt{x}\\
+    \texttt{double atan(double x);} & Arcustangenz von \texttt{x}\\
+    \texttt{double atan2(double y,double x);} & Arcustangenz von \texttt{x/y}\\
+    \texttt{double ceil(double x);} & Kleinste ganze Zahl, welche $\ge$ \texttt{x} ist \\
+    \texttt{double cos(double x);} & Cosinus von \texttt{x}\\
+    \texttt{double cosh(double x);} & Cosinus hyperbolicus von \texttt{x}\\
+    \texttt{double exp(double x);} & $e^{x}$ wobei $e=2.7182..$\\
+    \texttt{double fabs(double x);} & $\vert x\vert$\\
+    \texttt{double floor(double x);} & Größte ganze Zahl, welche $\le$ \texttt{x} ist \\
+    \texttt{double ldexp(double x, double y);} & $xe^{y}$ \\
+    \texttt{double log(double x);} & Natürlicher Logarithmus von \texttt{x}\\
+    \texttt{double log10(double x);} & Zehnerlogarithmus von \texttt{x}\\
+    \texttt{double pow(double x, double y);} & $x^{y}$\\
+    \texttt{double sin(double x);} & Sinus von \texttt{x}\\
+    \texttt{double sinh(double x);} & Sinus hyperbolicus von \texttt{x}\\
+    \texttt{double sqrt(double x);} & $\sqrt{x}$\\
+    \texttt{double tan(double x);} & Tangens von \texttt{x}\\
+    \texttt{double tanh(double x);} & Tangens hyperbolikus von \texttt{x}\\
+    \hline
+  \end{tabular}
+  \caption{Einige Funktionen, die in \texttt{math.h} deklariert sind.\label{math}}
+\end{table}

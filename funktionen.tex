@@ -25,6 +25,8 @@ Bei streng strukturierten Programmiersprachen wie \texttt{C} werden der Funktion
 \subsection{Funktionen Definition}
 
 Die Definition einer Funktion muss dann natürlich einen Block von Anweisungen enthalten, also
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Funktionen Prototyp}, belowcaptionskip=0.3em]
 Rueckgabetyp Funktionsname(Typ1 parameter1, Typ2 parameter2,
                            Typ3 parameter3, ...)
@@ -36,11 +38,14 @@ Rueckgabetyp Funktionsname(Typ1 parameter1, Typ2 parameter2,
   return x;
 }
 \end{lstlisting}
+\end{minipage}
 Die in der Parameterliste deklarierten Variablen sind dann innerhalb dieses Blocks definiert und unter ihrem Namen sichtbar.
 Außerdem sind alle \emph{global} deklarierten Variablen im Funktionsblock sichtbar.
 Für den Funktionsnamen gelten die gleichen Regeln, wie für Variablennamen.
 
 Als Beispiel betrachten wir eine Funktion, die die Fakultät einer ganzen Zahl berechnet:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 unsigned long int Fakultaet(const unsigned int zahl)
 {
@@ -52,6 +57,7 @@ unsigned long int Fakultaet(const unsigned int zahl)
   return fak;
 }
 \end{lstlisting}
+\end{minipage}
 Der Rückgabetyp ist als \verb|unsigned long int| gewählt, da die Fakultaet immer positiv ist, aber auch sehr groß werden kann.
 
 Funktionen sollten wohldefinierte Unterprobleme lösen.
@@ -70,6 +76,8 @@ Dabei muss die Reihenfolge in der \verb|Uebergabeliste| genau mit der in der \ve
 Auch die Typen in \verb|Uebergabeliste| müssen mit denen in der \verb|Parameterliste| übereinstimmen.
 Der \texttt{C} Compiler überprüft dies strickt und bricht die Übersetzung ab, falls es Abweichungen gibt.
 Obige Funktion zur Berechnung der Fakultät kann wie folgt im Hauptprogramm aufgerufen werden:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 
@@ -84,6 +92,7 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
 
 \subsection{Typenüberprüfung und sinnvolle Eingabewerte}
 

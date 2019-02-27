@@ -1,6 +1,14 @@
 %\documentclass[12pt]{article}
-\documentclass[12pt,
-               BCOR15mm]{scrbook}
+\documentclass[12pt,twoside,a4paper]{scrbook}
+\usepackage{geometry}
+\geometry{
+bindingoffset=0.89cm, % gutter
+inner=2cm, % inside margin
+outer=3cm, % outside margin
+vmargin=3.5cm, % top and bottom margins
+% marginparsep=0.6cm,
+% marginparwidth=3cm,
+}
 \usepackage{iftex}
 
 \ifPDFTeX

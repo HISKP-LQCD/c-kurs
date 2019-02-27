@@ -191,6 +191,8 @@ Man unterscheidet drei verschiedene Typen von Operationen:
   Dieser Ausdruck reduziert den Wert von \verb|a| um $1$, aber gibt den originalen Wert von \verb|a| zurück.
 \end{itemize}
 Wieder sieht man es am einfachsten an einem Beispiel:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 
@@ -204,6 +206,7 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
 In diesem Beispiel wird zunächst eine Variable \texttt{a} mit dem Wert $2$ initialisiert.\index{\texttt{++}}
 Dann nutzen wir die Funktion \texttt{printf}, um den Wert der Variablen bzw. von Ausdrücken auszugeben. 
 Das erste Argument von \texttt{printf} ist immer ein String, also eine Zeichenkette.
