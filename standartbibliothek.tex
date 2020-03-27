@@ -37,22 +37,20 @@ int main(int argc, char *argv[])
     return(-1);
   }
   winkel = atof(argv[1]);  // Konvertiert eine Zeichenkette in eine Fliesskommazahl
-  coswinkel = cos(winkel); // cos aus math.h
-  printf("Winkel=%e \t cos(Winkel) = %e\n", winkel, coswinkel);
+  // cos aus math.h
+  printf("Winkel=%e \t cos(Winkel) = %e\n", winkel, cos(winkel));
   // nun selbst, wenn die Naeherungsordnung gegeben wurde
   if (argc > 2) {
-    int n;
-    double coswinkelapprox;
-    double zaehler = winkel; // Zaehler
-    int nenner = 1;          // Nenner
-    n = atoi(argv[2]);       // atoi konvertiert eine Zeichenkette in eine ganze Zahl
-    coswinkelapprox = 1.;    // Das Ergebnis zu fuehrender Ordnung
+    double coswinkelapprox = 1.; // Das Ergebnis zu fuehrender Ordnung
+    double winkelsqr = winkel * winkel;
+    double partialsum = 1.;      // Die Partialsummen
+    const int n = atoi(argv[2]);           // atoi konvertiert eine Zeichenkette in eine ganze Zahl
+    coswinkelapprox = 1.;
+    int sign=1;
     for (int i = 1; i < n; ++i) {
-      int sign = 1;          // (-1)^l ist entweder 1 oder -1, wenn l gerade
-      if( (i % 2) == 1 ) sign = -1; // oder ungerade ist
-      zaehler = zaehler * zaehler;
-      nenner = nenner * (2 * i - 1) * 2 * i;
-      coswinkelapprox += sign * zaehler / nenner;
+      sign *= -1;              // (-1)^l ist entweder 1 oder -1, wenn l gerade oder ungerade ist
+      partialsum *= winkelsqr / ((2 * i - 1) * 2 * i);
+      coswinkelapprox += sign * partialsum;
     }
     printf("cos(Winkel) approx %e\n", coswinkelapprox);
   }
