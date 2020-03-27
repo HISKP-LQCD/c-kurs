@@ -21,7 +21,7 @@ Die Funktion
   double cos(double x);
 \end{lstlisting}
 berechnet den Cosinus in \texttt{double} Genauigkeit.
-Im folgenden Quelltext berechnen wir den Cosinus einmal mit Hilfe der Funktion aus \texttt{math.h} und einmal über die Reihenentwicklung, die wir zu einer angegebenen Ordnung abbrechen:
+Im folgenden Quelltext berechnen wir den Cosinus einmal mit Hilfe der Funktion aus \texttt{math.h} und einmal über die Reihenentwicklung, die wir zu einer in der Kommandozeile angegebenen Ordnung abbrechen:
 \begin{lstlisting}[caption={Beispiel zur Verwendung des Cosinus}, belowcaptionskip=0.3em]
 #include <math.h>
 #include <stdio.h>
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
   return(0);
 }
 \end{lstlisting}
-Wenn auf der Kommandozeile die Ordnung der Näherung als zweiter Kommandozeilenparameter angegeben wurde, berechnen wir auch die Näherung selbst nach der Formel Gleichung~\ref{eq:cos}.
+Wenn auf der Kommandozeile die Ordnung der Näherung als zweiter Kommandozeilenparameter angegeben wurde\footnote{die Bedeutung von \texttt{argc} und \texttt{argv} wird in \cref{subsec:CommandLineArguments} erläutert}, berechnen wir auch die Näherung selbst nach der Formel Gleichung~\ref{eq:cos}.
 Wie schon vorher erklärt, sind die Kommandozeilenparameter in der \texttt{main} Funktion nur als Zeichenkette verfügbar.
 Die Konvertierung der Ordnung in eine ganze Zahl kann man mit der standard Funktion \texttt{atoi} (ASCII to integer) durchführen.
 Genauso verwenden wir \texttt{atof} (ASCII to float) um den eingegebenen Winkel in the Fließkommazahl umzuwandeln.
@@ -81,38 +81,6 @@ Das Programm kann man wie folgt übersetzen
 \noindent Man beachte, dass man nun explizit die Bibliothek \texttt{math.h} dazulinken muss.
 Dies geschieht mit dem Argument \texttt{-lm}.
 In Tabelle~\ref{math} listen wir einige wichtige Funktionen auf, die \texttt{math.h} bereitstellt.
-
-\begin{table}[t]
-  \centering
-  % centering table
-  \begin{tabular}{|l l|}
-    \hline
-    \texttt{Deklaration} & \texttt{Rückgabewert} \\
-    % creating 10 columns
-    \hline
-    \texttt{double acos(double x);} & Arcuscosinus von \texttt{x}\\
-    \texttt{double asin(double x);} & Arcussinus von \texttt{x}\\
-    \texttt{double atan(double x);} & Arcustangenz von \texttt{x}\\
-    \texttt{double atan2(double y,double x);} & Arcustangenz von \texttt{x/y}\\
-    \texttt{double ceil(double x);} & Kleinste ganze Zahl, welche $\ge$ \texttt{x} ist \\
-    \texttt{double cos(double x);} & Cosinus von \texttt{x}\\
-    \texttt{double cosh(double x);} & Cosinus hyperbolicus von \texttt{x}\\
-    \texttt{double exp(double x);} & $e^{x}$ wobei $e=2.7182..$\\
-    \texttt{double fabs(double x);} & $\vert x\vert$\\
-    \texttt{double floor(double x);} & Größte ganze Zahl, welche $\le$ \texttt{x} ist \\
-    \texttt{double ldexp(double x, double y);} & $xe^{y}$ \\
-    \texttt{double log(double x);} & Natürlicher Logarithmus von \texttt{x}\\
-    \texttt{double log10(double x);} & Zehnerlogarithmus von \texttt{x}\\
-    \texttt{double pow(double x, double y);} & $x^{y}$\\
-    \texttt{double sin(double x);} & Sinus von \texttt{x}\\
-    \texttt{double sinh(double x);} & Sinus hyperbolicus von \texttt{x}\\
-    \texttt{double sqrt(double x);} & $\sqrt{x}$\\
-    \texttt{double tan(double x);} & Tangens von \texttt{x}\\
-    \texttt{double tanh(double x);} & Tangens hyperbolikus von \texttt{x}\\
-    \hline
-  \end{tabular}
-  \caption{Einige Funktionen, die in \texttt{math.h} deklariert sind.\label{math}}
-\end{table}
 
 \subsection{Komplexe Zahlen mit \texttt{complex.h}}
 
@@ -152,3 +120,35 @@ Auf Real- und Imaginärteil kann mit \texttt{creal} und \texttt{cimag} zugegriff
 Die entsprechenden Exponentialfunktionen heißen dann \texttt{cexpf} und \texttt{cexpl}.
 Das komplex konjugierte erhält man mit \texttt{conj}, bzw. \texttt{conjf} und \texttt{conjl}.
 \index{\texttt{complex.h}}\index{\texttt{creal}}\index{\texttt{cimag}}\index{\texttt{conj}}
+
+\begin{table}
+  \centering
+  % centering table
+  \begin{tabular}{|l l|}
+    \hline
+    \texttt{Deklaration} & \texttt{Rückgabewert} \\
+    % creating 10 columns
+    \hline
+    \texttt{double acos(double x);} & Arcuscosinus von \texttt{x}\\
+    \texttt{double asin(double x);} & Arcussinus von \texttt{x}\\
+    \texttt{double atan(double x);} & Arcustangenz von \texttt{x}\\
+    \texttt{double atan2(double y,double x);} & Arcustangenz von \texttt{x/y}\\
+    \texttt{double ceil(double x);} & Kleinste ganze Zahl, welche $\ge$ \texttt{x} ist \\
+    \texttt{double cos(double x);} & Cosinus von \texttt{x}\\
+    \texttt{double cosh(double x);} & Cosinus hyperbolicus von \texttt{x}\\
+    \texttt{double exp(double x);} & $e^{x}$ wobei $e=2.7182..$\\
+    \texttt{double fabs(double x);} & $\vert x\vert$\\
+    \texttt{double floor(double x);} & Größte ganze Zahl, welche $\le$ \texttt{x} ist \\
+    \texttt{double ldexp(double x, double y);} & $xe^{y}$ \\
+    \texttt{double log(double x);} & Natürlicher Logarithmus von \texttt{x}\\
+    \texttt{double log10(double x);} & Zehnerlogarithmus von \texttt{x}\\
+    \texttt{double pow(double x, double y);} & $x^{y}$\\
+    \texttt{double sin(double x);} & Sinus von \texttt{x}\\
+    \texttt{double sinh(double x);} & Sinus hyperbolicus von \texttt{x}\\
+    \texttt{double sqrt(double x);} & $\sqrt{x}$\\
+    \texttt{double tan(double x);} & Tangens von \texttt{x}\\
+    \texttt{double tanh(double x);} & Tangens hyperbolikus von \texttt{x}\\
+    \hline
+  \end{tabular}
+  \caption{Einige Funktionen, die in \texttt{math.h} deklariert sind.\label{math}}
+\end{table}

@@ -122,8 +122,9 @@ Die Benutzung von Feldern wird in folgendem Beispiel illustriert:
   Die Berechnung des Mittelwerts einer Datenreihe ist ein gutes Beispiel für die Benutzung von Arrays.
   Nehmen wir an, wir haben die folgenden Daten gegeben:
 \begin{lstlisting}
-double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9, 1.3, 1.4, 4.5,
-                 5.5, 5.3, 6.7, 2.1, 2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
+double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9,
+                 1.3, 1.4, 4.5, 5.5, 5.3, 6.7, 2.1,
+                 2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
 \end{lstlisting}
   und wir wollen den Mittelwert dieser Daten berechnen.
   Folgendes Program übernimmt diese Aufgabe:
@@ -133,8 +134,9 @@ double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9, 1.3, 1.4, 4.5,
 int main()
 {
   const int size = 20;
-  double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9, 1.3, 1.4, 4.5,
-                   5.5, 5.3, 6.7, 2.1, 2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
+  double data[] = {1.3, 2.4, 5.3, 2.4, 6.7, 3.5, 6.9,
+                   1.3, 1.4, 4.5, 5.5, 5.3, 6.7, 2.1, 
+                   2.4, 3.3, 7.9, 0.3, 3.3, 1.5};
 
   // initialisiere mean zu 0
   double mean = 0.;
@@ -164,7 +166,6 @@ double var = xsq / (double)size - mean * mean;
 printf("Die Varianz ist %e\n", var);
 \end{lstlisting}
 \end{myexampleprogram}
-\newpage
 
 \subsection{Zeichenketten oder Strings}
 
@@ -250,13 +251,14 @@ Diese Funktionen haben die Signaturen
   int sprintf(char *str, const char *format, ...);
   int snprintf(char *str, size_t size, const char *format, ...);
 \end{lstlisting}
-wobei das Argument \enquote{\texttt{str}} für die Zeichenkette steht, in die geschrieben werden soll und \enquote{\texttt{format}} eine konstante Zeichenkette ist, in der wir beschreiben werden, wie dies zu erfolgen hat.
+wobei das Argument \enquote{\texttt{str}} für den Speicherbereich der Zeichenkette steht, in die geschrieben werden soll und \enquote{\texttt{format}} eine konstante Zeichenkette ist, in der wir beschreiben werden, wie dies zu erfolgen hat.
 Die Bedeutung von \enquote{\texttt{char *}} und \enquote{\texttt{const char *}} wird in Teil~\ref{sec:zeiger} noch genau erklärt werden.
 Die sogenannte \emph{variable Argumentenliste}, \enquote{\texttt{...}}, dient bei den Funktionen aus \texttt{stdio.h} als Platzhalter für eine beliebige Anzahl von Variablen oder Konstanten, die man ausgeben möchte.
-Bei \texttt{snprintf} steht das Argument \enquote{\texttt{size}} für die maximale Anzahl an Zeichen (inklusive des Nullterminierungszeichens), welche in die Zeichenkette \texttt{str} geschrieben werden soll.
-Die Stelle in der Zeichenkette, an denen diese Ausgabe stattfinden soll, sowie das Format in der diese Ausgabe erfolgen soll, geben wir anhand von Platzhaltern an, genau so, wie wir es auch schon bei \texttt{printf} getan haben.
+Bei \texttt{snprintf} steht das Argument \enquote{\texttt{size}} für die maximale Anzahl an Zeichen (inklusive des Nullterminierungszeichens), welche maximal in die Zeichenkette \texttt{str} geschrieben werden sollen.
+Die Stelle in der Zeichenkette, an denen diese Ausgabe stattfinden soll, sowie das Format, in der diese Ausgabe erfolgen soll, geben wir anhand von Platzhaltern an, genau so, wie wir es auch schon bei \texttt{printf} getan haben.
 
 Da wir jedoch nicht auf die Konsole ausgeben, sondern direkt in Speicher schreiben, muss man bei der Verwendung insbesondere von \texttt{sprintf} sehr vorsichtig sein, wie in folgendem Beispiel gezeigt wird.
+Grundsätzlich ist \texttt{snprintf} zu bevorzugen.
 
 \begin{myexampleprogram}{Beispiel: Formatierte Erstellung von Zeichenketten mit \texttt{sprintf} und \texttt{snprintf}}
 \begin{lstlisting}[numbers=left]
@@ -334,8 +336,12 @@ short_string: The Answer to the Ultimate Question of Life, The Universe, and Eve
 Ebenso wie bei \texttt{scanf}, besteht die Gefahr eines buffer overflows, wenn mit \texttt{sprintf} mehr Zeichen geschrieben werden, als eigentlich allokiert wurden.
 Dies resultiert im schlimmsten Fall \emph{nicht} in einem Programmabsturz sondern darin, dass irgendeine Speicherstelle überschrieben wird.
 
-Es ist deshalb Vorsicht geboten und \texttt{snprintf} sollte \texttt{sprintf} vorgezogen werden, da erstere Funktion es erlaubt, die Länge der geschriebenen Zeichenkette zu beschränken.
-Desweiteren kann man durch Überprüfung des Rückgabewertes der Funktion feststellen, ob die Zeichenkette in den vorhandenen Speicher gepasst hat und so direkt auf mögliche Fehler reagieren.
+Die Verwendung von \texttt{snprintf} hat drei wesentliche Vorteile:
+\begin{itemize}
+ \item Solange man weiß, wie lang das zu beschreibende Feld ist, kann man sicherstellen, dass die Länge des Feldes nicht überschritten wird.
+ \item Versucht man trotzdem eine längere Zeichenkette zu schreiben, wird diese nicht vollständig geschrieben, wobei als letztes Zeichen der Nullterminierer geschrieben wird. Die reservierte Speicherstelle zeigt also immer auf einen gültigen String mit Nullterminierer.
+ \item Durch Überprüfung des Rückgabewertes kann sichergestellt werden, ob die Zeichenkette in den vorgesehenen Speicher passte und falls nicht, kann darauf reagiert werden.
+\end{itemize}
 Wie man an der folgenden Ausgabe sehen kann, schreibt das Programm in der Anweisung in den Zeilen $46$ bis $49$ in fremden Speicher.
 \texttt{printf} liest bei Angabe von \texttt{\%s} die angegebene Speicherstelle immer bis zum nächsten Nullterminierungszeichen aus.
 

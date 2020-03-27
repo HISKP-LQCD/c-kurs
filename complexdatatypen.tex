@@ -1,3 +1,5 @@
+\newpage
+
 \section{Komplexe Datentypen}
 
 \subsection{Eigene Datentypen mit \texttt{typedef}}
@@ -31,9 +33,7 @@ ersetzt.
 \index{\texttt{struct}}
 Eine weitere Art, einen neuen Datentyp zu definieren, ist zusammengesetzte Datentypen zu definieren.
 Ein einfaches mathematisches Beispiel sind Vektoren, die $n$ Elemente haben.
-Genau für solche Fälle stellt \texttt{C} die Möglichkeit zur Verfügung, zusammengesetzte Datentypen zu definieren.
-Das entsprechende Schlüsselwort ist \verb|struct|.
-Solche zusammengesetzten Datentypen in \texttt{C} kann man sich wie Kontainer vorstellen.
+Mithilfe des Schlüsselwrts \verb|struct| kann man in \texttt{C} zusammengesetzten Datentypen definieren, welche man sich wie Kontainer vorstellen kann.
 Die allgemeine Benutzung von \verb|struct| ist wie folgt:
 \begin{lstlisting}
   struct name
@@ -56,7 +56,7 @@ struct coord
   double x, y, z;
 };
 \end{lstlisting}
-mit drei \verb|double| Elementen für den $x$, $y$ und $z$ Komponente.
+mit drei \verb|double| Elementen, jeweils für die $x$, $y$ und $z$ Komponente.
 Der Zugriff auf die einzelnen Elemente erfolgt über den Namen des \verb|struct| und den Namen des Elements, getrennt durch einen Punkt.
 Für den allgemeinen Fall also wie folgt:
 \begin{lstlisting}
@@ -118,7 +118,7 @@ Allerdings muss dann Speicher außerhalb der Deklaration des \texttt{struct} res
 
 \subsection{Beispiel: Datentyp für kartesische Koordinaten}
 
-Die Verwendung von \verb|struct| ist sehr hilfreich, wenn beispielsweise eine Liste von logisch zusammengehörigen Daten bearbeiten soll.
+Die Verwendung von \verb|struct| ist sehr hilfreich, um logisch zusammengehörige Daten gesammelt zu übergeben und zu bearbeiten.
 Es muss dann nicht mehr jedes Element einzeln übergeben werden, sondern nur noch einmal der Kontainer.
 Der Zusammenhang der einzelnen Elemente bleibt damit erhalten.
 Man könnte nun beispielsweise eine Funktion für die Quadratnorm einer Koordinate wie folgt schreiben:

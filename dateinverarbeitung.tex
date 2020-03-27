@@ -63,7 +63,7 @@ Dabei wird mit \texttt{filename} der Name der Datei als string übergeben.
   \itemsep0.5ex
 \item \texttt{"w"}: Datei zum Schreiben öffnen. Wenn sie schon existiert, wird sie überschrieben. Wenn sie nicht existiert, wird die Datei erzeugt.
 \item \texttt{"r"}: Öffnen einer Datei ausschließlich zum lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
-\item \texttt{"{}a"}: Öffnen einer Datein zum Schreiben. Wenn sie schon existiert, wird am Ende der Datei hinzugefügt.
+\item \texttt{"{}a"}: Öffnen einer Datei zum Schreiben. Wenn sie schon existiert, wird am Ende der Datei hinzugefügt.
 \item \texttt{"w+"}: Öffnen zum Schreiben und Lesen. Wenn die Datei schon existiert, wird sie überschrieben. Der \emph{stream} zeigt auf den Anfang der Datei.
 \item \texttt{"r+"}: Öffnen einer Datei zum Schreiben und Lesen. Der \emph{stream} zeigt auf den Anfang der Datei.
 \item \texttt{"{}a+"}: Öffnen einer Datei zum Lesen und Hinzufügen. Zum Lesen zeigt der \emph{stream} auf den Anfang der Datei. Geschriebenes wird immer hinzugefügt.
@@ -75,7 +75,7 @@ int fclose(FILE *stream);
 Der Rückgabewert ist \texttt{0}, wenn die Datei erfolgreich geschlossen werden konnte und \texttt{EOF}, wenn nicht.
 Nur, wenn \texttt{fclose} aufgerufen wurde ist sichergestellt, dass die Daten auch in die Datei geschrieben wurden.
 
-\subsubsection{Formatierte Ein- und Ausgabe}
+\subsubsection{Formatierte Ein- und Ausgabe} \label{subsec:FormattedInAndOutput}
 
 Hat man einmal eine Datei geöffnet, muss man sich entscheiden, wie man sie ausliest oder in sie schreibt.
 Wir führen hier zunächst die sogenannte formatierte Ein- und Ausgabe ein.
@@ -208,7 +208,7 @@ Dementsprechend werden führende Nullen hinzugefügt.
 
 Formatierte Ausgabe ist sinnvoll, wenn die Dateien für Menschen lesbar sein sollen und wenn nicht viele Daten gespeichert werden müssen.
 Für den Fall von vielen Daten sollte man allerdings auf nichtformatierte Ausgabe zurückgreifen (manchmal auch als binäre Ausgabe bezeichnet).
-Dies kann man in C beispielsweise mit den Funktione \texttt{fread} und \texttt{fwrite} bewerkstelligen:\index{\texttt{fread}}\index{\texttt{fwrite}}
+Dies kann man in C beispielsweise mit den Funktionen \texttt{fread} und \texttt{fwrite} bewerkstelligen:\index{\texttt{fread}}\index{\texttt{fwrite}}
 \begin{lstlisting}
 size_t fread(void *ptr, size_t size, size_t count, FILE *stream);
 size_t fwrite(const void *ptr, size_t size, size_t count, FILE *stream);

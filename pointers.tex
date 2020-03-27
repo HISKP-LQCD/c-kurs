@@ -18,26 +18,31 @@ Sie sind allerdings auch für jede Menge Verwirrung und Programmierfehler verant
 \end{figure}
 
 Um Zeiger verstehen zu können, muss man sich zunächst klar machen, dass eine Variable im Prinzip aus zwei Dingen besteht:
-Einerseits dem Typ der Variablen und andererseits der Speicheradresse, unter der ein Wert abgelegt wird.
-Über den Typ der Variablen weiß der Compiler, wie viele Bits im Speicher belegt sind, und wenn die Anfangsadresse für das erste Bit bekannt ist, dann kann die gesamte Anzahl an Bits ausgelesen und entsprechend dem Typ interpretiert werden.
+Einerseits dem Typ der Variablen und andererseits der Speicheradresse, unter der ihr Wert abgelegt wird.
+Über den Typ der Variablen weiß der Compiler, wie viele Bits im Speicher belegt sind, und wenn die Anfangsadresse für das erste Bit bekannt ist, dann kann die gesamte Anzahl an Bits ausgelesen und dem Typ entsprechend interpretiert werden.
 \texttt{C} erlaubt Zugriff sowohl auf den Wert einer Variablen, als auch auf die Adresse, an der der Wert abgelegt ist.
 Unterschieden wird zwischen den beiden mit dem \verb|&| Operator.
 Für eine Variable \verb|n| repräsentiert \verb|n| den Wert und \verb|&n| die Speicheradresse.
 Bei \verb|&n| spricht man auch von Zeiger (\emph{pointer}) und bei \verb|&| vom Adressoperator.\index{Adressoperator \&}\index{\&}
 Mit Hilfe von \texttt{printf} kann man den Unterschied ausgeben
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
   int a = 5;
   int * p = &a;
   printf("Der Wert %d ist an der Adresse %p abgelegt.\n", a, p);
 \end{lstlisting}
+\end{minipage}
 was eine Ausgabe wie die folgende erzeugt
 \begin{verbatim}
   Der Wert 5 ist an der Adresse 0x7ffeb9d4f9a4 abgelegt.
 \end{verbatim}
-Die Adresse wird hier als \emph{hexadezimal} Zahl \verb|0x7ffeb9d4f9a4| ausgegeben.
+Die Adresse wird hier als \emph{Hexadezimalzahl} \verb|0x7ffeb9d4f9a4| ausgegeben.
 Die Beziehung von \verb|p| und \verb|a| ist in Abbildung~\ref{fig:zeiger} illustriert.
 
 Da Zeiger in \texttt{C} eine sehr wichtige Rolle spielen, gibt es für sie spezielle Datentypen, wie im letzten Beispiel schon gesehen:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 int n = 3; // eine Variable vom Typ int
 int *address; // eine Variable vom Typ Zeiger auf int
@@ -46,6 +51,7 @@ address = &n; // address zeigt auf n
               // gespeichert ist. man spricht von dereferenzieren
 n == 5; // ist jetzt wahr.
 \end{lstlisting}
+\end{minipage}
 Genauso gibt es einen Typ Zeiger auf \verb|double|, nämlich \verb|double*| und so weiter.
 Allgemein ist ein Zeiger eine Variable, die eine Adresse als Wert zusammen mit einem Datentyp speichert.
 Wir demonstrieren die Nützlichkeit von Zeigern zunächst an einem Beispiel.
@@ -55,6 +61,8 @@ Anschließend sollen diese beiden neuen Werte zurückgegeben werden.
 Ein Weg, um dies zu tun, ist das sogenannte \emph{call by reference}.
 \index{call by reference}
 Was \textbf{nicht} funktioniert ist das folgende:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 // einfache Funktion um a,b um 1 zu erhoehen
@@ -75,6 +83,8 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
+
 Der Grund ist, dass in der Funktion \verb|increment| neue Variablen \verb|a|, \verb|b| angelegt werden, die nur in der Funktion selbst sichtbar sind.
 Sie haben also nichts mit den Variablen \verb|a|, \verb|b| in der Funktion \verb|main| gemein, außer dem Namen.
 Man spricht hier von \emph{call by value}, da die Variablen \verb|a, b| in der Funktion \verb|increment| mit den Werten der Variablen aus \verb|main| initialisiert werden.\index{call by value}
@@ -82,6 +92,8 @@ Deswegen liefern die \verb|printf| Aufrufe in den Zeilen 12 und 15 das gleiche E
 Denn die Variablen \verb|a|, \verb|b| in \verb|main| wurden nicht verändert.
 
 Bei \emph{call by reference} wird an Stelle des Wertes die Adresse übergeben.\index{call by reference}
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
 #include <stdio.h>
 // einfache Funktion um a,b um 1 zu erhoehen
@@ -102,13 +114,16 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
 Die Funktion bekommt also zwei Parameter vom Typ \verb|int*|, also Zeiger auf \verb|int|.
 Dann wird mit dem Dereferenzierungsoperator \verb|*| der Wert, der unter den beiden Adressen gespeichert ist, um eins erhöht.
 Das geschieht unter der Annahme, dass dort eine Variable vom Typ \verb|int| abgelegt ist.
 Damit werden also direkt die Werte der Variable \verb|a, b| in \verb|main| verändert.
 
 Zeiger kann man genau wie andere Variablen nutzen (womit auch klar ist, dass man auch Zeiger auf Zeiger definieren kann).
-Folgendes Beispiel illustriert die Nutzung noch einmal, wobei \verb|NULL| der Nullzeiger ist:\index{\texttt{NULL}}
+Folgendes Beispiel illustriert die Nutzung noch einmal, wobei \verb|NULL| der Nullzeiger ist, welcher auf eine reservierte Adresse zeigt, die nicht dereferenziert werden kann:\index{\texttt{NULL}}
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[numbers=left]
 #include <stdio.h>
 
@@ -121,6 +136,8 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
+
 In der fünften Zeile haben wir eine Variable vom Typ \verb|int| deklariert und mit dem Wert 10 initialisiert, in der sechsten Zeile eine Variable vom Typ \verb|int*|, die mit dem \verb|NULL| Zeiger initialisiert wurde.
 In der siebten Zeile wird dann \verb|p| auf die Adresse von \verb|q| gesetzt.
 Damit liefert die Dereferenzierung von \verb|p|, also \verb|*p|, den Wert von \verb|q|.
@@ -164,6 +181,8 @@ und auch die folgenden zwei Funktionsdeklarationen äquivalent sind
 Daraus folgt auch, dass ein Feld in \texttt{C} immer \emph{by reference} übergeben wird.\index{call by reference}
 Wird in Funktion \texttt{f1} oder \texttt{f2} in das Feld \texttt{a} geschrieben, so wird das ursprüngliche Feld aus dem aufrufenden Quelltextblock modifiziert.
 Obiges Beispiel kann man also auch wie folgt schreiben:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}
   #include <stdio.h>
 // einfache Funktion um a,b um 1 zu erhoehen
@@ -185,6 +204,7 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
 Wenn das übergebene Feld innerhalb einer Funktion nicht verändert werden soll, so kann man es als \verb|const| deklarieren \index{\texttt{const}}
 \begin{lstlisting}
   void f(const int * a, const int n);
@@ -260,7 +280,10 @@ int main()
   Dieses Beispiel hätten wir natürlich auch ohne Arrays durchführen können, aber es illustriert deren Benutzung.
 \end{myexampleprogram}
 
-\subsection{Die Parameter der \texttt{main} Funktion}
+\subsection{Die Parameter der \texttt{main} Funktion} \label{subsec:CommandLineArguments}
+
+\index{\texttt{argc}}
+\index{\texttt{argv}}
 
 \index{\texttt{main}!Parameter}
 An dieser Stelle können wir jetzt auch die möglichen Parameter der Funktion \verb|main| einführen.
@@ -409,8 +432,10 @@ int main()
 
 \subsubsection{Zeiger auf konstante Zeichenketten}
 
-Abschließend diskutieren wir noch eine Subtilität für den Fall von Arrays für den Typ \verb|char|.
+Abschließend diskutieren wir noch eine Subtilität von Zeigern auf konstante \verb|char| Arrays.
 Dafür betrachten wir folgenden Beispielcode:
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[numbers=left]
 int main()
 {
@@ -419,10 +444,26 @@ int main()
   return 0;
 }
 \end{lstlisting}
+\end{minipage}
+
 In der vierten Zeile wird versucht, das zweite Element von \verb|pointer| auf das Zeichen \verb|a| zu setzen.
 Obwohl dieser Quelltext vom Compiler übersetzt wird, wird es bei der Ausführung zu einem \emph{segmentation fault} kommen.
 Das liegt daran, dass \verb|pointer| auf einen Bereich im Speicher zeigt, der nicht verändert werden darf.
-Die Zeichenkette \verb|"Hello world"| wird zur Zeit der Übersetzung in einem Speicherbereich abgelegt, der nur gelesen werden darf.
-Deswegen darf er dann nicht mehr verändert werden.
+Die Zeichenkette \verb|"Hello world"| wird zur Zeit der Übersetzung in einem Speicherbereich abgelegt, der nur gelesen werden darf und somit nicht verändert werden darf.
+Hier könnte man mithilfe eines Zeiger auf \verb|const| Abhilfe schaffen\index{Zeiger auf \texttt{const}}, da folgender Code nicht übersetzt und der Fehler somit früh erkannt werden kann:
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[numbers=left]
+int main()
+{
+  char const * pointer = "Hello world"; // Zeiger auf einen konstanten Speicherbereich
+  pointer[1] = 'a'; // Fehler beim Übersetzen
+  return 0;
+}
+\end{lstlisting}
+\end{minipage}
+
+Zeiger auf konstante Zeichenketten sollten also immmer mithilfe von \texttt{const} als solche deklariert werden!
+
 
 \endinput
