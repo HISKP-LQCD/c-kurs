@@ -12,12 +12,12 @@ Genau passen wird es selten.
 Der Speicher, der einem Programm zugeteilt ist, kann in zwei Kategorien unterteilt werden.
 \begin{enumerate}
 \item Statischer Speicher\\
-  Dieses Teil haben wir schon kennengelernt. 
+  Dieses Teil haben wir schon kennengelernt. \index{Speicher!statisch}
   Im statischen Speicher befindet sich der Programmcode selbst, und der Speicher aller Variablen, die wir bisher deklariert haben.
   Seine Größe ist zum Zeitpunkt des Übersetzens festgelegt.
 
 \item Dynamische Speicher\\
-  Diesen Teil haben wir bisher noch nicht benutzt, aber jedes Programm kann eine bestimmte Menge an dynamischen Speicherplatz nutzen.
+  Diesen Teil haben wir bisher noch nicht benutzt, aber jedes Programm kann eine bestimmte Menge an dynamischen Speicherplatz nutzen. \index{Speicher!dynamisch}
   Allerdings muss man sich zur Laufzeit des Programms selbst um das Reservieren und Freigeben dieses Speichers kümmern.
 \end{enumerate}
 
@@ -60,11 +60,11 @@ Das Reservieren erledigt die Funktion \verb|malloc|, was für \emph{memory alloc
   Am Ende des Programms wird aller vom Programm reservierte Speicher automatisch freigegeben.
 \end{mydefinitionblock}
 Wir haben schon den Rückgabewert \verb|void| kennengelernt, der für keinen Rückgabewert steht.
-Ein Zeiger auf \verb|void| repräsentiert einen Zeiger ohne Typ.
+Ein Zeiger auf \verb|void| repräsentiert einen Zeiger ohne Typ.\index{\texttt{void}}\index{Zeiger!\texttt{void}}
 Er kann bzw. muss später mit einem \emph{cast} in jeden anderen Zeigertyp umgewandelt werden.
 Deshalb wird im Beispielcode ein expliziter \emph{cast} nach \verb|int *| durchgeführt, den man immer bei der Benutzung von \verb|malloc| machen sollte.
 
-Den Zeiger \verb|NULL| haben wir schon kennengelernt. 
+Den Zeiger \verb|NULL| haben wir schon kennengelernt. \index{Zeiger!\texttt{NULL}}
 \verb|malloc| gibt \verb|NULL| zurück, falls das Reservieren aus irgendeinem Grund nicht erfolgreich war.
 Daher ist es sehr wichtig bei jedem Aufruf von \verb|malloc| den Rückgabewert auf \verb|NULL| zu testen!
 Die Größe eines Typs in byte liefert die Funktion \verb|sizeof|.
@@ -93,7 +93,7 @@ Wendet man \verb|free| auf einen Zeiger an, der nicht auf den Anfang eines mit \
 \subsection{Mehrdimensionale Arrays}
 
 Bisher haben wir uns auf eindimensionale Arrays beschränkt.
-Als Beispiel für ein mehrdimensionales Array betrachten wir eine Drehmatrix in zwei Dimensionen um den Winkel $\alpha$. 
+Als Beispiel für ein mehrdimensionales Array betrachten wir eine Drehmatrix in zwei Dimensionen um den Winkel $\alpha$. \index{Feld!mehrdimensional}
 Es handelt sich um eine lineare Abbildung, die einen zweidimensionalen Vektor $(x,y)^t$ auf den Vektor $(x',y')^t$ wie folgt abbildet:
 \begin{equation}
   \left(\begin{array}{c}x^{,}\\y^{,}\end{array}\right)=

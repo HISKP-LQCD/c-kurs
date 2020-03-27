@@ -7,6 +7,7 @@ Und diese Länge kann auch dann nicht mehr verändert werden.
 
 \subsection{Deklaration und Initialisierung eindimensionaler Felder}
 
+\index{Feld}\index{array}
 Die Deklaration eines Feldes ist ganz analog zu anderen Variablen
 \begin{lstlisting}
   int a[5]; // array declaration
@@ -54,6 +55,7 @@ Wenn sich nun im Quelltext diese Länge ändert, so muss man diese Änderung nur
 
 \subsection{Eindimensionale Felder als Funktionenargumente}
 
+\index{Feld!eindimensional}
 Wie schon im Abschnitt über Funktionen angedeutet, kann man auch Felder als Funktionenargument verwenden.
 Die Schreibweise wird am folgenden Beispiel für eine Funktion erklärt, die die Quadratsumme aller Elemente eines Feldes erzeugt (das Quadrat der Norm)
 \begin{lstlisting}
@@ -89,6 +91,7 @@ Genauer wird das im Abschnitt über Zeiger diskutiert.
 
 \subsection{Mehrdimensionale Felder}
 
+\index{Feld!mehrdimensional}
 Ganz analog zu eindimensionalen Feldern lassen sich auch zweidimensionale Felder (Matrizen) erzeugen
 \begin{lstlisting}
   int A[3][5]; // Deklaration
@@ -165,6 +168,7 @@ printf("Die Varianz ist %e\n", var);
 
 \subsection{Zeichenketten oder Strings}
 
+\index{Zeichenkette}\index{string}
 In \texttt{C} gibt es keinen elementaren Datentyp für Zeichenketten, sogenannte \emph{strings}.
 Zeichenketten werden mit Hilfe von Arrays abgebildet.
 Ein Zeichen kann in einer Variablen vom Typ \verb|char| gespeichert werden.

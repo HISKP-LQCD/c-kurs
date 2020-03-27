@@ -9,11 +9,11 @@ Eine Funktion haben wir schon kennen gelernt, nämlich die Funktion \verb|main|.
 \subsection{Funktionen Prototypen}
 
 In \texttt{C} sind Funktionen Variablen sehr ähnlich.
-Eine Funktion kann wie folgt deklariert werden
+Eine Funktion kann wie folgt deklariert werden\index{Funktion}
 \begin{lstlisting}
 Rueckgabetyp Funktionsname(Parameterliste);
 \end{lstlisting}
-Man spricht von einem sogenannten \emph{Funktionsprototypen}.
+Man spricht von einem sogenannten \emph{Funktionsprototypen}.\index{Funktion!Prototyp}
 Die Parameterliste besteht aus durch Kommata getrennten Variablendeklarationen
 \begin{lstlisting}
 Typ1 parameter1, Typ2 parameter2, ...
@@ -24,6 +24,7 @@ Bei streng strukturierten Programmiersprachen wie \texttt{C} werden der Funktion
 
 \subsection{Funktionen Definition}
 
+\index{Funktion!Definition}
 Die Definition einer Funktion muss dann natürlich einen Block von Anweisungen enthalten, also
 \begin{lstlisting}[caption={Funktionen Prototyp}, belowcaptionskip=0.3em]
 Rueckgabetyp Funktionsname(Typ1 parameter1, Typ2 parameter2,
@@ -61,6 +62,7 @@ Sonst kann man mit sehr großer Wahrscheinlichkeit den Quelltext noch weiter auf
 
 \subsection{Aufruf von Funktionen}
 
+\index{Funktion!Aufruf}
 Aufgerufen werden Funktionen dann im Prinzip wie folgt
 \begin{lstlisting}
 Ergebnistyp Ergebnis = Funktionsname(Uebergabeliste);
@@ -119,6 +121,7 @@ Die Funktion \verb|exit| ist in der Headerdatei \verb|stdlib.h| deklariert.
 
 \subsection{Rückgabetypen und \texttt{void} Funktionen}
 
+\index{\texttt{void}}
 Funktionen haben in \texttt{C} immer einen Rückgabetyp.
 Hierbei sind alle \texttt{C} Typen und auch selbstdefinierte Typen möglich.
 Auf den ersten Blick scheint dies zu bedeuten, dass immer nur skalare Größen zurückgegeben werden können.
